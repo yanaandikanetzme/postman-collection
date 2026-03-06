@@ -1,0 +1,1085 @@
+{
+	"info": {
+		"_postman_id": "c89610d1-749d-4f81-8e41-0b7d923226b8",
+		"name": "[QRIS] CPM",
+		"description": "QRIS Consumer Presented Mode (CPM) API collection. Covers the full CPM payment lifecycle including QR generation, inquiry, payment processing, reversal, refund, and settlement for both On-Us and Off-Us scenarios.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Get Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+									"const json = pm.response.json();",
+									"pm.environment.set(\"accessToken\", json.access_token);"
+								]
+							}
+						}
+					],
+					"id": "0d172ad4-4655-474a-87d8-245a8930a16b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials"
+								},
+								{
+									"key": "client_id",
+									"value": "{{clientId}}"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{clientSecret}}"
+								}
+							]
+						},
+						"url": "{{authUrl}}/oauth/token",
+						"description": "Obtain OAuth2 access token for CPM API access."
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Token CPM",
+					"id": "cb6739b9-e6ac-4608-9c4f-6d5c4be5c997",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/auth/token",
+						"description": "Generate authentication token for CPM"
+					},
+					"response": []
+				}
+			],
+			"id": "13589640-37c6-4329-8a26-900187a503af"
+		},
+		{
+			"name": "QR Management",
+			"item": [
+				{
+					"name": "Generate QR",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+									"const json = pm.response.json();",
+									"pm.environment.set(\"qrContent\", json.data.qrContent);",
+									"pm.environment.set(\"qrId\", json.data.qrId);"
+								]
+							}
+						}
+					],
+					"id": "34f6818b-f6ea-4d13-b5ff-43f083d5469e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"merchantId\": \"{{merchantId}}\", \"amount\": 10000, \"currency\": \"IDR\", \"referenceNo\": \"{{$randomUUID}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/cpm/generate",
+						"description": "Generate a QRIS CPM QR code for consumer to scan."
+					},
+					"response": []
+				},
+				{
+					"name": "Change QR Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "bc0ba00c-d7a1-45b1-a54f-784781865946",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"status\": \"INACTIVE\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/cpm/qr/{{qrId}}/status",
+						"description": "Activate or deactivate a generated QR code."
+					},
+					"response": []
+				},
+				{
+					"name": "Generate QR CPM",
+					"id": "41f08115-861d-47c8-a1f4-380c45cfcc5d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/merchant/qr/cpm/generate",
+						"description": "Generate QR code for CPM"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Invoice Aggregator CPM",
+					"id": "03603b1e-e759-4b6b-b008-072f29d8cdb2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/merchant/qr/cpm/invoice/aggregator",
+						"description": "Create CPM invoice for aggregator"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Invoice Aggregator Split Fee CPM",
+					"id": "d365aa55-1c63-45d2-a686-cb96232f0bd3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/merchant/qr/cpm/invoice/aggregator/splitfee",
+						"description": "Create CPM invoice for aggregator with split fee"
+					},
+					"response": []
+				}
+			],
+			"id": "f38c16a4-f154-4a4a-937f-ad74aa551ca0"
+		},
+		{
+			"name": "Acquirer",
+			"item": [
+				{
+					"name": "Acquire CPM Payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+									"const json = pm.response.json();",
+									"pm.environment.set(\"transactionId\", json.data.transactionId);"
+								]
+							}
+						}
+					],
+					"id": "fe68018b-db38-4b88-86e7-39f11477b8e6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"qrContent\": \"{{qrContent}}\", \"merchantId\": \"{{merchantId}}\", \"amount\": 10000, \"currency\": \"IDR\", \"transactionTs\": \"{{transactionTs}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/cpm/acquirer/payment",
+						"description": "Acquirer initiates payment by scanning consumer QR code."
+					},
+					"response": []
+				},
+				{
+					"name": "Check Payment Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "ec409344-92b1-4a56-b0de-14d630fb54c8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/qris/cpm/acquirer/payment/{{transactionId}}/status",
+						"description": "Check the status of an acquirer-initiated CPM payment."
+					},
+					"response": []
+				},
+				{
+					"name": "Acquire CPM",
+					"id": "b3f24a38-1b53-4013-a3dd-82e2aae1c83c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/merchant/qr/cpm/acquire",
+						"description": "Acquire CPM QR payment"
+					},
+					"response": []
+				}
+			],
+			"id": "cd383136-3e39-4df0-8b8e-8b5aea9ed4f6"
+		},
+		{
+			"name": "Issuer",
+			"item": [
+				{
+					"name": "Verify QR",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "0b0309d1-f25b-414c-b863-49627bb278fd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"qrContent\": \"{{qrContent}}\", \"transactionTs\": \"{{transactionTs}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/cpm/issuer/verify",
+						"description": "Issuer verifies the QR code presented by the consumer."
+					},
+					"response": []
+				},
+				{
+					"name": "Process Issuer Payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "ba16a840-fa33-463a-b130-e1598353267d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"transactionId\": \"{{transactionId}}\", \"amount\": 10000, \"currency\": \"IDR\", \"transactionTs\": \"{{transactionTs}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/cpm/issuer/payment",
+						"description": "Issuer processes the debit on the consumer's account."
+					},
+					"response": []
+				},
+				{
+					"name": "Reversal",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "6a1d85aa-f377-44f5-8fdd-d5239ff84de9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"transactionId\": \"{{transactionId}}\", \"reason\": \"Timeout\", \"transactionTs\": \"{{transactionTs}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/cpm/issuer/reversal",
+						"description": "Reverse a CPM transaction (used for timeout/error scenarios)."
+					},
+					"response": []
+				},
+				{
+					"name": "Issuer CPM",
+					"id": "7f0efb4b-7fa1-4e60-bd69-adf4958fc3e1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/merchant/qr/cpm/issuer",
+						"description": "Process CPM issuer payment"
+					},
+					"response": []
+				}
+			],
+			"id": "25ac5f1b-5561-4026-a69b-5c3de60cab37"
+		},
+		{
+			"name": "On-Us",
+			"item": [
+				{
+					"name": "On-Us Inquiry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "847a33b9-9328-4732-aa28-4bf89d008484",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"qrContent\": \"{{qrContent}}\", \"merchantId\": \"{{merchantId}}\", \"transactionTs\": \"{{transactionTs}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/cpm/onus/inquiry",
+						"description": "Inquiry for On-Us CPM transaction (same issuer and acquirer)."
+					},
+					"response": []
+				},
+				{
+					"name": "On-Us Payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+									"const json = pm.response.json();",
+									"pm.environment.set(\"transactionId\", json.data.transactionId);"
+								]
+							}
+						}
+					],
+					"id": "8d606fdf-9716-42d8-a143-ba97ec076638",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"qrContent\": \"{{qrContent}}\", \"merchantId\": \"{{merchantId}}\", \"amount\": 10000, \"currency\": \"IDR\", \"transactionTs\": \"{{transactionTs}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/cpm/onus/payment",
+						"description": "Process On-Us CPM payment."
+					},
+					"response": []
+				},
+				{
+					"name": "On Us CPM",
+					"id": "d0d7e5e7-c55f-422c-8ff7-11a65d721de8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/merchant/qr/cpm/onus",
+						"description": "Process CPM On-Us payment"
+					},
+					"response": []
+				}
+			],
+			"id": "225256c3-cfc2-482c-b9cf-96fad0827093"
+		},
+		{
+			"name": "Refund",
+			"item": [
+				{
+					"name": "Process Refund",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+									"const json = pm.response.json();",
+									"pm.environment.set(\"refundId\", json.data.refundId);"
+								]
+							}
+						}
+					],
+					"id": "bd416e51-56f5-4356-ab11-8784d19a3fcf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"transactionId\": \"{{transactionId}}\", \"amount\": 10000, \"reason\": \"Customer request\", \"referenceNo\": \"{{$randomUUID}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/cpm/refund",
+						"description": "Initiate a refund for a completed CPM payment."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Refund Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "ea81679c-9381-4512-92e5-5ba3a84b49fe",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/qris/cpm/refund/{{refundId}}",
+						"description": "Check the status of a CPM refund."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Refund Validation List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "10b19eb6-83e0-40d5-8935-f520b88a8abf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/qris/cpm/refund/validation?merchantId={{merchantId}}&date={{date}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"qris",
+								"cpm",
+								"refund",
+								"validation"
+							],
+							"query": [
+								{
+									"key": "merchantId",
+									"value": "{{merchantId}}"
+								},
+								{
+									"key": "date",
+									"value": "{{date}}"
+								}
+							]
+						},
+						"description": "Retrieve list of transactions eligible for refund validation."
+					},
+					"response": []
+				},
+				{
+					"name": "Refund CPM",
+					"id": "e0ce35a7-487e-43bf-bf42-ed71c32dfc54",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/merchant/qr/cpm/refund",
+						"description": "Process CPM refund"
+					},
+					"response": []
+				}
+			],
+			"id": "d31629ed-97a9-4a1d-960b-3356ca456363"
+		},
+		{
+			"name": "Settlement",
+			"item": [
+				{
+					"name": "Settlement Issuer Off-Us",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "3b1d9371-7588-4a1c-b374-e182a79d8a93",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"date\": \"{{date}}\", \"merchantId\": \"{{merchantId}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/cpm/settlement/issuer/offus",
+						"description": "Trigger settlement for issuer in Off-Us scenario."
+					},
+					"response": []
+				},
+				{
+					"name": "Settlement Acquirer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "8708e9f6-eb56-45f6-ac97-a37e3008b58a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"date\": \"{{date}}\", \"merchantId\": \"{{merchantId}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/cpm/settlement/acquirer",
+						"description": "Trigger settlement for acquirer."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Settlement Summary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "3d6a5ad7-2c78-4615-aed2-f1247eeed5d3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/qris/cpm/settlement?date={{date}}&merchantId={{merchantId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"qris",
+								"cpm",
+								"settlement"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "{{date}}"
+								},
+								{
+									"key": "merchantId",
+									"value": "{{merchantId}}"
+								}
+							]
+						},
+						"description": "Retrieve CPM settlement summary for a given date."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Settlement CPM",
+					"id": "91399336-4477-44c8-9e61-39354f812583",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": "{{settlementUrl}}/api/settlement/cpm",
+						"description": "Get CPM settlement data"
+					},
+					"response": []
+				}
+			],
+			"id": "1892f233-f2f2-4bc5-b016-059dbaf516ba"
+		},
+		{
+			"name": "Utilities",
+			"item": [
+				{
+					"name": "Health Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Service is up\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "f21cb1f2-8aea-439a-be63-5ad2ef237dec",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/qris/cpm/health",
+						"description": "Check CPM service availability."
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Netzpin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "560ab0ad-4463-43c7-88e6-e5c27eb52cc3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"userId\": \"{{merchantUserId}}\", \"pin\": \"{{netzpin}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/cpm/verify-netzpin",
+						"description": "Verify consumer Netzpin before processing payment."
+					},
+					"response": []
+				}
+			],
+			"id": "8bb15627-2ba0-478c-9e1f-20d65995e289"
+		},
+		{
+			"name": "QR Management",
+			"item": [],
+			"id": "8b58e6a1-8283-4ab4-aa57-7aa94e6cae03"
+		},
+		{
+			"name": "Acquirer",
+			"item": [],
+			"id": "f63148b0-9b71-4db0-8092-c5cb3c0db10f"
+		},
+		{
+			"name": "Issuer",
+			"item": [],
+			"id": "bfd42a93-091d-45ea-9e3f-c108929b348c"
+		},
+		{
+			"name": "On-Us",
+			"item": [],
+			"id": "5e73c5f2-8ee5-4893-8e84-a5e0c7f7da80"
+		},
+		{
+			"name": "Refund",
+			"item": [],
+			"id": "62bf40ba-6078-4f55-ad09-1b802d78bb07"
+		},
+		{
+			"name": "Settlement",
+			"item": [],
+			"id": "87b09661-1304-4bf9-8b5e-2fea8e398e9b"
+		},
+		{
+			"name": "Utilities",
+			"item": [],
+			"id": "0affb9b5-b83a-4661-bb5f-690285289438"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{accessToken}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const now = new Date();",
+					"pm.environment.set(\"transactionTs\", now.toISOString().replace(/[-:.TZ]/g, '').slice(0, 14));",
+					"pm.environment.set(\"requestTime\", now.toISOString());",
+					"pm.collectionVariables.set(\"date\", now.toISOString().slice(0, 10).replace(/-/g, ''));"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "collectionVersion",
+			"value": "1.0.0"
+		},
+		{
+			"key": "productCode",
+			"value": "QRIS-CPM"
+		},
+		{
+			"key": "date",
+			"value": ""
+		}
+	]
+}
