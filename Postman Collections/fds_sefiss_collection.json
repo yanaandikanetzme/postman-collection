@@ -1,0 +1,495 @@
+{
+	"info": {
+		"_postman_id": "0e3da594-d723-4fb1-b80d-e345593589a0",
+		"name": "FDS Sefis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Transfer",
+			"item": [
+				{
+					"name": "Analysis Online",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7d7a4546-92bb-4f16-81cd-142fbd4cf5bc",
+								"exec": [
+									"const secretKey = pm.collectionVariables.get(\"secret\");\r",
+									"\r",
+									"// Set timezone offset to GMT+7\r",
+									"function getTimestampWithTimezoneOffset() {\r",
+									"    const date = new Date();\r",
+									"    // Menyesuaikan jam ke GMT+7\r",
+									"    const offset = 7 * 60; // Offset dalam menit untuk GMT+7\r",
+									"    const localTime = date.getTime();\r",
+									"    const localOffset = date.getTimezoneOffset() * 60000; // Offset waktu lokal dalam milidetik\r",
+									"    const utc = localTime + localOffset;\r",
+									"    const jakartaTime = new Date(utc + (offset * 60000));\r",
+									"    // Menghasilkan timestamp dengan format yang diinginkan\r",
+									"    const isoString = jakartaTime.toISOString();\r",
+									"    const timestampWithoutMillis = isoString.slice(0, 19) + \"+07:00\"; // Menghilangkan mili-detik dan menambahkan +07:00\r",
+									"    return timestampWithoutMillis;\r",
+									"}\r",
+									"// Set timestamp as environment or collection variable\r",
+									"const timestamp = getTimestampWithTimezoneOffset();\r",
+									"pm.collectionVariables.set(\"timestamp\", timestamp);\r",
+									"\r",
+									"const requestBody = pm.request.body.raw; // Ambil body dari request\r",
+									"const minifiedBody = JSON.stringify(JSON.parse(requestBody)); // Minify JSON body\r",
+									"\r",
+									"const message = 'POST:/analysis/online:'+pm.collectionVariables.get(\"token\")+':'+minifiedBody+':'+pm.collectionVariables.get(\"timestamp\");\r",
+									"const hash = CryptoJS.HmacSHA512(message, secretKey);\r",
+									"const hashInBase64 = hash.toString(CryptoJS.enc.Base64);\r",
+									"const hashInHex = hash.toString(CryptoJS.enc.Hex);\r",
+									"\r",
+									"// Set hash as an environment or collection variable\r",
+									"pm.collectionVariables.set(\"hmac_hash\", hashInHex); // Simpan hasil hash\r",
+									"pm.collectionVariables.set(\"minifiedBody\", minifiedBody); // Simpan hasil hash"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f19a6d9d-c54c-4f25-b0f1-645c0c4a4121",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", jsonData.authorization);\r",
+									"pm.collectionVariables.set(\"username\", jsonData.username);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "caf64437-58ab-4170-b8b9-d54ef10457f7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "x-timestamp",
+								"value": "{{timestamp}}",
+								"type": "text"
+							},
+							{
+								"key": "x-signature",
+								"value": "{{hmac_hash}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"HPAN\": \"6666777788889999\",\n    \"MPAN\": \"936008140100000002\",\n    \"RRN\": \"ynl61\",\n    \"STAN\": \"\",\n    \"acqCountryCode\": \"\",\n    \"acqInstCode\": \"\",\n    \"acquirerId\": \"93600814\",\n    \"additionalData\": {\n        \"billPayId\": \"\",\n        \"cardStatus\": \"\",\n        \"chipCondCode\": \"\",\n        \"cvvIndicator\": \"\",\n        \"ecAuthIndicator\": \"\",\n        \"securityLvlIndicator\": \"\",\n        \"terminalType\": \"\",\n        \"transactionType\": \"110\"\n    },\n    \"addtAmount\": {\n        \"availableBalance\": \"\",\n        \"currencyCode\": \"\"\n    },\n    \"cardExpDate\": \"\",\n    \"currencyCode\": \"360\",\n    \"customerName\": \"AAAAAAAAAA\",\n    \"destAccount\": {\n        \"accNumber\": \"\",\n        \"destInstsCode\": \"\"\n    },\n    \"forwardAcqInstCode\": \"\",\n    \"fraudData\": {\n        \"addtionalAuthInfo\": {\n            \"3DSecAuthFlag\": \"\",\n            \"addrVerification\": \"\",\n            \"authSource\": \"\",\n            \"cardAuthFlag\": \"\",\n            \"cvv2AuthFlag\": \"\",\n            \"cvvAuthFlag\": \"\",\n            \"pinAuthFlag\": \"\",\n            \"trackCardFlag\": \"\"\n        },\n        \"clientEmailAddr\": \"\",\n        \"clientIpAddr\": \"\",\n        \"latitude\": \"\",\n        \"longitude\": \"\"\n    },\n    \"invoiceNumber\": \"\",\n    \"isCrossBorder\": \"false\",\n    \"issuerId\": \"93601111\",\n    \"localDate\": \"260303100117\",\n    \"merchantType\": \"6017\",\n    \"posDataCode\": \"\",\n    \"processingCode\": {\n        \"accountType1\": \"0\",\n        \"accountType2\": \"0\",\n        \"transactionCode\": \"60\"\n    },\n    \"sourceAccount\": {\n        \"accNumber\": \"DEFAULT\",\n        \"issInstsCode\": \"\"\n    },\n    \"terminalData\": {\n        \"merchantID\": \"M_czBSCDVY\",\n        \"terminalId\": \"\",\n        \"terminalInfo\": {\n            \"city\": \"Jakarta\",\n            \"country\": \"\",\n            \"name\": \"Gulu Gulu Mall Ambassador\",\n            \"postalCode\": \"12270\",\n            \"state\": \"\"\n        }\n    },\n    \"transactionAmount\": \"1200\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{fds-url}}/analysis/online"
+					},
+					"response": [
+						{
+							"id": "19e458f4-8d02-4ba7-985e-2c9ab29ec093",
+							"name": "Analysis Online",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "{{token}}",
+										"type": "text"
+									},
+									{
+										"key": "x-timestamp",
+										"value": "{{timestamp}}",
+										"type": "text"
+									},
+									{
+										"key": "x-signature",
+										"value": "{{hmac_hash}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"HPAN\": \"UnusualtransactionValue007\",\n    \"processingCode\": {\n        \"transactionCode\": \"110\",\n        \"accountType1\": \"0\",\n        \"accountType2\": \"0\"\n    },\n    \"transactionAmount\": \"100000\",\n    \"STAN\": \"-\",\n    \"localDate\": \"250414133618\",\n    \"cardExpDate\": \"\",\n    \"merchantType\": \"-\",\n    \"acqCountryCode\": \"100\",\n    \"posDataCode\": \"-\",\n    \"acqInstCode\": \"-\",\n    \"forwardAcqInstCode\": \"-\",\n    \"RRN\": \"-\",\n    \"terminalData\": {\n        \"terminalId\": \"-\",\n        \"merchantID\": \"M_YDXafq2J\",\n        \"terminalInfo\": {\n            \"name\": \"Retere\",\n            \"city\": \"Kota Adm. Jakarta Selatan\",\n            \"state\": \"\",\n            \"country\": \"100\",\n            \"postalCode\": \"\"\n        }\n    },\n    \"additionalData\": {\n        \"transactionType\": \"110\",\n        \"cvvIndicator\": \"\",\n        \"terminalType\": \"\",\n        \"cardStatus\": \"\",\n        \"chipCondCode\": \"\",\n        \"billPayId\": \"\",\n        \"securityLvlIndicator\": \"\",\n        \"ecAuthIndicator\": \"\"\n    },\n    \"currencyCode\": \"100\",\n    \"addtAmount\": {\n        \"availableBalance\": \"\",\n        \"currencyCode\": \"\"\n    },\n    \"fraudData\": {\n        \"addtionalAuthInfo\": {\n            \"authSource\": \"\",\n            \"addrVerification\": \"\",\n            \"pinAuthFlag\": \"\",\n            \"cvvAuthFlag\": \"\",\n            \"cvv2AuthFlag\": \"\",\n            \"cardAuthFlag\": \"\",\n            \"3DSecAuthFlag\": \"\",\n            \"trackCardFlag\": \"\"\n        },\n        \"clientIpAddr\": \"114.79.21.177\",\n        \"clientEmailAddr\": \"\",\n        \"longitude\": \"\",\n        \"latitude\": \"\"\n    },\n    \"sourceAccount\": {\n        \"issInstsCode\": \"\",\n        \"accNumber\": \"\"\n    },\n    \"destAccount\": {\n        \"accNumber\": \"\",\n        \"destInstsCode\": \"\"\n    },\n    \"invoiceNumber\": \"12345632\",\n    \"customerName\": \"sulis\",\n    \"acquirerId\": \"netzme\",\n    \"issuerId\": \"dana\",\n    \"isCrossBorder\":\"true\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.72.202:4545/analysis/online"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "321"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"HPAN\": \"\",\n    \"processingCode\": {\n        \"accountType1\": \"0\",\n        \"transactionCode\": \"110\",\n        \"accountType2\": \"0\"\n    },\n    \"STAN\": \"-\",\n    \"acqInstCode\": \"-\",\n    \"forwardAcqInstCode\": \"-\",\n    \"RRN\": \"-\",\n    \"responseCode\": \"000\",\n    \"fraudData\": {\n        \"riskValue\": \"11\",\n        \"condId\": \"\"\n    },\n    \"sourceAccount\": {\n        \"issInstsCode\": \"\",\n        \"accNumber\": \"\"\n    },\n    \"destAccount\": {\n        \"accNumber\": \"\",\n        \"destInstsCode\": \"\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Upload Merchant",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ec05767c-29c4-4f9f-a548-6640d2f925b6",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "20a37d04-93da-4b50-a513-3baae030e468",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<applications>\n    <application>\n        <application_date>2025-04-22</application_date>\n        <application_type></application_type>\n        <application_command>CRUP</application_command>\n        <merchant>\n            <merchant_number>highfraudmerchant0010</merchant_number>\n            <merchant_name>Yana Lagi Tinggi</merchant_name>\n            <merchant_type>Koneksi</merchant_type>\n            <merchant_currency>IDR</merchant_currency>\n            <mcc></mcc>\n            <registration_date>20251112135401</registration_date>\n            <contact>\n                <communication_method>CM0001-PHONE</communication_method>\n                <communication_address>089898</communication_address>\n            </contact>\n            <address>\n                <country>360</country>\n                <address_name>\n                    <region>Indonesia</region>\n                    <city>MCity_AHFYOTFC</city>\n                    <street>Poncol Raya</street>\n                </address_name>\n                <house>116</house>\n                <apartment />\n                <postal_code>972976</postal_code>\n                <place_code />\n                <region_code />\n            </address>\n            <merchant_card>\n                <card_number></card_number>\n                <card_mask></card_mask>\n                <sequential_number>09</sequential_number>\n                <card_iss_date></card_iss_date>\n                <expiration_date></expiration_date>\n                <cardholder>\n                    <cardholder_name></cardholder_name>\n                    <person>\n                        <person_name>\n                            <surname></surname>\n                            <first_name></first_name>\n                            <second_name></second_name>\n                        </person_name>\n                        <birthday></birthday>\n                        <place_of_birth></place_of_birth>\n                        <gender></gender>\n                        <identity_card>\n                            <id_number></id_number>\n                            <id_issue_date></id_issue_date>\n                            <id_expire_date></id_expire_date>\n                        </identity_card>\n                    </person>\n                </cardholder>\n                <account>\n                    <account_number></account_number>\n                    <currency></currency>\n                    <account_type></account_type>\n                    <account_status></account_status>\n                </account>\n            </merchant_card>\n            <merchant_limit>\n                <sum_limit></sum_limit>\n                <currency></currency>\n            </merchant_limit>\n        </merchant>\n    </application>\n</applications>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": "http://192.168.72.202:8080/sefis/merchant-data/save"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c8a3d8f6-14a5-483c-8cba-98b126756602",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", jsonData.authorization);\r",
+									"pm.collectionVariables.set(\"username\", jsonData.username);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "0a0e533e-4a73-41b4-b74b-3f639048309d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"Admin\",\n    \"password\" : \"admin123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{fds-url}}/login"
+					},
+					"response": [
+						{
+							"id": "25a1af28-a136-417c-b39c-a8c60c5f9918",
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"admin123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://192.168.72.200:4545/login"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "333"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"authorization\": \"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJTb2x2ZSBFYXNlIEZyYXVkIEludmVzdGlnYXRpb24gU3lzdGVtIiwiaXNzIjoiUFQgRGVzYWNvZGUiLCJzdWIiOiJhZG1pbiIsImV4cCI6MTc0NjQxNzUxNX0.7i2PwJ5unnqT7qE96J_C5Urfqzs7M82xgCvMAXvXLuuCXmR-FDAt13_6GEO9xjj_7S_fAGIBJnVwMVsCHZhJwA\",\n    \"username\": \"admin\",\n    \"expireDate\": \"2025-05-05 10:58:35.599\"\n}"
+						}
+					]
+				}
+			],
+			"id": "a46f0978-0f47-4242-98fe-0c496f72caf4"
+		},
+		{
+			"name": "Create New Merchant",
+			"id": "4aa7ac48-84d7-4996-b5a5-820e178ff663",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer YRt7O3Qp0XH9g/QxJuF7sCwBEKZuoXjxxIkh2aIuN8w="
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"type": "file",
+							"key": "ktp",
+							"src": "/Users/zullubis/Desktop/Screen Shot 2022-08-09 at 14.35.03.png"
+						},
+						{
+							"type": "text",
+							"key": "owner_provinsi_id",
+							"value": "31"
+						},
+						{
+							"type": "text",
+							"key": "owner_kabupaten_id",
+							"value": "3101"
+						},
+						{
+							"type": "text",
+							"key": "owner_kecamatan_id",
+							"value": "3101010"
+						},
+						{
+							"type": "text",
+							"key": "owner_desa_id",
+							"value": "25380"
+						},
+						{
+							"type": "text",
+							"key": "merchant_provinsi_id",
+							"value": "31"
+						},
+						{
+							"type": "text",
+							"key": "merchant_kabupaten_id",
+							"value": "3171"
+						},
+						{
+							"type": "text",
+							"key": "merchant_kecamatan_id",
+							"value": "3171080"
+						},
+						{
+							"type": "text",
+							"key": "merchant_desa_id",
+							"value": "25431"
+						},
+						{
+							"type": "text",
+							"key": "merchant_name",
+							"value": "Evanny fds20"
+						},
+						{
+							"type": "text",
+							"key": "owner_phone_number",
+							"value": "+6281215816622"
+						},
+						{
+							"type": "text",
+							"key": "owner_full_name",
+							"value": "Evanny fds20"
+						},
+						{
+							"type": "text",
+							"key": "owner_email",
+							"value": "evanny.ghofar+fds20@netzme.id"
+						},
+						{
+							"type": "text",
+							"key": "owner_address",
+							"value": "Jl. SM Raja No. 12 Jakarta"
+						},
+						{
+							"type": "text",
+							"key": "owner_identification_number",
+							"value": "3101015212930002"
+						},
+						{
+							"type": "text",
+							"key": "ms_bank_id",
+							"value": "4"
+						},
+						{
+							"type": "text",
+							"key": "account_holder_info",
+							"value": "kalibata"
+						},
+						{
+							"type": "text",
+							"key": "account_holder_name",
+							"value": "Mariya Wise"
+						},
+						{
+							"type": "text",
+							"key": "ms_business_type_id",
+							"value": "19"
+						},
+						{
+							"type": "text",
+							"key": "ms_business_criteria_id",
+							"value": "2"
+						},
+						{
+							"type": "text",
+							"key": "merchant_address",
+							"value": "kalibata"
+						},
+						{
+							"type": "text",
+							"key": "business_description",
+							"value": "taxi"
+						},
+						{
+							"type": "text",
+							"key": "account_number",
+							"value": "1234567890"
+						},
+						{
+							"type": "file",
+							"key": "photo",
+							"src": "/Users/zullubis/Desktop/Screen Shot 2022-08-09 at 14.34.13.png"
+						},
+						{
+							"type": "file",
+							"key": "product",
+							"src": "/Users/zullubis/Desktop/Screen Shot 2022-08-09 at 16.23.56.png"
+						},
+						{
+							"type": "text",
+							"key": "merchant_phone_number",
+							"value": "+6281215816622"
+						},
+						{
+							"type": "text",
+							"key": "merchant_email",
+							"value": "evanny.ghofar+fds20@netzme.id"
+						},
+						{
+							"type": "text",
+							"key": "owner_npwp",
+							"value": "01.071.728.8 055.000"
+						},
+						{
+							"type": "text",
+							"key": "registration_source",
+							"value": "aggregator_dona_stg"
+						},
+						{
+							"type": "text",
+							"key": "approved_by_name",
+							"value": "kluwypay.com"
+						}
+					]
+				},
+				"url": "https://api-toko-netzme-stg.netzme.com/api/v1/register/merchant/save",
+				"description": "Generated from cURL: curl --location 'https://api-toko-netzme-stg.netzme.com/api/v1/register/merchant/save' \\\r\n--header 'Authorization: Bearer YRt7O3Qp0XH9g/QxJuF7sCwBEKZuoXjxxIkh2aIuN8w=' \\\r\n--form 'ktp=@\"/Users/zullubis/Desktop/Screen Shot 2022-08-09 at 14.35.03.png\"' \\\r\n--form 'owner_provinsi_id=\"31\"' \\\r\n--form 'owner_kabupaten_id=\"3101\"' \\\r\n--form 'owner_kecamatan_id=\"3101010\"' \\\r\n--form 'owner_desa_id=\"25380\"' \\\r\n--form 'merchant_provinsi_id=\"31\"' \\\r\n--form 'merchant_kabupaten_id=\"3171\"' \\\r\n--form 'merchant_kecamatan_id=\"3171080\"' \\\r\n--form 'merchant_desa_id=\"25431\"' \\\r\n--form 'merchant_name=\"Evanny fds20\"' \\\r\n--form 'owner_phone_number=\"+6281215816622\"' \\\r\n--form 'owner_full_name=\"Evanny fds20\"' \\\r\n--form 'owner_email=\"evanny.ghofar+fds20@netzme.id\"' \\\r\n--form 'owner_address=\"Jl. SM Raja No. 12 Jakarta\"' \\\r\n--form 'owner_identification_number=\"3101015212930002\"' \\\r\n--form 'ms_bank_id=\"4\"' \\\r\n--form 'account_holder_info=\"kalibata\"' \\\r\n--form 'account_holder_name=\"Mariya Wise\"' \\\r\n--form 'ms_business_type_id=\"19\"' \\\r\n--form 'ms_business_criteria_id=\"2\"' \\\r\n--form 'merchant_address=\"kalibata\"' \\\r\n--form 'business_description=\"taxi\"' \\\r\n--form 'account_number=\"1234567890\"' \\\r\n--form 'photo=@\"/Users/zullubis/Desktop/Screen Shot 2022-08-09 at 14.34.13.png\"' \\\r\n--form 'product=@\"/Users/zullubis/Desktop/Screen Shot 2022-08-09 at 16.23.56.png\"' \\\r\n--form 'merchant_phone_number=\"+6281215816622\"' \\\r\n--form 'merchant_email=\"evanny.ghofar+fds20@netzme.id\"' \\\r\n--form 'owner_npwp=\"01.071.728.8 055.000\"' \\\r\n--form 'registration_source=\"aggregator_dona_stg\"' \\\r\n--form 'approved_by_name=\"kluwypay.com\"'"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6510e798-3879-4821-a8e0-06e2377b4929",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "78c129bc-90af-4a50-91b6-18d364db5d3c",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "username",
+			"value": ""
+		},
+		{
+			"key": "hmac_hash",
+			"value": ""
+		},
+		{
+			"key": "timestamp",
+			"value": ""
+		},
+		{
+			"key": "secret",
+			"value": ""
+		},
+		{
+			"key": "minifiedBody",
+			"value": ""
+		}
+	]
+}
