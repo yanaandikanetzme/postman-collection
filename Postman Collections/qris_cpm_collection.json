@@ -8,262 +8,12 @@
 	"item": [
 		{
 			"name": "Auth",
-			"item": [
-				{
-					"name": "Get Access Token",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
-									"const json = pm.response.json();",
-									"pm.environment.set(\"accessToken\", json.access_token);"
-								]
-							}
-						}
-					],
-					"id": "0d172ad4-4655-474a-87d8-245a8930a16b",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "grant_type",
-									"value": "client_credentials"
-								},
-								{
-									"key": "client_id",
-									"value": "{{clientId}}"
-								},
-								{
-									"key": "client_secret",
-									"value": "{{clientSecret}}"
-								}
-							]
-						},
-						"url": "{{authUrl}}/oauth/token",
-						"description": "Obtain OAuth2 access token for CPM API access."
-					},
-					"response": []
-				},
-				{
-					"name": "Generate Token CPM",
-					"id": "cb6739b9-e6ac-4608-9c4f-6d5c4be5c997",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{baseUrl}}/api/auth/token",
-						"description": "Generate authentication token for CPM"
-					},
-					"response": []
-				}
-			],
+			"item": [],
 			"id": "13589640-37c6-4329-8a26-900187a503af"
 		},
 		{
 			"name": "QR Management",
 			"item": [
-				{
-					"name": "Generate QR",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
-									"const json = pm.response.json();",
-									"pm.environment.set(\"qrContent\", json.data.qrContent);",
-									"pm.environment.set(\"qrId\", json.data.qrId);"
-								]
-							}
-						}
-					],
-					"id": "34f6818b-f6ea-4d13-b5ff-43f083d5469e",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"merchantId\": \"{{merchantId}}\", \"amount\": 10000, \"currency\": \"IDR\", \"referenceNo\": \"{{$randomUUID}}\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{baseUrl}}/qris/cpm/generate",
-						"description": "Generate a QRIS CPM QR code for consumer to scan."
-					},
-					"response": []
-				},
-				{
-					"name": "Change QR Status",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
-								]
-							}
-						}
-					],
-					"id": "bc0ba00c-d7a1-45b1-a54f-784781865946",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"status\": \"INACTIVE\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{baseUrl}}/qris/cpm/qr/{{qrId}}/status",
-						"description": "Activate or deactivate a generated QR code."
-					},
-					"response": []
-				},
-				{
-					"name": "Generate QR CPM",
-					"id": "41f08115-861d-47c8-a1f4-380c45cfcc5d",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{baseUrl}}/api/merchant/qr/cpm/generate",
-						"description": "Generate QR code for CPM"
-					},
-					"response": []
-				},
-				{
-					"name": "Create Invoice Aggregator CPM",
-					"id": "03603b1e-e759-4b6b-b008-072f29d8cdb2",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{baseUrl}}/api/merchant/qr/cpm/invoice/aggregator",
-						"description": "Create CPM invoice for aggregator"
-					},
-					"response": []
-				},
-				{
-					"name": "Create Invoice Aggregator Split Fee CPM",
-					"id": "d365aa55-1c63-45d2-a686-cb96232f0bd3",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{baseUrl}}/api/merchant/qr/cpm/invoice/aggregator/splitfee",
-						"description": "Create CPM invoice for aggregator with split fee"
-					},
-					"response": []
-				},
 				{
 					"name": "Generate QR PG",
 					"id": "d5029cd0-5732-4e6d-90d4-351b88c25925",
@@ -300,460 +50,6 @@
 				}
 			],
 			"id": "f38c16a4-f154-4a4a-937f-ad74aa551ca0"
-		},
-		{
-			"name": "On-Us",
-			"item": [
-				{
-					"name": "Inquiry",
-					"id": "b99c2441-5a08-4156-a02d-991e23ecf573",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Basic YWRtaW46YWRtaW4="
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"requestId\": \"84c3b17d-74d9-4de2-86bf-bbe167b947c8\",\n    \"requestTime\": 1715823220,\n    \"type\": \"qr-inquriy\",\n    \"body\": {\n        \"qrData\": \"hQVDUFYwMWF5n3YETjAwMU8HoAAABgIgIFAHUVJJU0NQTVoIk2AIFJMJCXBfIApEb25hIFN0ZyAyXy0CaWRfUBFodHRwczovL25ldHptZS5pZJ8lBDA5NzBjJ590JDc4MzRkZGMyLTI0OTAtNDdkZS04YmExLTA3YTBjMmJkZTM0MQ==\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "https://bri-d.netzme.com/qris/alto/cpm/v1/internal/qr/inquiry",
-						"description": "Generated from cURL: curl --location 'https://altogw-ds.netzme.com/qris/alto/cpm/v1/internal/qr/inquiry' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic YWRtaW46YWRtaW4=' \\\n--data '{\n    \"requestId\": \"84c3b17d-74d9-4de2-86bf-bbe167b947c8\",\n    \"requestTime\": 1715823220,\n    \"type\": \"qr-inquriy\",\n    \"body\": {\n        \"qrData\": \"hQVDUFYwMWGBoE8HoAAABgIgIFAHUVJJU0NQTVcTk2BEcnEyZ1kobSUSABl0F0QZD18gDFVzZXIgVGVzdGVyOF8tBGlkZW5fUBZtYWlsdG86dXNlcjhAdGVzdGVyLmlknyUCkoZjQ590QHhiY2xEcndTdTFKdXRSTm0wU2N3RXJUMnQwNGhjNGExa0tmQzVRNFV2MFNLYnRGNVM1TzRyVXN0NWFiNnVwMEw=\"\n    }\n}'"
-					},
-					"response": []
-				},
-				{
-					"name": "Payment",
-					"id": "34b5f04a-42dd-490f-a085-0142185a8db0",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": {
-								"password": "admin",
-								"username": "admin"
-							}
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"body\": {\r\n        \"merchantId\": \"M_A2NHIVQy\",\r\n        \"qrContent\": \"hQVDUFYwMWF6n3YETjAwMU8HoAAABgIgIFAHUVJJU0NQTVoIk2AIFDVIggBfIAtZYW5hIEFuZGlrYV8tAmlkX1ARaHR0cHM6Ly9uZXR6bWUuaWSfJQQ4MjAwYyefdCRkZjcxNTA0OC05ZWYzLTQ2YTMtODFmYy02ZDNkMjRlMjA0ODA=\",\r\n        \"paymentAmount\": \"IDR 10000.00\",\r\n        //\"invoiceTrxId\":\"{{invoiceTrxId}}\",\r\n        \"productIndicator\": \"Q002\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{url}}/merchant/qr/cpm/payment"
-					},
-					"response": [
-						{
-							"id": "0cb5c5ea-7054-4a4f-aa83-6fda2957594f",
-							"name": "Success Payment",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"body\": {\r\n        \"merchantId\": \"M_A2NHIVQy\",\r\n        \"qrContent\": \"hQVDUFYwMWF6n3YETjAwMU8HoAAABgIgIFAHUVJJU0NQTVoIk2AIFDVIggBfIAtZYW5hIEFuZGlrYV8tAmlkX1ARaHR0cHM6Ly9uZXR6bWUuaWSfJQQ4MjAwYyefdCQxNDFmZWY2ZS04NDkyLTRlMTktYjY4Yi1lMDg3NjYwYTRlYzU=\",\r\n        \"paymentAmount\": \"IDR 11000.00\",\r\n        \"productIndicator\": \"Q002\"\r\n    }\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}/merchant/qr/cpm/payment"
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Length",
-									"value": "712"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 11 Nov 2024 08:36:36 GMT"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n    \"requestId\": \"f7bcf7cb-ae22-4707-b3b6-6b2d80e7d38f\",\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"issuerName\": \"93600814\",\n        \"refundable\": true,\n        \"rrn\": \"CPM1LBAIWA4VDUP20241111\",\n        \"terminalId\": \"null             \",\n        \"merchantId\": \"M_A2NHIVQy\",\n        \"merchantName\": \"Toommy\",\n        \"merchantPan\": \"936008140100000266\",\n        \"mdr\": \"IDR 0.00\",\n        \"serviceFee\": \"IDR 0.00\",\n        \"serviceCharge\": \"IDR 0.00\",\n        \"sourceOfFund\": \"Netzme\",\n        \"paymentMethod\": \"QRIS CPM\",\n        \"location\": \"YOGYAKARTA\",\n        \"customerPan\": \"9360081435488200\",\n        \"customerName\": \"Yana Andika\",\n        \"paidDate\": \"2024-11-11T08:36:36.030Z\",\n        \"transactionId\": \"1LBAIWA4VDUP\",\n        \"ts\": \"2024-11-11T08:36:36.030Z\",\n        \"amount\": \"IDR 11000.00\",\n        \"status\": \"100\",\n        \"type\": \"pay_qris_cpm\",\n        \"referenceId\": \"f7bcf7cb-ae22-4707-b3b6-6b2d80e7d38f\"\n    }\n}"
-						}
-					]
-				},
-				{
-					"name": "Refund",
-					"id": "e964fb22-e954-4873-b2ab-2b81ea667d79",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": {
-								"username": "admin",
-								"password": "admin",
-								"showPassword": false
-							}
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"body\": {\r\n        \"amount\": \"IDR 15000.00\",\r\n        \"merchantId\": \"M_ChPWNs81\",\r\n        \"transactionId\": \"CPMEIGVJKNXV5PB20241105\",\r\n        \"refundType\": \"refund_full\"\r\n    },\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"requestTime\": null,\r\n    \"type\": \"qr_cpm_refund\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{url}}/merchant/qr/cpm/refund"
-					},
-					"response": [
-						{
-							"id": "276f668a-88a2-40d2-af39-f55d5325fb7e",
-							"name": "Success Refund",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"body\": {\r\n        \"amount\": \"IDR 11000.00\",\r\n        \"merchantId\": \"M_A2NHIVQy\",\r\n        \"transactionId\": \"CPMLMP4AOOG0RBM20241111\",\r\n        \"refundType\": \"refund_full\"\r\n    },\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"requestTime\": null,\r\n    \"type\": \"qr_cpm_refund\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{url}}/merchant/qr/cpm/refund"
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								},
-								{
-									"key": "content-length",
-									"value": "232"
-								}
-							],
-							"cookie": [],
-							"responseTime": null,
-							"body": "{\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"transactionId\": \"CPMLMP4AOOG0RBM20241111\",\n        \"merchantId\": \"M_A2NHIVQy\",\n        \"amount\": \"IDR 11000.00\",\n        \"buyerFullname\": \"Yana Andika\",\n        \"issuerName\": \"93600814\",\n        \"refundCustomerRefNo\": \"LMP4AOOG0RBM\"\n    }\n}"
-						}
-					]
-				}
-			],
-			"id": "225256c3-cfc2-482c-b9cf-96fad0827093"
-		},
-		{
-			"name": "Refund",
-			"item": [
-				{
-					"name": "Process Refund",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
-									"const json = pm.response.json();",
-									"pm.environment.set(\"refundId\", json.data.refundId);"
-								]
-							}
-						}
-					],
-					"id": "bd416e51-56f5-4356-ab11-8784d19a3fcf",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"transactionId\": \"{{transactionId}}\", \"amount\": 10000, \"reason\": \"Customer request\", \"referenceNo\": \"{{$randomUUID}}\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{baseUrl}}/qris/cpm/refund",
-						"description": "Initiate a refund for a completed CPM payment."
-					},
-					"response": []
-				},
-				{
-					"name": "Get Refund Status",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
-								]
-							}
-						}
-					],
-					"id": "ea81679c-9381-4512-92e5-5ba3a84b49fe",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "{{baseUrl}}/qris/cpm/refund/{{refundId}}",
-						"description": "Check the status of a CPM refund."
-					},
-					"response": []
-				},
-				{
-					"name": "Get Refund Validation List",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
-								]
-							}
-						}
-					],
-					"id": "10b19eb6-83e0-40d5-8935-f520b88a8abf",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/qris/cpm/refund/validation?merchantId={{merchantId}}&date={{date}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"qris",
-								"cpm",
-								"refund",
-								"validation"
-							],
-							"query": [
-								{
-									"key": "merchantId",
-									"value": "{{merchantId}}"
-								},
-								{
-									"key": "date",
-									"value": "{{date}}"
-								}
-							]
-						},
-						"description": "Retrieve list of transactions eligible for refund validation."
-					},
-					"response": []
-				},
-				{
-					"name": "Refund CPM",
-					"id": "e0ce35a7-487e-43bf-bf42-ed71c32dfc54",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{baseUrl}}/api/merchant/qr/cpm/refund",
-						"description": "Process CPM refund"
-					},
-					"response": []
-				}
-			],
-			"id": "d31629ed-97a9-4a1d-960b-3356ca456363"
-		},
-		{
-			"name": "Settlement",
-			"item": [
-				{
-					"name": "Get Settlement On Us",
-					"id": "409c3806-4686-465b-9705-3c3d90849c4f",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": {
-								"password": "dde28c7edb9d8046972c5c3277d999a2",
-								"username": "kare"
-							}
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "{{url-settlement}}/api/toko-settlement/qrcpm/onus/settlement?startPeriod=20241206&endPeriod=20241206&msg_id={{$randomUUID}}&type=settlement_qris_on_us",
-							"host": [
-								"{{url-settlement}}"
-							],
-							"path": [
-								"api",
-								"toko-settlement",
-								"qrcpm",
-								"onus",
-								"settlement"
-							],
-							"query": [
-								{
-									"key": "startPeriod",
-									"value": "20241206"
-								},
-								{
-									"key": "endPeriod",
-									"value": "20241206"
-								},
-								{
-									"key": "msg_id",
-									"value": "{{$randomUUID}}"
-								},
-								{
-									"key": "type",
-									"value": "settlement_qris_on_us"
-								}
-							]
-						},
-						"description": "Generated from cURL: curl --location 'localhost:8082/api/merchant/qr/qris/settlement/on/us?startPeriod=20240805&endPeriod=20240806&msg_id=f6676fb3-25a8-412e-b6f5-36c220d4424e' \\\r\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=='"
-					},
-					"response": []
-				}
-			],
-			"id": "1892f233-f2f2-4bc5-b016-059dbaf516ba"
-		},
-		{
-			"name": "Utilities",
-			"item": [
-				{
-					"name": "Health Check",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Service is up\", () => pm.response.to.have.status(200));"
-								]
-							}
-						}
-					],
-					"id": "f21cb1f2-8aea-439a-be63-5ad2ef237dec",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "{{baseUrl}}/qris/cpm/health",
-						"description": "Check CPM service availability."
-					},
-					"response": []
-				},
-				{
-					"name": "Verify Netzpin",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
-								]
-							}
-						}
-					],
-					"id": "560ab0ad-4463-43c7-88e6-e5c27eb52cc3",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"userId\": \"{{merchantUserId}}\", \"pin\": \"{{netzpin}}\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{baseUrl}}/qris/cpm/verify-netzpin",
-						"description": "Verify consumer Netzpin before processing payment."
-					},
-					"response": []
-				}
-			],
-			"id": "8bb15627-2ba0-478c-9e1f-20d65995e289"
 		},
 		{
 			"name": "Acquirer",
@@ -1682,6 +978,7 @@
 								{
 									"listen": "test",
 									"script": {
+										"id": "351d194a-5d8a-4e61-8c3a-f15665c9c60b",
 										"exec": [
 											"var jsonData = JSON.parse(responseBody);\r",
 											"\r",
@@ -1694,18 +991,19 @@
 										],
 										"type": "text/javascript",
 										"packages": {},
-										"id": "351d194a-5d8a-4e61-8c3a-f15665c9c60b"
+										"requests": {}
 									}
 								},
 								{
 									"listen": "prerequest",
 									"script": {
+										"id": "1ef011ad-640a-413c-a70f-7250920bb72e",
 										"exec": [
 											""
 										],
 										"type": "text/javascript",
 										"packages": {},
-										"id": "1ef011ad-640a-413c-a70f-7250920bb72e"
+										"requests": {}
 									}
 								}
 							],
@@ -1737,7 +1035,7 @@
 										}
 									}
 								},
-								"url": "{{url-toko}}/merchant/v2/qr-cpm/payment"
+								"url": "{{baseUrl}}/merchant/v2/qr-cpm/payment"
 							},
 							"response": [
 								{
@@ -2042,6 +1340,460 @@
 				}
 			],
 			"id": "0830e33f-27a4-4203-8811-197e5cc5799e"
+		},
+		{
+			"name": "On-Us",
+			"item": [
+				{
+					"name": "Inquiry",
+					"id": "b99c2441-5a08-4156-a02d-991e23ecf573",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestId\": \"84c3b17d-74d9-4de2-86bf-bbe167b947c8\",\n    \"requestTime\": 1715823220,\n    \"type\": \"qr-inquriy\",\n    \"body\": {\n        \"qrData\": \"hQVDUFYwMWF5n3YETjAwMU8HoAAABgIgIFAHUVJJU0NQTVoIk2AIFJMJCXBfIApEb25hIFN0ZyAyXy0CaWRfUBFodHRwczovL25ldHptZS5pZJ8lBDA5NzBjJ590JDc4MzRkZGMyLTI0OTAtNDdkZS04YmExLTA3YTBjMmJkZTM0MQ==\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://bri-d.netzme.com/qris/alto/cpm/v1/internal/qr/inquiry",
+						"description": "Generated from cURL: curl --location 'https://altogw-ds.netzme.com/qris/alto/cpm/v1/internal/qr/inquiry' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic YWRtaW46YWRtaW4=' \\\n--data '{\n    \"requestId\": \"84c3b17d-74d9-4de2-86bf-bbe167b947c8\",\n    \"requestTime\": 1715823220,\n    \"type\": \"qr-inquriy\",\n    \"body\": {\n        \"qrData\": \"hQVDUFYwMWGBoE8HoAAABgIgIFAHUVJJU0NQTVcTk2BEcnEyZ1kobSUSABl0F0QZD18gDFVzZXIgVGVzdGVyOF8tBGlkZW5fUBZtYWlsdG86dXNlcjhAdGVzdGVyLmlknyUCkoZjQ590QHhiY2xEcndTdTFKdXRSTm0wU2N3RXJUMnQwNGhjNGExa0tmQzVRNFV2MFNLYnRGNVM1TzRyVXN0NWFiNnVwMEw=\"\n    }\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Payment",
+					"id": "34b5f04a-42dd-490f-a085-0142185a8db0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "admin",
+								"username": "admin"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"body\": {\r\n        \"merchantId\": \"M_A2NHIVQy\",\r\n        \"qrContent\": \"hQVDUFYwMWF6n3YETjAwMU8HoAAABgIgIFAHUVJJU0NQTVoIk2AIFDVIggBfIAtZYW5hIEFuZGlrYV8tAmlkX1ARaHR0cHM6Ly9uZXR6bWUuaWSfJQQ4MjAwYyefdCRkZjcxNTA0OC05ZWYzLTQ2YTMtODFmYy02ZDNkMjRlMjA0ODA=\",\r\n        \"paymentAmount\": \"IDR 10000.00\",\r\n        //\"invoiceTrxId\":\"{{invoiceTrxId}}\",\r\n        \"productIndicator\": \"Q002\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/merchant/qr/cpm/payment"
+					},
+					"response": [
+						{
+							"id": "0cb5c5ea-7054-4a4f-aa83-6fda2957594f",
+							"name": "Success Payment",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"body\": {\r\n        \"merchantId\": \"M_A2NHIVQy\",\r\n        \"qrContent\": \"hQVDUFYwMWF6n3YETjAwMU8HoAAABgIgIFAHUVJJU0NQTVoIk2AIFDVIggBfIAtZYW5hIEFuZGlrYV8tAmlkX1ARaHR0cHM6Ly9uZXR6bWUuaWSfJQQ4MjAwYyefdCQxNDFmZWY2ZS04NDkyLTRlMTktYjY4Yi1lMDg3NjYwYTRlYzU=\",\r\n        \"paymentAmount\": \"IDR 11000.00\",\r\n        \"productIndicator\": \"Q002\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/merchant/qr/cpm/payment"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "712"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 08:36:36 GMT"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"requestId\": \"f7bcf7cb-ae22-4707-b3b6-6b2d80e7d38f\",\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"issuerName\": \"93600814\",\n        \"refundable\": true,\n        \"rrn\": \"CPM1LBAIWA4VDUP20241111\",\n        \"terminalId\": \"null             \",\n        \"merchantId\": \"M_A2NHIVQy\",\n        \"merchantName\": \"Toommy\",\n        \"merchantPan\": \"936008140100000266\",\n        \"mdr\": \"IDR 0.00\",\n        \"serviceFee\": \"IDR 0.00\",\n        \"serviceCharge\": \"IDR 0.00\",\n        \"sourceOfFund\": \"Netzme\",\n        \"paymentMethod\": \"QRIS CPM\",\n        \"location\": \"YOGYAKARTA\",\n        \"customerPan\": \"9360081435488200\",\n        \"customerName\": \"Yana Andika\",\n        \"paidDate\": \"2024-11-11T08:36:36.030Z\",\n        \"transactionId\": \"1LBAIWA4VDUP\",\n        \"ts\": \"2024-11-11T08:36:36.030Z\",\n        \"amount\": \"IDR 11000.00\",\n        \"status\": \"100\",\n        \"type\": \"pay_qris_cpm\",\n        \"referenceId\": \"f7bcf7cb-ae22-4707-b3b6-6b2d80e7d38f\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Refund",
+					"id": "e964fb22-e954-4873-b2ab-2b81ea667d79",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "admin",
+								"showPassword": false
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"body\": {\r\n        \"amount\": \"IDR 15000.00\",\r\n        \"merchantId\": \"M_ChPWNs81\",\r\n        \"transactionId\": \"CPMEIGVJKNXV5PB20241105\",\r\n        \"refundType\": \"refund_full\"\r\n    },\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"requestTime\": null,\r\n    \"type\": \"qr_cpm_refund\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/merchant/qr/cpm/refund"
+					},
+					"response": [
+						{
+							"id": "276f668a-88a2-40d2-af39-f55d5325fb7e",
+							"name": "Success Refund",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"body\": {\r\n        \"amount\": \"IDR 11000.00\",\r\n        \"merchantId\": \"M_A2NHIVQy\",\r\n        \"transactionId\": \"CPMLMP4AOOG0RBM20241111\",\r\n        \"refundType\": \"refund_full\"\r\n    },\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"requestTime\": null,\r\n    \"type\": \"qr_cpm_refund\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/merchant/qr/cpm/refund"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "232"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"transactionId\": \"CPMLMP4AOOG0RBM20241111\",\n        \"merchantId\": \"M_A2NHIVQy\",\n        \"amount\": \"IDR 11000.00\",\n        \"buyerFullname\": \"Yana Andika\",\n        \"issuerName\": \"93600814\",\n        \"refundCustomerRefNo\": \"LMP4AOOG0RBM\"\n    }\n}"
+						}
+					]
+				}
+			],
+			"id": "225256c3-cfc2-482c-b9cf-96fad0827093"
+		},
+		{
+			"name": "Refund",
+			"item": [
+				{
+					"name": "Process Refund",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+									"const json = pm.response.json();",
+									"pm.environment.set(\"refundId\", json.data.refundId);"
+								]
+							}
+						}
+					],
+					"id": "bd416e51-56f5-4356-ab11-8784d19a3fcf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"transactionId\": \"{{transactionId}}\", \"amount\": 10000, \"reason\": \"Customer request\", \"referenceNo\": \"{{$randomUUID}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/cpm/refund",
+						"description": "Initiate a refund for a completed CPM payment."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Refund Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "ea81679c-9381-4512-92e5-5ba3a84b49fe",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/qris/cpm/refund/{{refundId}}",
+						"description": "Check the status of a CPM refund."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Refund Validation List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "10b19eb6-83e0-40d5-8935-f520b88a8abf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/qris/cpm/refund/validation?merchantId={{merchantId}}&date={{date}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"qris",
+								"cpm",
+								"refund",
+								"validation"
+							],
+							"query": [
+								{
+									"key": "merchantId",
+									"value": "{{merchantId}}"
+								},
+								{
+									"key": "date",
+									"value": "{{date}}"
+								}
+							]
+						},
+						"description": "Retrieve list of transactions eligible for refund validation."
+					},
+					"response": []
+				},
+				{
+					"name": "Refund CPM",
+					"id": "e0ce35a7-487e-43bf-bf42-ed71c32dfc54",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/merchant/qr/cpm/refund",
+						"description": "Process CPM refund"
+					},
+					"response": []
+				}
+			],
+			"id": "d31629ed-97a9-4a1d-960b-3356ca456363"
+		},
+		{
+			"name": "Settlement",
+			"item": [
+				{
+					"name": "Get Settlement On Us",
+					"id": "409c3806-4686-465b-9705-3c3d90849c4f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dde28c7edb9d8046972c5c3277d999a2",
+								"username": "kare"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url-settlement}}/api/toko-settlement/qrcpm/onus/settlement?startPeriod=20241206&endPeriod=20241206&msg_id={{$randomUUID}}&type=settlement_qris_on_us",
+							"host": [
+								"{{url-settlement}}"
+							],
+							"path": [
+								"api",
+								"toko-settlement",
+								"qrcpm",
+								"onus",
+								"settlement"
+							],
+							"query": [
+								{
+									"key": "startPeriod",
+									"value": "20241206"
+								},
+								{
+									"key": "endPeriod",
+									"value": "20241206"
+								},
+								{
+									"key": "msg_id",
+									"value": "{{$randomUUID}}"
+								},
+								{
+									"key": "type",
+									"value": "settlement_qris_on_us"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl --location 'localhost:8082/api/merchant/qr/qris/settlement/on/us?startPeriod=20240805&endPeriod=20240806&msg_id=f6676fb3-25a8-412e-b6f5-36c220d4424e' \\\r\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=='"
+					},
+					"response": []
+				}
+			],
+			"id": "1892f233-f2f2-4bc5-b016-059dbaf516ba"
+		},
+		{
+			"name": "Utilities",
+			"item": [
+				{
+					"name": "Health Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Service is up\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "f21cb1f2-8aea-439a-be63-5ad2ef237dec",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/qris/cpm/health",
+						"description": "Check CPM service availability."
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Netzpin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "560ab0ad-4463-43c7-88e6-e5c27eb52cc3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"userId\": \"{{merchantUserId}}\", \"pin\": \"{{netzpin}}\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/cpm/verify-netzpin",
+						"description": "Verify consumer Netzpin before processing payment."
+					},
+					"response": []
+				}
+			],
+			"id": "8bb15627-2ba0-478c-9e1f-20d65995e289"
 		}
 	],
 	"auth": {
