@@ -530,19 +530,8 @@
 			"name": "On-Us",
 			"item": [
 				{
-					"name": "On-Us Inquiry",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
-								]
-							}
-						}
-					],
-					"id": "847a33b9-9328-4732-aa28-4bf89d008484",
+					"name": "Inquiry",
+					"id": "b99c2441-5a08-4156-a02d-991e23ecf573",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -552,94 +541,158 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"qrContent\": \"{{qrContent}}\", \"merchantId\": \"{{merchantId}}\", \"transactionTs\": \"{{transactionTs}}\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{baseUrl}}/qris/cpm/onus/inquiry",
-						"description": "Inquiry for On-Us CPM transaction (same issuer and acquirer)."
-					},
-					"response": []
-				},
-				{
-					"name": "On-Us Payment",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
-									"const json = pm.response.json();",
-									"pm.environment.set(\"transactionId\", json.data.transactionId);"
-								]
-							}
-						}
-					],
-					"id": "8d606fdf-9716-42d8-a143-ba97ec076638",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"qrContent\": \"{{qrContent}}\", \"merchantId\": \"{{merchantId}}\", \"amount\": 10000, \"currency\": \"IDR\", \"transactionTs\": \"{{transactionTs}}\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{baseUrl}}/qris/cpm/onus/payment",
-						"description": "Process On-Us CPM payment."
-					},
-					"response": []
-				},
-				{
-					"name": "On Us CPM",
-					"id": "d0d7e5e7-c55f-422c-8ff7-11a65d721de8",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{accessToken}}"
 							},
 							{
-								"key": "Content-Type",
-								"value": "application/json"
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4="
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{}",
+							"raw": "{\n    \"requestId\": \"84c3b17d-74d9-4de2-86bf-bbe167b947c8\",\n    \"requestTime\": 1715823220,\n    \"type\": \"qr-inquriy\",\n    \"body\": {\n        \"qrData\": \"hQVDUFYwMWF5n3YETjAwMU8HoAAABgIgIFAHUVJJU0NQTVoIk2AIFJMJCXBfIApEb25hIFN0ZyAyXy0CaWRfUBFodHRwczovL25ldHptZS5pZJ8lBDA5NzBjJ590JDc4MzRkZGMyLTI0OTAtNDdkZS04YmExLTA3YTBjMmJkZTM0MQ==\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{baseUrl}}/api/merchant/qr/cpm/onus",
-						"description": "Process CPM On-Us payment"
+						"url": "https://bri-d.netzme.com/qris/alto/cpm/v1/internal/qr/inquiry",
+						"description": "Generated from cURL: curl --location 'https://altogw-ds.netzme.com/qris/alto/cpm/v1/internal/qr/inquiry' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic YWRtaW46YWRtaW4=' \\\n--data '{\n    \"requestId\": \"84c3b17d-74d9-4de2-86bf-bbe167b947c8\",\n    \"requestTime\": 1715823220,\n    \"type\": \"qr-inquriy\",\n    \"body\": {\n        \"qrData\": \"hQVDUFYwMWGBoE8HoAAABgIgIFAHUVJJU0NQTVcTk2BEcnEyZ1kobSUSABl0F0QZD18gDFVzZXIgVGVzdGVyOF8tBGlkZW5fUBZtYWlsdG86dXNlcjhAdGVzdGVyLmlknyUCkoZjQ590QHhiY2xEcndTdTFKdXRSTm0wU2N3RXJUMnQwNGhjNGExa0tmQzVRNFV2MFNLYnRGNVM1TzRyVXN0NWFiNnVwMEw=\"\n    }\n}'"
 					},
 					"response": []
+				},
+				{
+					"name": "Payment",
+					"id": "34b5f04a-42dd-490f-a085-0142185a8db0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "admin",
+								"username": "admin"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"body\": {\r\n        \"merchantId\": \"M_A2NHIVQy\",\r\n        \"qrContent\": \"hQVDUFYwMWF6n3YETjAwMU8HoAAABgIgIFAHUVJJU0NQTVoIk2AIFDVIggBfIAtZYW5hIEFuZGlrYV8tAmlkX1ARaHR0cHM6Ly9uZXR6bWUuaWSfJQQ4MjAwYyefdCRkZjcxNTA0OC05ZWYzLTQ2YTMtODFmYy02ZDNkMjRlMjA0ODA=\",\r\n        \"paymentAmount\": \"IDR 10000.00\",\r\n        //\"invoiceTrxId\":\"{{invoiceTrxId}}\",\r\n        \"productIndicator\": \"Q002\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/merchant/qr/cpm/payment"
+					},
+					"response": [
+						{
+							"id": "0cb5c5ea-7054-4a4f-aa83-6fda2957594f",
+							"name": "Success Payment",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"body\": {\r\n        \"merchantId\": \"M_A2NHIVQy\",\r\n        \"qrContent\": \"hQVDUFYwMWF6n3YETjAwMU8HoAAABgIgIFAHUVJJU0NQTVoIk2AIFDVIggBfIAtZYW5hIEFuZGlrYV8tAmlkX1ARaHR0cHM6Ly9uZXR6bWUuaWSfJQQ4MjAwYyefdCQxNDFmZWY2ZS04NDkyLTRlMTktYjY4Yi1lMDg3NjYwYTRlYzU=\",\r\n        \"paymentAmount\": \"IDR 11000.00\",\r\n        \"productIndicator\": \"Q002\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/merchant/qr/cpm/payment"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "712"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Nov 2024 08:36:36 GMT"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"requestId\": \"f7bcf7cb-ae22-4707-b3b6-6b2d80e7d38f\",\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"issuerName\": \"93600814\",\n        \"refundable\": true,\n        \"rrn\": \"CPM1LBAIWA4VDUP20241111\",\n        \"terminalId\": \"null             \",\n        \"merchantId\": \"M_A2NHIVQy\",\n        \"merchantName\": \"Toommy\",\n        \"merchantPan\": \"936008140100000266\",\n        \"mdr\": \"IDR 0.00\",\n        \"serviceFee\": \"IDR 0.00\",\n        \"serviceCharge\": \"IDR 0.00\",\n        \"sourceOfFund\": \"Netzme\",\n        \"paymentMethod\": \"QRIS CPM\",\n        \"location\": \"YOGYAKARTA\",\n        \"customerPan\": \"9360081435488200\",\n        \"customerName\": \"Yana Andika\",\n        \"paidDate\": \"2024-11-11T08:36:36.030Z\",\n        \"transactionId\": \"1LBAIWA4VDUP\",\n        \"ts\": \"2024-11-11T08:36:36.030Z\",\n        \"amount\": \"IDR 11000.00\",\n        \"status\": \"100\",\n        \"type\": \"pay_qris_cpm\",\n        \"referenceId\": \"f7bcf7cb-ae22-4707-b3b6-6b2d80e7d38f\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Refund",
+					"id": "e964fb22-e954-4873-b2ab-2b81ea667d79",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "admin",
+								"password": "admin",
+								"showPassword": false
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"body\": {\r\n        \"amount\": \"IDR 15000.00\",\r\n        \"merchantId\": \"M_ChPWNs81\",\r\n        \"transactionId\": \"CPMEIGVJKNXV5PB20241105\",\r\n        \"refundType\": \"refund_full\"\r\n    },\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"requestTime\": null,\r\n    \"type\": \"qr_cpm_refund\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/merchant/qr/cpm/refund"
+					},
+					"response": [
+						{
+							"id": "276f668a-88a2-40d2-af39-f55d5325fb7e",
+							"name": "Success Refund",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"body\": {\r\n        \"amount\": \"IDR 11000.00\",\r\n        \"merchantId\": \"M_A2NHIVQy\",\r\n        \"transactionId\": \"CPMLMP4AOOG0RBM20241111\",\r\n        \"refundType\": \"refund_full\"\r\n    },\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"requestTime\": null,\r\n    \"type\": \"qr_cpm_refund\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/merchant/qr/cpm/refund"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "content-length",
+									"value": "232"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"transactionId\": \"CPMLMP4AOOG0RBM20241111\",\n        \"merchantId\": \"M_A2NHIVQy\",\n        \"amount\": \"IDR 11000.00\",\n        \"buyerFullname\": \"Yana Andika\",\n        \"issuerName\": \"93600814\",\n        \"refundCustomerRefNo\": \"LMP4AOOG0RBM\"\n    }\n}"
+						}
+					]
 				}
 			],
 			"id": "225256c3-cfc2-482c-b9cf-96fad0827093"
@@ -1016,36 +1069,6 @@
 			"name": "QR Management",
 			"item": [],
 			"id": "8b58e6a1-8283-4ab4-aa57-7aa94e6cae03"
-		},
-		{
-			"name": "Acquirer",
-			"item": [],
-			"id": "f63148b0-9b71-4db0-8092-c5cb3c0db10f"
-		},
-		{
-			"name": "Issuer",
-			"item": [],
-			"id": "bfd42a93-091d-45ea-9e3f-c108929b348c"
-		},
-		{
-			"name": "On-Us",
-			"item": [],
-			"id": "5e73c5f2-8ee5-4893-8e84-a5e0c7f7da80"
-		},
-		{
-			"name": "Refund",
-			"item": [],
-			"id": "62bf40ba-6078-4f55-ad09-1b802d78bb07"
-		},
-		{
-			"name": "Settlement",
-			"item": [],
-			"id": "87b09661-1304-4bf9-8b5e-2fea8e398e9b"
-		},
-		{
-			"name": "Utilities",
-			"item": [],
-			"id": "0affb9b5-b83a-4661-bb5f-690285289438"
 		}
 	],
 	"auth": {
