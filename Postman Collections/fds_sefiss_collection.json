@@ -440,6 +440,38 @@
 				"description": "Generated from cURL: curl --location 'https://api-toko-netzme-stg.netzme.com/api/v1/register/merchant/save' \\\r\n--header 'Authorization: Bearer YRt7O3Qp0XH9g/QxJuF7sCwBEKZuoXjxxIkh2aIuN8w=' \\\r\n--form 'ktp=@\"/Users/zullubis/Desktop/Screen Shot 2022-08-09 at 14.35.03.png\"' \\\r\n--form 'owner_provinsi_id=\"31\"' \\\r\n--form 'owner_kabupaten_id=\"3101\"' \\\r\n--form 'owner_kecamatan_id=\"3101010\"' \\\r\n--form 'owner_desa_id=\"25380\"' \\\r\n--form 'merchant_provinsi_id=\"31\"' \\\r\n--form 'merchant_kabupaten_id=\"3171\"' \\\r\n--form 'merchant_kecamatan_id=\"3171080\"' \\\r\n--form 'merchant_desa_id=\"25431\"' \\\r\n--form 'merchant_name=\"Evanny fds20\"' \\\r\n--form 'owner_phone_number=\"+6281215816622\"' \\\r\n--form 'owner_full_name=\"Evanny fds20\"' \\\r\n--form 'owner_email=\"evanny.ghofar+fds20@netzme.id\"' \\\r\n--form 'owner_address=\"Jl. SM Raja No. 12 Jakarta\"' \\\r\n--form 'owner_identification_number=\"3101015212930002\"' \\\r\n--form 'ms_bank_id=\"4\"' \\\r\n--form 'account_holder_info=\"kalibata\"' \\\r\n--form 'account_holder_name=\"Mariya Wise\"' \\\r\n--form 'ms_business_type_id=\"19\"' \\\r\n--form 'ms_business_criteria_id=\"2\"' \\\r\n--form 'merchant_address=\"kalibata\"' \\\r\n--form 'business_description=\"taxi\"' \\\r\n--form 'account_number=\"1234567890\"' \\\r\n--form 'photo=@\"/Users/zullubis/Desktop/Screen Shot 2022-08-09 at 14.34.13.png\"' \\\r\n--form 'product=@\"/Users/zullubis/Desktop/Screen Shot 2022-08-09 at 16.23.56.png\"' \\\r\n--form 'merchant_phone_number=\"+6281215816622\"' \\\r\n--form 'merchant_email=\"evanny.ghofar+fds20@netzme.id\"' \\\r\n--form 'owner_npwp=\"01.071.728.8 055.000\"' \\\r\n--form 'registration_source=\"aggregator_dona_stg\"' \\\r\n--form 'approved_by_name=\"kluwypay.com\"'"
 			},
 			"response": []
+		},
+		{
+			"name": "Calculate Loan Automatic",
+			"id": "4a9c4538-f54a-4039-bd1e-d1d4075e6aa2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8084/api/tokotransaction/v1/merchant/calculate-loan/automatic",
+				"description": "Generated from cURL: curl --location 'http://localhost:8084/api/tokotransaction/v1/merchant/calculate-loan/automatic' \\\r\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"requestId\": \"REQ-48fc6919-df00-4b19-b87e-b1afc7cb3d04\",\r\n    \"requestTime\": 1705312245000,\r\n    \"type\": \"merchant_loan_automatic\",\r\n    \"body\":  {}\r\n}"
+			},
+			"response": []
 		}
 	],
 	"event": [
