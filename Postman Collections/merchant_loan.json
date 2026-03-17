@@ -1,0 +1,275 @@
+{
+	"info": {
+		"_postman_id": "2d0981ca-ed60-4def-b3aa-8b035d5c8e4a",
+		"name": "[Merchant Loan]",
+		"description": "Merchant Loan API collection. Covers the full merchant loan lifecycle including loan eligibility, automatic and manual loan applications, loan history, repayment tracking, and downloadable reports.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Calculate",
+			"item": [
+				{
+					"name": "Calculate Loan Manual",
+					"id": "3e43d531-ad89-4dbb-a843-a9d5ebb01a7f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/tokotransaction/v1/merchant/calculate-loan/manual",
+						"description": "Generated from cURL: curl --location 'http://localhost:8084/api/tokotransaction/v1/merchant/calculate-loan/manual' \\\r\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"requestId\": \"REQ-58dbbe7a-93e8-4690-8ef5-3fccf710d974\",\r\n    \"requestTime\": 1705312245000,\r\n    \"type\": \"merchant_loan_manual\",\r\n    \"body\":  {}\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Calculate Loan Automatic",
+					"id": "4a9c4538-f54a-4039-bd1e-d1d4075e6aa2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/tokotransaction/v1/merchant/calculate-loan/automatic",
+						"description": "Generated from cURL: curl --location 'http://localhost:8084/api/tokotransaction/v1/merchant/calculate-loan/automatic' \\\r\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"requestId\": \"REQ-48fc6919-df00-4b19-b87e-b1afc7cb3d04\",\r\n    \"requestTime\": 1705312245000,\r\n    \"type\": \"merchant_loan_automatic\",\r\n    \"body\":  {}\r\n}"
+					},
+					"response": []
+				}
+			],
+			"id": "008bf045-1fb7-42ea-b35c-f283ec45ae45"
+		},
+		{
+			"name": "Get Data",
+			"item": [
+				{
+					"name": "Transaction Tab",
+					"id": "5ba62636-a4d1-4b1f-9c15-f67a310d8559",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestId\": \"REQ-9eac5f2b-6e55-492e-b958-f58604c14827\",\n    \"requestTime\": 1705312245000,\n    \"type\": \"merchant_loan_tab_mitra_transaction\",\n    \"body\": {\n        \"startDate\": \"2026-01-22\",\n        \"endDate\": \"22026-01-22\",\n        \"searchType\": \"\",\n        \"searchValue\": \"\",\n        \"headOfficeId:11,\n        \"pageInfo\": {\n            \"page\": 1,\n            \"limit\": 10,\n            \"sortBy\": \"paymentDate\",\n            \"sortDirection\": \"DESC\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/tokotransaction/v1/merchant/loan/transaction-tab",
+						"description": "Generated from cURL: curl --location 'https://tokoapi-dev.netzme.com/api/tokotransaction/v1/merchant/loan/transaction-tab' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"requestId\": \"REQ-9eac5f2b-6e55-492e-b958-f58604c14827\",\n    \"requestTime\": 1705312245000,\n    \"type\": \"merchant_loan_tab_mitra_transaction\",\n    \"body\": {\n        \"startDate\": \"2026-01-22\",\n        \"endDate\": \"22026-01-22\",\n        \"searchType\": \"\",\n        \"searchValue\": \"\",\n        \"headOfficeId:11,\n        \"pageInfo\": {\n            \"page\": 1,\n            \"limit\": 10,\n            \"sortBy\": \"paymentDate\",\n            \"sortDirection\": \"DESC\"\n        }\n    }\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Loan Automatic",
+					"id": "4ce22c0d-15cb-4ec4-90cb-456e6f4570df",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestId\": \"REQ-20240826-001\",\n    \"type\": \"merchant_loan_detail_automatic\",\n    \"ts\": \"2024-08-26T10:00:00Z\",\n    \"body\": {\n        \"startDate\": \"2026-01-10\",\n        \"endDate\": \"2026-01-20\",\n        \"merchantId\": \"M_Euk0vG6x\",\n        \"id\": 89,\n        \"pageInfo\": {\n            \"page\": 1,\n            \"limit\": 10,\n            \"sortBy\": \"created_at\",\n            \"sortDirection\": \"DESC\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/tokotransaction/v1/merchant/loan/detail-automatic",
+						"description": "Generated from cURL: curl --location 'https://tokoapi-dev.netzme.com/api/tokotransaction/v1/merchant/loan/detail-automatic' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"requestId\": \"REQ-20240826-001\",\n    \"type\": \"merchant_loan_detail_automatic\",\n    \"ts\": \"2024-08-26T10:00:00Z\",\n    \"body\": {\n        \"startDate\": \"2026-01-10\",\n        \"endDate\": \"2026-01-20\",\n        \"merchantId\": \"M_Euk0vG6x\",\n        \"id\": 89,\n        \"pageInfo\": {\n            \"page\": 1,\n            \"limit\": 10,\n            \"sortBy\": \"created_at\",\n            \"sortDirection\": \"DESC\"\n        }\n    }\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Loan Manual",
+					"id": "a083ce0f-4ac6-4812-ace1-2ffe62a6d364",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestId\": \"REQ-20240826-001\",\n    \"type\": \"merchant_loan_detail_manual\",\n    \"ts\": \"2024-08-26T10:00:00Z\",\n    \"body\": {\n        \"startDate\": null,\n        \"endDate\": null,\n        \"merchantId\": \"M_fDu5lxZg\",\n        \"id\": null,\n        \"pageInfo\": {\n            \"page\": 1,\n            \"limit\": 10,\n            \"sortBy\": \"created_at\",\n            \"sortDirection\": \"DESC\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/tokotransaction/v1/merchant/loan/detail-manual",
+						"description": "Generated from cURL: curl --location 'http://localhost:8084/api/tokotransaction/v1/merchant/loan/detail-manual' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"requestId\": \"REQ-20240826-001\",\n    \"type\": \"merchant_loan_detail_manual\",\n    \"ts\": \"2024-08-26T10:00:00Z\",\n    \"body\": {\n        \"startDate\": null,\n        \"endDate\": null,\n        \"merchantId\": \"M_fDu5lxZg\",\n        \"id\": null,\n        \"pageInfo\": {\n            \"page\": 1,\n            \"limit\": 10,\n            \"sortBy\": \"created_at\",\n            \"sortDirection\": \"DESC\"\n        }\n    }\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "History Loan",
+					"id": "1459624b-dcf7-43e5-bb99-cd01a1f6ac24",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestId\": \"REQ-476968ee-4ef4-4673-a42e-6c63c41b400c\",\n    \"requestTime\": 1705312245000,\n    \"type\": \"merchant_loan_history_manual\",\n    \"body\": {\n        \"startDate\": \"2025-12-18\",\n        \"endDate\": \"2025-12-20\",\n        \"searchType\": \"\", \n        \"searchValue\": \"\",\n        \"pageInfo\": {\n            \"page\": 1,\n            \"limit\": 10,\n            \"sortBy\": \"id\",\n            \"sortDirection\": \"DESC\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/tokotransaction/v1/merchant/loan/history",
+						"description": "Generated from cURL: curl --location 'https://tokoapi-dev.netzme.com/api/tokotransaction/v1/merchant/loan/history' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"requestId\": \"REQ-476968ee-4ef4-4673-a42e-6c63c41b400c\",\n    \"requestTime\": 1705312245000,\n    \"type\": \"merchant_loan_history_manual\",\n    \"body\": {\n        \"startDate\": \"2025-12-18\",\n        \"endDate\": \"2025-12-20\",\n        \"searchType\": \"\", \n        \"searchValue\": \"\",\n        \"pageInfo\": {\n            \"page\": 1,\n            \"limit\": 10,\n            \"sortBy\": \"id\",\n            \"sortDirection\": \"DESC\"\n        }\n    }\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Transaction Net Amount",
+					"id": "0eb337e0-3f2a-4ff1-9d2e-953b78183bfa",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestId\": \"1d633114-dfb0-401c-b6fd-2e8329fdea62\",\n    \"requestTime\": 1705312245000,\n    \"type\": \"merchant_loan_transaction_net_amount\",\n    \"body\":  {\n        \"merchantId\":\"M_B8RjeABb\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/tokotransaction/v1/merchant/loan/transaction-net-amount",
+						"description": "Generated from cURL: curl --location 'https://tokoapi-dev.netzme.com/api/tokotransaction/v1/merchant/loan/transaction-net-amount' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--header 'Content-Type: application/json' \\\n--data '{\n    \"requestId\": \"1d633114-dfb0-401c-b6fd-2e8329fdea62\",\n    \"requestTime\": 1705312245000,\n    \"type\": \"merchant_loan_transaction_net_amount\",\n    \"body\":  {\n        \"merchantId\":\"M_B8RjeABb\"\n    }\n}'"
+					},
+					"response": []
+				}
+			],
+			"id": "1173313e-01a6-401c-b9fe-75ee55c8299d"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{accessToken}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const now = new Date();",
+					"pm.environment.set(\"requestTime\", now.toISOString());",
+					"pm.collectionVariables.set(\"date\", now.toISOString().slice(0, 10).replace(/-/g, ''));"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "collectionVersion",
+			"value": "1.0.0"
+		},
+		{
+			"key": "productCode",
+			"value": "MERCHANT-LOAN"
+		}
+	]
+}
