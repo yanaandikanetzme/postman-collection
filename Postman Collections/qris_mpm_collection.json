@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "39180c01-54f3-4a1d-a192-b65862a3c538",
+		"_postman_id": "ab8f2b9e-9b84-4d80-b411-69c73f9d5006",
 		"name": "[QRIS] MPM",
 		"description": "QRIS Merchant Presented Mode (MPM) API collection. Covers the full MPM payment lifecycle including invoice creation, payment processing, refunds, and settlement. Use with the appropriate environment (Local/DEV/STG/PROD).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
@@ -20,11 +20,12 @@
 									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
 									"const json = pm.response.json();",
 									"pm.environment.set(\"accessToken\", json.access_token);"
-								]
+								],
+								"id": "f78bca6c-a793-4600-89bc-52111c1008b0"
 							}
 						}
 					],
-					"id": "9bd12ead-4d6b-4286-a949-86cdfac452ff",
+					"id": "2cdac4a9-df8e-4d5a-99de-440820fcb859",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -54,14 +55,14 @@
 					"response": []
 				}
 			],
-			"id": "1db0f4a6-a1dd-4fb4-86ba-b551c4a30def"
+			"id": "b6af1aab-90df-416f-91f0-b4f246e0bf5b"
 		},
 		{
 			"name": "Invoice",
 			"item": [
 				{
 					"name": "Create Invoice",
-					"id": "0d3b59d7-4900-49a1-ac91-ff4548324e84",
+					"id": "a346bea7-6e88-45d9-90f9-bbf86462b5bd",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -93,7 +94,7 @@
 				},
 				{
 					"name": "Create Invoice BE Java",
-					"id": "0bc1368c-4dd2-4633-a6b3-98c118f079f2",
+					"id": "a15d7b32-92c3-452b-916f-7500f235e11b",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -125,7 +126,7 @@
 				},
 				{
 					"name": "Create Invoice API",
-					"id": "73ecae92-5074-4a85-8ba7-cadc2efeb282",
+					"id": "6b21c538-cff4-47a6-8ca3-2831db232d1b",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -156,7 +157,7 @@
 					"response": []
 				}
 			],
-			"id": "1cff023a-428e-490e-8b43-5ed0362ce02c"
+			"id": "3e78cd3f-3380-45e8-a91d-89001be93247"
 		},
 		{
 			"name": "Payment",
@@ -172,11 +173,12 @@
 									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
 									"const json = pm.response.json();",
 									"pm.environment.set(\"transactionId\", json.data.transactionId);"
-								]
+								],
+								"id": "f11d5474-a3de-4650-a3b2-1d43e2964f04"
 							}
 						}
 					],
-					"id": "324373ea-1e1b-44a0-b09e-eba7571d886c",
+					"id": "a2594d77-694b-44b0-868f-03480ccfb8ac",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -211,11 +213,12 @@
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
-								]
+								],
+								"id": "3a82847c-6bb9-4d65-81bc-ee1fcdb50043"
 							}
 						}
 					],
-					"id": "7f0ce97f-af36-4829-9341-d36d167af0e2",
+					"id": "cc08b4f1-3d2c-4f68-81bc-ebdf8552b729",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -236,11 +239,12 @@
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
-								]
+								],
+								"id": "de6bf8d6-5aba-4e24-81a6-150bdf76ed98"
 							}
 						}
 					],
-					"id": "fe82f44b-85a5-4834-a122-ffd518cf62ec",
+					"id": "4bbe498a-63c3-4188-b3a8-5a12b047aab1",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -268,7 +272,7 @@
 				},
 				{
 					"name": "Qris Payment MPM",
-					"id": "2c6221fe-f953-4e27-a560-10f8526fe97c",
+					"id": "6322ae8b-0933-4b5e-ae23-aca486cbf1a3",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -300,7 +304,7 @@
 				},
 				{
 					"name": "QRIS-Payment-Generic",
-					"id": "933ffb16-9348-4662-b7f5-b647d8a5b462",
+					"id": "51f062f4-0d5b-4ead-a5b7-17796740ae1f",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -332,7 +336,7 @@
 				},
 				{
 					"name": "QRIS-Payment-Invoice",
-					"id": "cb73dbe5-b0f5-493d-8b6f-e222a964ebaa",
+					"id": "39a64bdc-3a04-42a4-a55e-7bcf3af91ce7",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -363,7 +367,7 @@
 					"response": []
 				}
 			],
-			"id": "331bb463-fce8-4b3d-ac9d-954f253599a5"
+			"id": "f83aee78-78e7-49b1-9256-45c28af50540"
 		},
 		{
 			"name": "Refund",
@@ -379,11 +383,12 @@
 									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
 									"const json = pm.response.json();",
 									"pm.environment.set(\"refundId\", json.data.refundId);"
-								]
+								],
+								"id": "72864123-50dc-41e8-8bba-dd3822175418"
 							}
 						}
 					],
-					"id": "8770c004-492d-4fc6-b389-eca5efe927a7",
+					"id": "4cb7b09e-50e8-4a81-8c91-d067b877dc2a",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -418,11 +423,12 @@
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
-								]
+								],
+								"id": "9842c4d4-f8ec-4ca2-b3ee-f5bf5d6a36ba"
 							}
 						}
 					],
-					"id": "bdeee162-0da3-4e50-8b0e-0f6660b393e1",
+					"id": "f1ac1573-86e0-40bc-816a-841799167a33",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -436,7 +442,7 @@
 				},
 				{
 					"name": "Send Reimburse",
-					"id": "07212b94-a588-470a-a717-45084ccf84d4",
+					"id": "0bb372b1-08a0-4690-9884-062601170c52",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -467,7 +473,7 @@
 					"response": []
 				}
 			],
-			"id": "de7de684-2ce8-459b-937b-b65577d40bfd"
+			"id": "360b6a26-8c24-4135-a42a-af0d4dc88913"
 		},
 		{
 			"name": "Settlement",
@@ -481,11 +487,12 @@
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
-								]
+								],
+								"id": "8a3c1545-7cd8-498d-9aed-8f365ef6518b"
 							}
 						}
 					],
-					"id": "e15af893-8c33-42e0-b045-908f8cf864bd",
+					"id": "59e51353-cf22-4ddd-8941-1363f7362b4a",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -526,11 +533,12 @@
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
-								]
+								],
+								"id": "889b3806-7840-4c76-808d-a43750798257"
 							}
 						}
 					],
-					"id": "3eceef5a-d7c6-4202-aebd-a82c4c9b5982",
+					"id": "2acf9115-8944-49bf-980b-577dbcbf5990",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -558,7 +566,7 @@
 				},
 				{
 					"name": "Get Settlement MPM",
-					"id": "19b7ef68-f6a9-433b-970d-1c9616c5041c",
+					"id": "bfb09a91-7679-4a8f-aa21-ed327d20535a",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -576,7 +584,7 @@
 					"response": []
 				}
 			],
-			"id": "b2abf9e9-554f-406a-a5e3-653f3d9a43a1"
+			"id": "9dd8ae35-86bd-41f2-a401-b6a202f38e11"
 		},
 		{
 			"name": "Utilities",
@@ -590,11 +598,12 @@
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Service is up\", () => pm.response.to.have.status(200));"
-								]
+								],
+								"id": "a452fd86-d1cf-4667-b593-a10ea794c3e7"
 							}
 						}
 					],
-					"id": "f9c9b82a-6ac2-411b-8613-5d273daac0e3",
+					"id": "8d209122-9b09-41a8-a7e4-d4025597703e",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -615,11 +624,12 @@
 								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
-								]
+								],
+								"id": "74bb2457-07fc-4b8c-abe3-041db41e9d8b"
 							}
 						}
 					],
-					"id": "7d2177e9-28fc-4bc7-8dc3-f3c36202548e",
+					"id": "8fdd118a-37a2-4fbd-b37d-8055d20a45ce",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -633,7 +643,7 @@
 				},
 				{
 					"name": "Generate Token QRIS",
-					"id": "7ca5f4a4-84ac-4f76-88ab-07bee8978406",
+					"id": "3c8b4c7d-1fc6-4955-b3fe-46d7f7a3f0ad",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -660,17 +670,17 @@
 					"response": []
 				}
 			],
-			"id": "49354dac-69a7-45fb-afdc-18ed73ede3c9"
+			"id": "cbf4ff43-4695-4c02-bcaf-6b24ee35e843"
 		},
 		{
 			"name": "Payment",
 			"item": [],
-			"id": "007d2b35-b45b-4499-b0b1-5a744cf68fc0"
+			"id": "1d7e588d-3104-4b09-9a1e-dc2768cda76e"
 		},
 		{
 			"name": "Utilities",
 			"item": [],
-			"id": "a5389c62-12e9-4f66-ab60-e52372fc9299"
+			"id": "26e3eea8-6ebb-4618-81b5-66fb03761044"
 		},
 		{
 			"name": "Acquire",
@@ -681,7 +691,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "cb095e10-eb5e-4fd8-810d-8e212ea71930",
+								"id": "0b1d4f73-0921-49c0-8101-d0469bc628ff",
 								"exec": [
 									"const secret_key = pm.environment.get(\"secret_mac\");",
 									"",
@@ -696,7 +706,7 @@
 							}
 						}
 					],
-					"id": "d4e2ab69-d7e0-4e0b-86d9-d0090545bfac",
+					"id": "9aeb5903-5333-4f50-929a-fdcd897280d7",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -736,7 +746,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "5ae792de-fcd2-4e05-8ca4-58324e41a115",
+								"id": "4bc64495-b79b-4e0f-907a-f66a9d81ec13",
 								"exec": [
 									"const secret_key = pm.environment.get(\"secret_mac\");\r",
 									"\r",
@@ -751,7 +761,7 @@
 							}
 						}
 					],
-					"id": "6edd3467-7d7c-43bd-80ea-c047295b74d7",
+					"id": "9898b899-0398-4a51-98bc-801bc7442488",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -782,7 +792,7 @@
 					"response": []
 				}
 			],
-			"id": "b5f70e81-e63b-4dde-b14c-9c77cff02f4d"
+			"id": "531c094e-a431-45a1-88d4-0158f59ca9b4"
 		}
 	],
 	"auth": {
@@ -802,7 +812,8 @@
 					"pm.environment.set(\"transactionTs\", now.toISOString().replace(/[-:.TZ]/g, '').slice(0, 14));",
 					"pm.environment.set(\"requestTime\", now.toISOString());",
 					"pm.collectionVariables.set(\"date\", now.toISOString().slice(0, 10).replace(/-/g, ''));"
-				]
+				],
+				"id": "f3ba9045-eba2-423c-9717-1b3132022125"
 			}
 		}
 	],
@@ -821,6 +832,11 @@
 			"key": "date",
 			"value": "",
 			"type": "string"
+		},
+		{
+			"key": "baseUrl",
+			"value": "",
+			"type": "default"
 		}
 	]
 }

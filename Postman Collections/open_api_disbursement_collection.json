@@ -3677,6 +3677,130 @@
 					"body": "{\n    \"code\": \"404\",\n    \"message\": \"account not found\"\n}"
 				}
 			]
+		},
+		{
+			"name": "Get Balance Copy",
+			"id": "1bc90916-e91f-4e3b-9b0b-e873aa678b7e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-CLIENT-ID",
+						"value": "{{provided_by_netzme}}",
+						"type": "text"
+					},
+					{
+						"key": "X-SIGNATURE",
+						"value": "{{signature}}",
+						"type": "text"
+					},
+					{
+						"key": "X-TIMESTAMP",
+						"value": "<timestamp>",
+						"type": "text"
+					},
+					{
+						"key": "X-MSG-ID",
+						"value": "<unique_request_id>",
+						"type": "text"
+					},
+					{
+						"key": "X-AUTHORIZATION",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": "{{host}}/health"
+			},
+			"response": [
+				{
+					"id": "44a560bc-73f3-4fa4-9b5b-4d0dee0e96b2",
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-CLIENT-ID",
+								"value": "{{provided_by_netzme}}",
+								"type": "text"
+							},
+							{
+								"key": "X-SIGNATURE",
+								"value": "{{signature}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TIMESTAMP",
+								"value": "<timestamp>",
+								"type": "text"
+							},
+							{
+								"key": "X-MSG-ID",
+								"value": "<unique_request_id>",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTHORIZATION",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/public/api/disbursement/v1/balance"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"code\": \"200\",\n    \"balance\": 10000000,\n}"
+				},
+				{
+					"id": "0ca952b0-c730-44ad-bd61-3e643c36a828",
+					"name": "Not Found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-CLIENT-ID",
+								"value": "{{provided_by_netzme}}",
+								"type": "text"
+							},
+							{
+								"key": "X-SIGNATURE",
+								"value": "{{signature}}",
+								"type": "text"
+							},
+							{
+								"key": "X-TIMESTAMP",
+								"value": "<timestamp>",
+								"type": "text"
+							},
+							{
+								"key": "X-MSG-ID",
+								"value": "<unique_request_id>",
+								"type": "text"
+							},
+							{
+								"key": "X-AUTHORIZATION",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}/public/api/disbursement/v1/balance"
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "Text",
+					"header": [],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"code\": \"404\",\n    \"message\": \"account not found\"\n}"
+				}
+			]
 		}
 	],
 	"auth": {
