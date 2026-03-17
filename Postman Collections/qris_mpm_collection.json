@@ -155,6 +155,38 @@
 						"description": "Generated from cURL: curl --location 'localhost:8082/api/merchant/invoice/aggregator' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data-raw '{\n    \"requestId\": \"05b46ba8-2976-472a-b020-4bad135ba3ea\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ut7CD7O9\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\"\n    }\n}'"
 					},
 					"response": []
+				},
+				{
+					"name": "Create Invoice API Copy",
+					"id": "0b6e1ffe-87f7-4a9c-af23-efca7373fd3d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestId\": \"05b46ba8-2976-472a-b020-4bad135ba3ea\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ut7CD7O9\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/merchant/invoice/aggregator",
+						"description": "Generated from cURL: curl --location 'localhost:8082/api/merchant/invoice/aggregator' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data-raw '{\n    \"requestId\": \"05b46ba8-2976-472a-b020-4bad135ba3ea\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ut7CD7O9\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\"\n    }\n}'"
+					},
+					"response": []
 				}
 			],
 			"id": "3e78cd3f-3380-45e8-a91d-89001be93247"
