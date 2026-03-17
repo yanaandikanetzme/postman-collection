@@ -1345,6 +1345,69 @@
 			"name": "On-Us",
 			"item": [
 				{
+					"name": "Settlement",
+					"item": [
+						{
+							"name": "Get Settlement On Us",
+							"id": "409c3806-4686-465b-9705-3c3d90849c4f",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": {
+										"password": "dde28c7edb9d8046972c5c3277d999a2",
+										"username": "kare"
+									}
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{url-settlement}}/api/toko-settlement/qrcpm/onus/settlement?startPeriod=20241206&endPeriod=20241206&msg_id={{$randomUUID}}&type=settlement_qris_on_us",
+									"host": [
+										"{{url-settlement}}"
+									],
+									"path": [
+										"api",
+										"toko-settlement",
+										"qrcpm",
+										"onus",
+										"settlement"
+									],
+									"query": [
+										{
+											"key": "startPeriod",
+											"value": "20241206"
+										},
+										{
+											"key": "endPeriod",
+											"value": "20241206"
+										},
+										{
+											"key": "msg_id",
+											"value": "{{$randomUUID}}"
+										},
+										{
+											"key": "type",
+											"value": "settlement_qris_on_us"
+										}
+									]
+								},
+								"description": "Generated from cURL: curl --location 'localhost:8082/api/merchant/qr/qris/settlement/on/us?startPeriod=20240805&endPeriod=20240806&msg_id=f6676fb3-25a8-412e-b6f5-36c220d4424e' \\\r\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=='"
+							},
+							"response": []
+						}
+					],
+					"id": "1892f233-f2f2-4bc5-b016-059dbaf516ba"
+				},
+				{
 					"name": "Inquiry",
 					"id": "b99c2441-5a08-4156-a02d-991e23ecf573",
 					"protocolProfileBehavior": {
@@ -1661,69 +1724,6 @@
 				}
 			],
 			"id": "d31629ed-97a9-4a1d-960b-3356ca456363"
-		},
-		{
-			"name": "Settlement",
-			"item": [
-				{
-					"name": "Get Settlement On Us",
-					"id": "409c3806-4686-465b-9705-3c3d90849c4f",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "basic",
-							"basic": {
-								"password": "dde28c7edb9d8046972c5c3277d999a2",
-								"username": "kare"
-							}
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "{{url-settlement}}/api/toko-settlement/qrcpm/onus/settlement?startPeriod=20241206&endPeriod=20241206&msg_id={{$randomUUID}}&type=settlement_qris_on_us",
-							"host": [
-								"{{url-settlement}}"
-							],
-							"path": [
-								"api",
-								"toko-settlement",
-								"qrcpm",
-								"onus",
-								"settlement"
-							],
-							"query": [
-								{
-									"key": "startPeriod",
-									"value": "20241206"
-								},
-								{
-									"key": "endPeriod",
-									"value": "20241206"
-								},
-								{
-									"key": "msg_id",
-									"value": "{{$randomUUID}}"
-								},
-								{
-									"key": "type",
-									"value": "settlement_qris_on_us"
-								}
-							]
-						},
-						"description": "Generated from cURL: curl --location 'localhost:8082/api/merchant/qr/qris/settlement/on/us?startPeriod=20240805&endPeriod=20240806&msg_id=f6676fb3-25a8-412e-b6f5-36c220d4424e' \\\r\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=='"
-					},
-					"response": []
-				}
-			],
-			"id": "1892f233-f2f2-4bc5-b016-059dbaf516ba"
 		},
 		{
 			"name": "Utilities",
