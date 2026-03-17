@@ -8,7 +8,9 @@ This repository stores Postman collection integrations exported from Postman. Ea
 |---|---|---|
 | **FDS Sefis** | `Postman Collections/fds_sefiss_collection.json` | Fraud Detection System (FDS) & Sefis — includes endpoints for fraud analysis, transaction validation, merchant upload, and merchant registration. |
 | **Merchant Loan** | `Postman Collections/merchant_loan.json` | Merchant Loan APIs — covers loan calculation (manual & automatic), loan detail retrieval, loan history, and transaction data. |
+| **OpenApi Disbursement** | `Postman Collections/open_api_disbursement_collection.json` | Netzme OpenApi Disbursement — covers authentication, single and bulk disbursement, internal disbursement, callback handling, disbursement detail and reporting, topup management, account inquiry, and balance retrieval. |
 | **QRIS CPM** | `Postman Collections/qris_cpm_collection.json` | QRIS Consumer Presented Mode (CPM) — includes QR generation, payment inquiry, payment processing, refund/reversal handling, and settlement for On-Us and Off-Us scenarios. |
+| **QRIS MPM** | `Postman Collections/qris_mpm_collection.json` | QRIS Merchant Presented Mode (MPM) — includes authentication, invoice creation, payment processing, refund and reimbursement, settlement, utilities (health check, transaction status, QRIS token generation), and acquirer integrations. |
 
 ## How to Use
 
