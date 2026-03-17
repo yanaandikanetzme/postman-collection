@@ -1,0 +1,826 @@
+{
+	"info": {
+		"_postman_id": "39180c01-54f3-4a1d-a192-b65862a3c538",
+		"name": "[QRIS] MPM",
+		"description": "QRIS Merchant Presented Mode (MPM) API collection. Covers the full MPM payment lifecycle including invoice creation, payment processing, refunds, and settlement. Use with the appropriate environment (Local/DEV/STG/PROD).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Get Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+									"const json = pm.response.json();",
+									"pm.environment.set(\"accessToken\", json.access_token);"
+								]
+							}
+						}
+					],
+					"id": "9bd12ead-4d6b-4286-a949-86cdfac452ff",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials"
+								},
+								{
+									"key": "client_id",
+									"value": "{{clientId}}"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{clientSecret}}"
+								}
+							]
+						},
+						"url": "{{authUrl}}/oauth/token",
+						"description": "Obtain OAuth2 access token. Token is used as Bearer auth for all subsequent requests."
+					},
+					"response": []
+				}
+			],
+			"id": "1db0f4a6-a1dd-4fb4-86ba-b551c4a30def"
+		},
+		{
+			"name": "Invoice",
+			"item": [
+				{
+					"name": "Create Invoice",
+					"id": "0d3b59d7-4900-49a1-ac91-ff4548324e84",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestId\": \"06dbf4c3-50bb-4d6c-a6db-636183632c89\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ChPWNs81\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\",\n        \"invoiceType\":\"multiple\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://tokoapi-dev.netzme.com/api/merchant/invoice/aggregator",
+						"description": "Generated from cURL: curl --location 'https://tokoapi-dev.netzme.com/api/merchant/invoice/aggregator' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data-raw '{\n    \"requestId\": \"06dbf4c3-50bb-4d6c-a6db-636183632c89\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ChPWNs81\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\",\n        \"invoiceType\":\"multiple\"\n    }\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Invoice BE Java",
+					"id": "0bc1368c-4dd2-4633-a6b3-98c118f079f2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestId\": \"644c7119-5766-4687-ba45-fca59f781f93\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ut7CD7O9\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"BANK_TRANSFER\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://tokoapi-dev.netzme.com/api/merchant/invoice/aggregator",
+						"description": "Generated from cURL: curl --location 'https://tokoapi-dev.netzme.com/api/merchant/invoice/aggregator' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data-raw '{\n    \"requestId\": \"644c7119-5766-4687-ba45-fca59f781f93\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ut7CD7O9\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"BANK_TRANSFER\"\n    }\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Invoice API",
+					"id": "73ecae92-5074-4a85-8ba7-cadc2efeb282",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestId\": \"05b46ba8-2976-472a-b020-4bad135ba3ea\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ut7CD7O9\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/merchant/invoice/aggregator",
+						"description": "Generated from cURL: curl --location 'localhost:8082/api/merchant/invoice/aggregator' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data-raw '{\n    \"requestId\": \"05b46ba8-2976-472a-b020-4bad135ba3ea\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ut7CD7O9\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\"\n    }\n}'"
+					},
+					"response": []
+				}
+			],
+			"id": "1cff023a-428e-490e-8b43-5ed0362ce02c"
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Process Payment MPM",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+									"const json = pm.response.json();",
+									"pm.environment.set(\"transactionId\", json.data.transactionId);"
+								]
+							}
+						}
+					],
+					"id": "324373ea-1e1b-44a0-b09e-eba7571d886c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"invoiceId\": \"{{invoiceId}}\",\n  \"merchantId\": \"{{merchantId}}\",\n  \"amount\": 10000,\n  \"currency\": \"IDR\",\n  \"transactionTs\": \"{{transactionTs}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/mpm/payment",
+						"description": "Process a QRIS MPM payment against an existing invoice."
+					},
+					"response": []
+				},
+				{
+					"name": "Check Payment Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "7f0ce97f-af36-4829-9341-d36d167af0e2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/qris/mpm/payment/{{transactionId}}/status",
+						"description": "Check the current status of a payment transaction."
+					},
+					"response": []
+				},
+				{
+					"name": "Process Payment ALTO",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "fe82f44b-85a5-4834-a122-ffd518cf62ec",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"invoiceId\": \"{{invoiceId}}\",\n  \"merchantId\": \"{{merchantId}}\",\n  \"amount\": 10000,\n  \"currency\": \"IDR\",\n  \"transactionTs\": \"{{transactionTs}}\",\n  \"acquirerId\": \"ALTO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/mpm/payment/alto",
+						"description": "Process a QRIS MPM payment via ALTO network."
+					},
+					"response": []
+				},
+				{
+					"name": "Qris Payment MPM",
+					"id": "2c6221fe-f953-4e27-a560-10f8526fe97c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/merchant/qr/mpm/pay",
+						"description": "Process QRIS MPM payment"
+					},
+					"response": []
+				},
+				{
+					"name": "QRIS-Payment-Generic",
+					"id": "933ffb16-9348-4662-b7f5-b647d8a5b462",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/merchant/qr/pay",
+						"description": "Process generic QRIS payment"
+					},
+					"response": []
+				},
+				{
+					"name": "QRIS-Payment-Invoice",
+					"id": "cb73dbe5-b0f5-493d-8b6f-e222a964ebaa",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/merchant/qr/pay/invoice",
+						"description": "Process QRIS payment via invoice"
+					},
+					"response": []
+				}
+			],
+			"id": "331bb463-fce8-4b3d-ac9d-954f253599a5"
+		},
+		{
+			"name": "Refund",
+			"item": [
+				{
+					"name": "Process Refund",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+									"const json = pm.response.json();",
+									"pm.environment.set(\"refundId\", json.data.refundId);"
+								]
+							}
+						}
+					],
+					"id": "8770c004-492d-4fc6-b389-eca5efe927a7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"transactionId\": \"{{transactionId}}\",\n  \"amount\": 10000,\n  \"reason\": \"Customer request\",\n  \"referenceNo\": \"{{$randomUUID}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/mpm/refund",
+						"description": "Initiate a full or partial refund for a completed payment."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Refund Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "bdeee162-0da3-4e50-8b0e-0f6660b393e1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/qris/mpm/refund/{{refundId}}",
+						"description": "Check the status of a refund request."
+					},
+					"response": []
+				},
+				{
+					"name": "Send Reimburse",
+					"id": "07212b94-a588-470a-a717-45084ccf84d4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/merchant/qr/mpm/reimburse",
+						"description": "Send reimburse/refund for MPM transaction"
+					},
+					"response": []
+				}
+			],
+			"id": "de7de684-2ce8-459b-937b-b65577d40bfd"
+		},
+		{
+			"name": "Settlement",
+			"item": [
+				{
+					"name": "Get Settlement Summary",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "e15af893-8c33-42e0-b045-908f8cf864bd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/qris/mpm/settlement?date={{date}}&merchantId={{merchantId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"qris",
+								"mpm",
+								"settlement"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "{{date}}"
+								},
+								{
+									"key": "merchantId",
+									"value": "{{merchantId}}"
+								}
+							]
+						},
+						"description": "Retrieve settlement summary for a specific date."
+					},
+					"response": []
+				},
+				{
+					"name": "Trigger Settlement",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "3eceef5a-d7c6-4202-aebd-a82c4c9b5982",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"merchantId\": \"{{merchantId}}\",\n  \"date\": \"{{date}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/qris/mpm/settlement",
+						"description": "Manually trigger settlement for a merchant on a given date."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Settlement MPM",
+					"id": "19b7ef68-f6a9-433b-970d-1c9616c5041c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": "{{settlementUrl}}/api/settlement/mpm",
+						"description": "Get MPM settlement data"
+					},
+					"response": []
+				}
+			],
+			"id": "b2abf9e9-554f-406a-a5e3-653f3d9a43a1"
+		},
+		{
+			"name": "Utilities",
+			"item": [
+				{
+					"name": "Health Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Service is up\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "f9c9b82a-6ac2-411b-8613-5d273daac0e3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/qris/mpm/health",
+						"description": "Check service availability."
+					},
+					"response": []
+				},
+				{
+					"name": "Check Transaction Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+								]
+							}
+						}
+					],
+					"id": "7d2177e9-28fc-4bc7-8dc3-f3c36202548e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{baseUrl}}/qris/mpm/transaction/{{transactionId}}",
+						"description": "Generic transaction status check by transactionId."
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Token QRIS",
+					"id": "7ca5f4a4-84ac-4f76-88ab-07bee8978406",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/auth/token",
+						"description": "Generate authentication token for QRIS"
+					},
+					"response": []
+				}
+			],
+			"id": "49354dac-69a7-45fb-afdc-18ed73ede3c9"
+		},
+		{
+			"name": "Payment",
+			"item": [],
+			"id": "007d2b35-b45b-4499-b0b1-5a744cf68fc0"
+		},
+		{
+			"name": "Utilities",
+			"item": [],
+			"id": "a5389c62-12e9-4f66-ab60-e52372fc9299"
+		},
+		{
+			"name": "Acquire",
+			"item": [
+				{
+					"name": "Alto",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "cb095e10-eb5e-4fd8-810d-8e212ea71930",
+								"exec": [
+									"const secret_key = pm.environment.get(\"secret_mac\");",
+									"",
+									"const hmac = CryptoJS.HmacSHA256(pm.request.body.toString(), secret_key);",
+									"const hmac_str = hmac.toString(CryptoJS.enc.Hex);",
+									"const mac = hmac_str.toUpperCase();",
+									"pm.globals.set(\"mac\", mac);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "d4e2ab69-d7e0-4e0b-86d9-d0090545bfac",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+							},
+							{
+								"key": "mac",
+								"value": "{{mac}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"msgId\": \"5744e66c-5c34-4962-8bac-1381f253950d\",\r\n    \"pan\": \"936008140100108031\",\r\n    \"processingCode\": \"261000\",\r\n    \"transactionAmount\": 20141,\r\n    \"transmissionDateTime\": \"0305132324\",\r\n    \"systemTraceAuditNumber\": \"033595\",\r\n    \"localTransactionDateTime\": \"20260305132324\",\r\n    \"settlementDate\": \"0305\",\r\n    \"captureDate\": \"0305\",\r\n    \"merchantType\": \"4816\",\r\n    \"posEntryMode\": \"011\",\r\n    \"feeType\": \"\",\r\n    \"feeAmount\": 0,\r\n    \"acquirerId\": \"93600814\",\r\n    \"issuerId\": \"91560156\",\r\n    \"forwardingId\": \"360003\",\r\n    \"rrn\": \"667451234A33\",\r\n    \"approvalCode\": \"867396\",\r\n    \"terminalId\": \"A01\",\r\n    \"merchantId\": \"hjMCg7xY\",\r\n    \"merchantName\": \"Evanny Dormant\",\r\n    \"merchantCity\": \"Dki Jakarta\",\r\n    \"merchantCountry\": \"ID\",\r\n    \"productIndicator\": \"Q001\",\r\n    \"customerData\": \"CUSTOMER ALTO       TERPADU080\",\r\n    \"merchantCriteria\": \"UKE\",\r\n    \"currencyCode\": \"156\",\r\n    \"postalCode\": \"40232\",\r\n    \"additionalField\": \"0703A010812qris_invoice99420002000132276730912145453dbf5a9370d73ee286\",\r\n    \"customerPan\": \"9156015612345678919\",\r\n    \"settlementAmount\": 0,\r\n    \"cardholderAmount\": 150.59,\r\n    \"settlementRate\": 1,\r\n    \"cardholderRate\": 1,\r\n    \"conversionDate\": \"\",\r\n    \"settlementCurrCode\": \"156\",\r\n    \"cardholderCurrCode\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/api/kare-alto-mpm/qr/payment"
+					},
+					"response": []
+				},
+				{
+					"name": "AJ",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5ae792de-fcd2-4e05-8ca4-58324e41a115",
+								"exec": [
+									"const secret_key = pm.environment.get(\"secret_mac\");\r",
+									"\r",
+									"const hmac = CryptoJS.HmacSHA256(pm.request.body.toString(), secret_key);\r",
+									"const hmac_str = hmac.toString(CryptoJS.enc.Hex);\r",
+									"const mac = hmac_str.toUpperCase();\r",
+									"pm.globals.set(\"mac\", mac);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "6edd3467-7d7c-43bd-80ea-c047295b74d7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pan\": \"936008140411485489\",\n    \"rrn\": \"865965372\",\n    \"msgId\": \"ead08fad-ee3e-420e-a471-777e84f66c95\",\n    \"feeType\": \"\",\n    \"issuerId\": \"93600567\",\n    \"feeAmount\": 0,\n    \"rrnOrigin\": \"865965372\",\n    \"acquirerId\": \"93600814\",\n    \"merchantId\": \"id2024000050615\",\n    \"paidAmount\": 8100,\n    \"postalCode\": \"81155\",\n    \"terminalId\": \"A01\",\n    \"captureDate\": \"0502\",\n    \"customerPan\": \"9360107710000123412\",\n    \"approvalCode\": \"867396\",\n    \"currencyCode\": \"360\",\n    \"customerData\": \"CUSTOMER ALTO TERPADU\",\n    \"forwardingId\": \"360003\",\n    \"merchantCity\": \"KOTA BANDUNG\",\n    \"merchantName\": \"Toko Yana Power\",\n    \"merchantType\": \"7994\",\n    \"posEntryMode\": \"011\",\n    \"cardholderRate\": 0,\n    \"conversionDate\": \"\",\n    \"processingCode\": \"261000\",\n    \"settlementDate\": \"0502\",\n    \"settlementRate\": 0,\n    \"additionalField\": \"0703A01\",\n    \"merchantCountry\": \"ID\",\n    \"cardholderAmount\": 0,\n    \"merchantCriteria\": \"UMI\",\n    \"productIndicator\": \"Q001\",\n    \"settlementAmount\": 0,\n    \"transactionAmount\": 15000,\n    \"cardholderCurrCode\": \"360\",\n    \"settlementCurrCode\": \"\",\n    \"localTransactionDate\": \"20250505\",\n    \"transmissionDateTime\": \"0502132324\",\n    \"systemTraceAuditNumber\": \"033595\",\n    \"localTransactionDateTime\": \"20250505132324\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/api/kare-aj/qr/payment/generic",
+						"description": "Generated from cURL: curl --location 'http://localhost:8084/api/kare-aj/qr/payment/generic' \\\n--header 'Content-Type: application/json' \\\n--header 'mac: D846C4D1FBF67E810E55AA84C79B8B2F6E162DE19C71A4A11078D1EEE0CB6A1D' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data '{\n    \"pan\": \"936008140411485489\",\n    \"rrn\": \"865965372\",\n    \"msgId\": \"ead08fad-ee3e-420e-a471-777e84f66c95\",\n    \"feeType\": \"\",\n    \"issuerId\": \"93600567\",\n    \"feeAmount\": 0,\n    \"rrnOrigin\": \"865965372\",\n    \"acquirerId\": \"93600814\",\n    \"merchantId\": \"id2024000050615\",\n    \"paidAmount\": 8100,\n    \"postalCode\": \"81155\",\n    \"terminalId\": \"A01\",\n    \"captureDate\": \"0502\",\n    \"customerPan\": \"9360107710000123412\",\n    \"approvalCode\": \"867396\",\n    \"currencyCode\": \"360\",\n    \"customerData\": \"CUSTOMER ALTO TERPADU\",\n    \"forwardingId\": \"360003\",\n    \"merchantCity\": \"KOTA BANDUNG\",\n    \"merchantName\": \"Toko Yana Power\",\n    \"merchantType\": \"7994\",\n    \"posEntryMode\": \"011\",\n    \"cardholderRate\": 0,\n    \"conversionDate\": \"\",\n    \"processingCode\": \"261000\",\n    \"settlementDate\": \"0502\",\n    \"settlementRate\": 0,\n    \"additionalField\": \"0703A01\",\n    \"merchantCountry\": \"ID\",\n    \"cardholderAmount\": 0,\n    \"merchantCriteria\": \"UMI\",\n    \"productIndicator\": \"Q001\",\n    \"settlementAmount\": 0,\n    \"transactionAmount\": 15000,\n    \"cardholderCurrCode\": \"360\",\n    \"settlementCurrCode\": \"\",\n    \"localTransactionDate\": \"20250505\",\n    \"transmissionDateTime\": \"0502132324\",\n    \"systemTraceAuditNumber\": \"033595\",\n    \"localTransactionDateTime\": \"20250505132324\"\n}'"
+					},
+					"response": []
+				}
+			],
+			"id": "b5f70e81-e63b-4dde-b14c-9c77cff02f4d"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{accessToken}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Auto-set transaction timestamps",
+					"const now = new Date();",
+					"pm.environment.set(\"transactionTs\", now.toISOString().replace(/[-:.TZ]/g, '').slice(0, 14));",
+					"pm.environment.set(\"requestTime\", now.toISOString());",
+					"pm.collectionVariables.set(\"date\", now.toISOString().slice(0, 10).replace(/-/g, ''));"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "collectionVersion",
+			"value": "1.0.0",
+			"type": "string"
+		},
+		{
+			"key": "productCode",
+			"value": "QRIS-MPM",
+			"type": "string"
+		},
+		{
+			"key": "date",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
