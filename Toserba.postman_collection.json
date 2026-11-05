@@ -1,0 +1,453 @@
+{
+  "info": {
+    "_postman_id": "aeb73942-ef60-4e23-b808-5921b8b30c1d",
+    "name": "Toserba",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "32294413"
+  },
+  "item": [
+    {
+      "name": "Get",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/toserba/v1/report/transaction/qris/mpm?refId=PAY1126032003502284208971313&searchType=partnerTrxId&headOfficeIdList=4562",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "toserba",
+            "v1",
+            "report",
+            "transaction",
+            "qris",
+            "mpm"
+          ],
+          "query": [
+            {
+              "key": "refId",
+              "value": "PAY1126032003502284208971313"
+            },
+            {
+              "key": "searchType",
+              "value": "partnerTrxId"
+            },
+            {
+              "key": "headOfficeIdList",
+              "value": "4562"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register Netzreg",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Basic bmV0em1lQW5kcm9pZDoxY2NjYjcwYTg5ODEzNGI5MWI1MWEzYWZmOTc1ZGJkMzJlMzA4YTAwMWE0ODVjNmI2Yjg0M2JiMWExYzk4YjY5"
+          },
+          {
+            "key": "Client-Info",
+            "value": "{\"android_os\": \"13\", \"android_api\": \"33\", \"id_1\": \"708fac3414892d1d2b53c28ab398187af84b38eba5e176947596663e5837b97e\", \"device\": \"Google sdk_gphone64_arm64\", \"id_2\": \"74b73144cfb00d13e73fe2456d89f49275c448cc6a956377ff7387dd843585ed\", \"user_trial\": \"\", \"current_version\": \"1.9.57\"}"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"fullname\": null,\r\n    \"phoneno\": \"+6289614810869\",\r\n    \"code\": null,\r\n    \"request_id\": null,\r\n    \"referral_url\": null,\r\n    \"support_verification_channel\": true,\r\n    \"verification_channel\": null,\r\n    \"reg_v2\": \"1\",\r\n    \"is_pin_supported\": true,\r\n    \"verify_pin\": null\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/v2/register",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "v2",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "QR Transaction List",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "M_MSXTwlHI",
+              "type": "string"
+            },
+            {
+              "key": "password",
+              "value": "uuegru3572dfhy37rfh23fruy",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": ""
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/toserba/qr/transaction/list?userId=M_MSXTwlHI&requestId={{$guid}}&requestTime=1688633301628&startDt=20261103&endDt=20261103",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "toserba",
+            "qr",
+            "transaction",
+            "list"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "M_MSXTwlHI"
+            },
+            {
+              "key": "requestId",
+              "value": "{{$guid}}"
+            },
+            {
+              "key": "requestTime",
+              "value": "1688633301628"
+            },
+            {
+              "key": "startDt",
+              "value": "20261103"
+            },
+            {
+              "key": "endDt",
+              "value": "20261103"
+            }
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'localhost:8005/api/toserba/qr/transaction/list?userId=M_BIZyTkIX&requestId=36e36c26-dfbc-4b0e-8ded-ce97fe24d237&requestTime=1688633301628&startDt=20230630&endDt=20230706' \\\n--header 'Authorization: {{basic_auth_0i5y}}‘\\"
+      },
+      "response": []
+    },
+    {
+      "name": "Download Transaction",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "M_0zRpIIpi",
+              "type": "string"
+            },
+            {
+              "key": "password",
+              "value": "M_v0ZDmBkp",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/merchant/reporting/toko/download?view_mode=toko_reporting&month_year_range=2026-11&download_type=toko_seller&download_format_type=pdf&sorted_by=by_number_transaction&masking=true",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "merchant",
+            "reporting",
+            "toko",
+            "download"
+          ],
+          "query": [
+            {
+              "key": "view_mode",
+              "value": "toko_reporting"
+            },
+            {
+              "key": "month_year_range",
+              "value": "2026-11"
+            },
+            {
+              "key": "download_type",
+              "value": "toko_seller"
+            },
+            {
+              "key": "download_format_type",
+              "value": "pdf"
+            },
+            {
+              "key": "sorted_by",
+              "value": "by_number_transaction"
+            },
+            {
+              "key": "masking",
+              "value": "true"
+            }
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'localhost:8005/api/merchant/reporting/toko/download?view_mode=toko_reporting&month_year_range=2020-07&download_type=toko_sales&download_format_type=xls&sorted_by=by_number_transaction&masking=true' \\\r\n--header 'Content-Type: application/json' \\\r\n--header 'Authorization: {{basic_auth_0oii}}‘"
+      },
+      "response": []
+    },
+    {
+      "name": "Transaction Detail",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "M_MSXTwlHI",
+              "type": "string"
+            },
+            {
+              "key": "password",
+              "value": "1db92c7d8c52dd59b616272698c027ec",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{basic_auth_0oii}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/toserba/qr/transaction/detail?userId=M_MSXTwlHI&requestId={{$guid}}&type=pay_qris_cpm&transactionId=CPM8QLXOHLGJAKN20261028",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "toserba",
+            "qr",
+            "transaction",
+            "detail"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "M_MSXTwlHI"
+            },
+            {
+              "key": "requestId",
+              "value": "{{$guid}}"
+            },
+            {
+              "key": "type",
+              "value": "pay_qris_cpm"
+            },
+            {
+              "key": "transactionId",
+              "value": "CPM8QLXOHLGJAKN20261028"
+            }
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'http://localhost:8005/api/toserba/qr/transaction/detail?userId=M_PiIxvRDt&requestId=c8d136db-390c-444f-8e38-4af64a9c991a&type=payment_voucher_transaction&transactionId=68179cffdf064e5d965f937107326d45' \\\n--header 'Authorization: {{basic_auth_0oii}}' \\\n--data ‘"
+      },
+      "response": [
+        {
+          "name": "Platfrom Fee Amount",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{basic_auth_0oii}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/toserba/qr/transaction/detail?userId=M_v0ZDmBkp&requestId={{$guid}}&type=pay_qris_cpm&transactionId=CPMYJXWTA45EODV20261002",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "toserba",
+                "qr",
+                "transaction",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "M_v0ZDmBkp"
+                },
+                {
+                  "key": "requestId",
+                  "value": "{{$guid}}"
+                },
+                {
+                  "key": "type",
+                  "value": "pay_qris_cpm"
+                },
+                {
+                  "key": "transactionId",
+                  "value": "CPMYJXWTA45EODV20261002"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "content-length",
+              "value": "895"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"requestId\": \"853cd2fa-48f9-4c97-a25e-a5fba24ad947\",\n  \"type\": \"transaction_detail\",\n  \"status\": 100,\n  \"statusMessage\": \"success\",\n  \"body\": {\n    \"transaction\": {\n      \"issuerName\": \"Issuer Alto 3\",\n      \"refundable\": true,\n      \"rrn\": \"YJXWTA45EODV\",\n      \"terminalId\": \"A01\",\n      \"merchantName\": \"holdamount\",\n      \"merchantPan\": \"936008140100005995\",\n      \"mdr\": \"IDR 0.00\",\n      \"serviceFee\": \"IDR 0.00\",\n      \"serviceCharge\": \"IDR 0.00\",\n      \"sourceOfFund\": \"SAVING\",\n      \"location\": \"JAKARTA SELATAN\",\n      \"customerPan\": \"9360088612345678913\",\n      \"customerName\": \"-\",\n      \"paidDate\": \"2026-10-02T11:11:52.323+07:00\",\n      \"netAmount\": \"IDR 99105.00\",\n      \"productIndicator\": \"N004\",\n      \"acquirerName\": \"Netzme\",\n      \"transactionId\": \"CPMYJXWTA45EODV20261002\",\n      \"ts\": \"2026-10-02T11:11:52.323+07:00\",\n      \"amount\": \"IDR 99105.00\",\n      \"status\": \"100\",\n      \"statusMessage\": \"success\",\n      \"type\": \"pay_qris_cpm\",\n      \"referenceId\": \"YJXWTA45EODV\",\n      \"paymentMethod\": \"QRIS TAP\",\n      \"merchantId\": \"M_v0ZDmBkp\",\n      \"dateWIB\": 0,\n      \"timeWIB\": 0,\n      \"platformFeeAmount\": \"IDR 895.00\"\n    }\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Report Downlaod",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "M_MSXTwlHI",
+              "type": "string"
+            },
+            {
+              "key": "password",
+              "value": "15c1ee11ed99eefc7652a7ad45ca10ed",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"requestId\": \"dfa24d80-d2b7-11f1-bf8a-396642639513\",\r\n    \"requestTime\": 1793182259801,\r\n    \"type\": \"toko_reporting_download\",\r\n    \"body\": {\r\n        \"userId\": \"M_5IVYp5uy\",\r\n        \"startDate\": 20261103,\r\n        \"endDate\": 20261103,\r\n        \"anotherType\": true,\r\n        \"orderTransaction\": \"desc\",\r\n        \"sortedBy\": null,\r\n        \"viewMode\": \"toko_reporting\",\r\n        \"downloadType\": \"toko_sales\",\r\n        \"downloadFormatType\": \"pdf\",\r\n        \"masking\": false,\r\n        \"transactionType\": {\r\n            \"pay_qris\": true,\r\n            \"submit_withdraw\": true,\r\n            \"correction_chargeback\": true,\r\n            \"correction_fightback\": true,\r\n            \"pay_invoice\": true,\r\n            \"pay_subscription_fee\": true,\r\n            \"pay_subscription_penalty_fee\": true,\r\n            \"pay_loan\": true,\r\n            \"pay_loan_penalty\": true,\r\n            \"receive_loan\": true,\r\n            \"receive_loan_penalty\": true,\r\n            \"receive_subscription_fee\": true\r\n        }\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/toserba/reporting/toko/download",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "toserba",
+            "reporting",
+            "toko",
+            "download"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get History List",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "dfdfsdfwe",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "M_MSXTwlHI",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"requestId\": \"4c85d0d0-d672-11f1-a65b-cb9f6aa855bc\",\n    \"requestTime\": 1793592182365,\n    \"type\": \"list_transaction\",\n    \"body\": {\n        \"userId\": \"M_MSXTwlHI\",\n        \"startDate\": 20261102,\n        \"endDate\": 20261102,\n        \"anotherType\": true,\n        \"orderTransaction\": \"desc\",\n        \"seq\": 0,\n        \"transactionType\": {\n            \"pay_qris\": true,\n            \"submit_withdraw\": true,\n            \"correction_chargeback\": true,\n            \"correction_fightback\": true,\n            \"pay_invoice\": true,\n            \"pay_subscription_fee\": true,\n            \"pay_subscription_penalty_fee\": true,\n            \"pay_loan\": true,\n            \"pay_loan_penalty\": true,\n            \"receive_loan\": true,\n            \"receive_loan_penalty\": true,\n            \"receive_subscription_fee\": true\n        }\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/toserba/history/transaction/list",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "toserba",
+            "history",
+            "transaction",
+            "list"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'http://tokoapi-stg.netzme.com/api/toserba/history/transaction/list' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n    \"requestId\": \"1b59b600-d412-11f1-a65b-cb9f6aa855bc\",\n    \"requestTime\": 1793330965856,\n    \"type\": \"list_transaction\",\n    \"body\": {\n        \"userId\": \"M_lp4K5E7A\",\n        \"startDate\": 20261030,\n        \"endDate\": 20261030,\n        \"anotherType\": true,\n        \"orderTransaction\": \"desc\",\n        \"seq\": 0,\n        \"transactionType\": {\n            \"pay_qris\": true,\n            \"submit_withdraw\": true,\n            \"correction_chargeback\": true,\n            \"correction_fightback\": true,\n            \"pay_invoice\": true,\n            \"pay_subscription_fee\": true,\n            \"pay_subscription_penalty_fee\": true,\n            \"pay_loan\": true,\n            \"pay_loan_penalty\": true,\n            \"receive_loan\": true,\n            \"receive_loan_penalty\": true,\n            \"receive_subscription_fee\": true\n        }\n    }\n}'"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "basic_auth_0i5y",
+      "secret": true
+    },
+    {
+      "key": "basic_auth_0oii",
+      "secret": true
+    }
+  ]
+}

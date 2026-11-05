@@ -1,0 +1,860 @@
+{
+  "info": {
+    "_postman_id": "d4ec8361-53d0-40a1-a4d7-c6f93fe9227f",
+    "name": "qris tap",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "32294413"
+  },
+  "item": [
+    {
+      "name": "localhost:8082/api/aggregator/merchant/qr/tap/pre-auth",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{bearer_token_0pox}}",
+            "type": "text"
+          },
+          {
+            "key": "Client-Id",
+            "value": "pg-dev",
+            "type": "text"
+          },
+          {
+            "key": "Request-Time",
+            "value": "1656063482281",
+            "type": "text"
+          },
+          {
+            "key": "Signature",
+            "value": "2312301565cf1e482b0a6623fb9d8e43c2abcb6eb0e6fb54ff44240447f5fcd7",
+            "type": "text"
+          },
+          {
+            "key": "X_PARTNER_ID",
+            "value": "qr-tap-test-1",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\t\"requestId\":\"b24f7553-ddc4-4f65-849c-b7671b19d15\",\r\n\t\"type\":\"qr_tap_preauth\",\r\n\t\"body\":{\r\n\t\t\"partnerTrxId\":\"yuseo-test-53-15\",\r\n\t\t\"holdAmount\": 100000,\r\n\t\t\"currencyCode\": \"IDR\",\r\n\t\t\"merchantId\":\"M_ChPWNs81\",\r\n\t\t\"productIndicator\":\"N003\",\r\n\t\t\"qrData\":\"hQVDUFYwMWFuTwegAAAGAiAgUAdRUklTQ1BNWgqTYAkYMAAAAAJfXyAJU2hvcGVlUGF5nyUCACWfdi9kLd4UOTE4NDg1NjE5MTE3MzY5MTMyMzTEBIATEA/FAQ/HCVNob3BlZVBhecsBAWMLn3QIMzY5MTMyMzQ=\",\r\n        \"expiredDate\" : \"2025-09-03T23:59:59+07:00\"\r\n\t}\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8082/api/aggregator/merchant/qr/tap/pre-auth",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "aggregator",
+            "merchant",
+            "qr",
+            "tap",
+            "pre-auth"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8082/api/aggregator/merchant/qr/tap/pre-auth",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{bearer_token_18zn}}",
+            "type": "text"
+          },
+          {
+            "key": "Client-Id",
+            "value": "aggregator-1",
+            "type": "text"
+          },
+          {
+            "key": "Request-Time",
+            "value": "1656063482281",
+            "type": "text"
+          },
+          {
+            "key": "Signature",
+            "value": "adecd666c820f51df21d0f218cce781237afd7db5ade398f789f6ccb1097a1f8",
+            "type": "text"
+          },
+          {
+            "key": "X_PARTNER_ID",
+            "value": "131",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\t\"requestId\":\"{{$guid}}\",\r\n\t\"type\":\"qr_tap_preauth\",\r\n\t\"body\":{\r\n\t\t\"partnerTrxId\":\"yuseo-031225-00000002\",\r\n\t\t\"holdAmount\": 10000,\r\n\t\t\"currencyCode\": \"IDR\",\r\n\t\t\"merchantId\":\"M_ChPWNs81\",\r\n\t\t\"productIndicator\":\"N006\",\r\n\t\t\"qrData\":\"hQVDUFYwMWGBo08HoAAABgIgIFAHUVJJU0NQTVoKk2ARBBI0VniQT18gFEN1c3RvbWVyL1VzZXIgVGVzdGVyXy0EaWRlbl9QFW1haWx0bzp1c2VyQHRlc3Rlci5pZJ8IAgEAnyUCiQRjQ590QHVKNTBicDlNNHluNFBjaDZUNkxaa1djdExsMnI0OHpnd09yempReUtYbUJYQnlVVnNtY241NXlOTUFsNGRNaWY=\"\r\n\t}\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8082/api/aggregator/merchant/qr/tap/pre-auth",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "aggregator",
+            "merchant",
+            "qr",
+            "tap",
+            "pre-auth"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8082/api/aggregator/merchant/qr/tap/pre-auth-completion",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{bearer_token_0pox}}",
+            "type": "text"
+          },
+          {
+            "key": "Client-Id",
+            "value": "pg-dev",
+            "type": "text"
+          },
+          {
+            "key": "Request-Time",
+            "value": "1656063482281",
+            "type": "text"
+          },
+          {
+            "key": "Signature",
+            "value": "ab98eb4a158533d4c4f23b47e131fc350c416d2d24bdd1e5bbbdb8d09b5caa92",
+            "type": "text"
+          },
+          {
+            "key": "X_PARTNER_ID",
+            "value": "qr-tap-test-1",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\t\"requestId\":\"{{$guid}}\",\r\n\t\"type\":\"qr_tap_preauth_completion\",\r\n\t\"body\":{\r\n\t\t\"partnerTrxId\":\"yuseo-031225-00000002\",\r\n\t\t\"finalAmount\": 10000,\r\n\t\t\"currencyCode\": \"IDR\",\r\n\t\t\"merchantId\":\"M_ChPWNs81\",\r\n\t\t\"productIndicator\":\"N007\",\r\n\t\t\"qrData\":\"hQVDUFYwMWFuTwegAAAGAiAgUAdRUklTQ1BNWgqTYAkYMAAAAAJfXyAJU2hvcGVlUGF5nyUCACWfdi9kLd4UOTE4NDg1NjE5MTE3MzY5MTMyMzTEBIATEA/FAQ/HCVNob3BlZVBhecsBAWMLn3QIMzY5MTMyMzQ=\"\r\n\t}\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8082/api/aggregator/merchant/qr/tap/pre-auth-completion",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "aggregator",
+            "merchant",
+            "qr",
+            "tap",
+            "pre-auth-completion"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8000/oauth/merchant/accesstoken",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "{{auth_password_1bn0}}",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "pg-dev",
+              "type": "string"
+            },
+            {
+              "key": "showPassword",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"grant_type\" : \"client_credentials\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/oauth/merchant/accesstoken",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "oauth",
+            "merchant",
+            "accesstoken"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "https://bri-d.netzme.com/qris/alto/tap/v1/internal/qr/inquiry",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://bri-d.netzme.com/qris/alto/tap/v1/internal/qr/inquiry",
+          "protocol": "https",
+          "host": [
+            "bri-d",
+            "netzme",
+            "com"
+          ],
+          "path": [
+            "qris",
+            "alto",
+            "tap",
+            "v1",
+            "internal",
+            "qr",
+            "inquiry"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8082/api/aggregator/merchant/qr/tap/payment",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{bearer_token_0pox}}",
+            "type": "text"
+          },
+          {
+            "key": "Client-Id",
+            "value": "pg-dev",
+            "type": "text"
+          },
+          {
+            "key": "Request-Time",
+            "value": "1656063482281",
+            "type": "text"
+          },
+          {
+            "key": "Signature",
+            "value": "a5568106f5a5d114b61cdef54fe104e765883c5ef54729bf27007c54483a06b1",
+            "type": "text"
+          },
+          {
+            "key": "X_PARTNER_ID",
+            "value": "qr-tap-test-1",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"requestId\": \"req-id-yuseo-21\",\r\n    \"type\": \"qr_tap_payment\",\r\n    \"body\": {\r\n        \"merchantId\": \"M_ChPWNs81\",\r\n        \"partnerTrxId\": \"partner-trx-id-00021\",\r\n        \"paymentAmount\": 5000,\r\n        \"currencyCode\": \"IDR\",\r\n        \"qrData\": \"hQVDUFYwMWFuTwegAAAGAiAgUAdRUklTQ1BNWgqTYAkYMAAAAAJfXyAJU2hvcGVlUGF5nyUCACWfdi9kLd4UOTE4NDg1NjE5MTE3MzY5MTMyMzTEBIATEA/FAQ/HCVNob3BlZVBhecsBAWMLn3QIMzY5MTMyMzQ=\",\r\n        \"productIndicator\":\"Q002\"\r\n    }\r\n}\r\n    // {\r\n    //     \"requestId\": \"724f7553-ddc4-4f65-849c-b7671b19d031\",\r\n    //     \"type\": \"qr-tap-payment\",\r\n    //     \"body\": {\r\n    //         \"paymentAmount\": 10000,\r\n    //         \"currencyCode\": \"IDR\",\r\n    //         \"qrData\": \"hQVDUFYwMWFiTwegAAAGAiAgUAdRUklTQ1BNWgqTYAVnMQCRYXhPnyUCF4Sfdi9kLd4UOTE4NDEwNjU0ODE3MDkwODk4NzHEBIATEA/FAQ/HCVNob3BlZVBhecsBAWMLn3QIMDkwODk4NzE=\",\r\n    //         \"merchantId\": \"M_ChPWNs81\",\r\n    //         \"partnerTrxId\":\"yuseo-test-r-0\"\r\n    //         // ,\r\n    //         // \"terminalId\": \"A01\",\r\n    //         // \"invoiceTrxId\": \"1234567890\"\r\n    //     }\r\n    // }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/aggregator/merchant/qr/tap/payment",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "aggregator",
+            "merchant",
+            "qr",
+            "tap",
+            "payment"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "localhost:8082/api/aggregator/merchant/qr/tap/payment",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "{{bearer_token_0pox}}"
+              },
+              {
+                "key": "Client-Id",
+                "type": "text",
+                "value": "pg-dev"
+              },
+              {
+                "key": "Request-Time",
+                "type": "text",
+                "value": "1656063482281"
+              },
+              {
+                "key": "Signature",
+                "type": "text",
+                "value": "b9514e073d937d97c5de2bf61a4ffaafc3a3864721974d44da2d5fe6258212c1"
+              },
+              {
+                "key": "X_PARTNER_ID",
+                "type": "text",
+                "value": "qr-tap-test-1"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"requestId\": \"724f7553-ddc4-4f65-849c-b7671b19d030\",\r\n    \"type\": \"qr-tap-payment\",\r\n    \"body\": {\r\n        \"paymentAmount\": 10000,\r\n        \"currencyCode\": \"IDR\",\r\n        \"qrData\": \"hQVDUFYwMWFiTwegAAAGAiAgUAdRUklTQ1BNWgqTYAVnMQCRYXhPnyUCF4Sfdi9kLd4UOTE4NDEwNjU0ODE3MDkwODk4NzHEBIATEA/FAQ/HCVNob3BlZVBhecsBAWMLn3QIMDkwODk4NzE=\",\r\n        \"merchantId\": \"M_ChPWNs81\"\r\n        // ,\r\n        // \"terminalId\": \"A01\",\r\n        // \"invoiceTrxId\": \"1234567890\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/aggregator/merchant/qr/tap/payment",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "aggregator",
+                "merchant",
+                "qr",
+                "tap",
+                "payment"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "content-length",
+              "value": "741"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"requestId\": \"724f7553-ddc4-4f65-849c-b7671b19d030\",\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"issuerName\": \"93601104\",\n        \"refundable\": true,\n        \"rrn\": \"CPMOQCXXC9WJPZP20250225\",\n        \"terminalId\": \"A01             \",\n        \"merchantId\": \"M_ChPWNs81\",\n        \"merchantName\": \"Toko Yusep\",\n        \"merchantPan\": \"936008140095685740\",\n        \"mdr\": \"IDR 70.00\",\n        \"serviceFee\": \"IDR 0.00\",\n        \"serviceCharge\": \"IDR 0.00\",\n        \"sourceOfFund\": \"Netzme\",\n        \"paymentMethod\": \"QRIS CPM\",\n        \"location\": \"KOTA BANDUNG\",\n        \"customerPan\": \"9360110412345678904\",\n        \"customerName\": \"Customer/User Tester\",\n        \"paidDate\": \"2025-02-25T03:14:58.608Z\",\n        \"transactionId\": \"CPMOQCXXC9WJPZP20250225\",\n        \"ts\": \"2025-02-25T03:14:58.608Z\",\n        \"amount\": \"IDR 10000.00\",\n        \"status\": \"100\",\n        \"type\": \"pay_qris_cpm\",\n        \"referenceId\": \"724f7553-ddc4-4f65-849c-b7671b19d030\"\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "localhost:8082/api/aggregator/merchant/qr/tap/refund",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{bearer_token_0pox}}"
+          },
+          {
+            "key": "Client-Id",
+            "value": "pg-dev"
+          },
+          {
+            "key": "Request-Time",
+            "value": "1656063482281"
+          },
+          {
+            "key": "Signature",
+            "value": "c7bc65d04d657472e9ce61c20dce66aaf095580583781fc8787bb2cf2db538f2"
+          },
+          {
+            "key": "X_PARTNER_ID",
+            "value": "qr-tap-test-1"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"requestId\":\"{{$guid}}\",\r\n    \"type\":\"qr_tap_refund\",\r\n    \"body\":{\r\n        \"partnerTrxId\":\"partner-trx-id-00020\",\r\n        \"refundAmount\": 5000,\r\n        \"currencyCode\": \"IDR\",\r\n        \"merchantId\":\"M_ChPWNs81\",\r\n        \"customerRefNo\": \"CPMRNT7NXWMT55M20251124\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/aggregator/merchant/qr/tap/refund",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "aggregator",
+            "merchant",
+            "qr",
+            "tap",
+            "refund"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8082/api/aggregator/merchant/qr/tap/status",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{bearer_token_0pox}}",
+            "type": "text"
+          },
+          {
+            "key": "Client-Id",
+            "value": "pg-dev",
+            "type": "text"
+          },
+          {
+            "key": "Request-Time",
+            "value": "1656063482281",
+            "type": "text"
+          },
+          {
+            "key": "Signature",
+            "value": "efcbfc58fa5b80234a06406e861835a928ecab9cc4411c5d078609b072c86433",
+            "type": "text"
+          },
+          {
+            "key": "X_PARTNER_ID",
+            "value": "qr-tap-test-1",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\t\"requestId\":\"{{$guid}}\",\r\n\t\"type\":\"qr_tap_check_status\",\r\n\t\"body\":{\r\n\t\t\"partnerTrxId\":\"partner-trx-id-00020\",\r\n\t\t\"merchantId\":\"M_ChPWNs81\"\r\n\t}\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/aggregator/merchant/qr/tap/status",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "aggregator",
+            "merchant",
+            "qr",
+            "tap",
+            "status"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8082/api/aggregator/merchant/qr/tap/reversal",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{bearer_token_02o8}}"
+          },
+          {
+            "key": "Client-Id",
+            "value": "bitdna"
+          },
+          {
+            "key": "Request-Time",
+            "value": "1727629200000"
+          },
+          {
+            "key": "Signature",
+            "value": "21e924abb3a6caa093af7a1c1d64ebbd238a24d25669b2bf59c39e0d6aec41a2"
+          },
+          {
+            "key": "X_PARTNER_ID",
+            "value": "holdamount"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "// {\n// \t\"requestId\":\"EMyMaOiHXLRJ9xWecVwK\",\n// \t\"type\":\"qr-tap-reversal\",\n// \t\"body\":{\n// \t\t\"partnerTrxId\":\"XQWCDD1J0DBZ3YPwLD78\",\n// \t\t\"holdAmount\": 5000,\n// \t\t\"currencyCode\": \"IDR\",\n// \t\t\"merchantId\":\"M_v0ZDmBkp\",\n// \t\t\"qrData\":\"hQVDUFYwMWFuTwegAAAGAiAgUAdRUklTQ1BNWgqTYAkYMAAAAAJfXyAJU2hvcGVlUGF5nyUCACWfdi9kLd4UOTE4MjIwMDc4MzE3Mzc1MzI5MjjEBIATEA/FAQ/HCVNob3BlZVBhecsBAWMLn3QIMzc1MzI5Mjg=\",\n// \t\t\"reasonCode\" : \"068\",\n// \t\t\"reasonText\": \"Time out\"\n// \t}\n// }\n{\n    \"requestId\": \"req-id-yuseo-21-reversal\",\n    \"type\": \"qr_tap_reversal\",\n    \"body\": {\n        \"partnerTrxId\": \"partner-trx-id-00021\",\n        \"amount\": 5000,\n        \"currencyCode\": \"IDR\",\n        \"merchantId\": \"M_ChPWNs81\",\n        \"qrData\": \"hQVDUFYwMWFuTwegAAAGAiAgUAdRUklTQ1BNWgqTYAkYMAAAAAJfXyAJU2hvcGVlUGF5nyUCACWfdi9kLd4UOTE4NDg1NjE5MTE3MzY5MTMyMzTEBIATEA/FAQ/HCVNob3BlZVBhecsBAWMLn3QIMzY5MTMyMzQ=\",\n        \"reasonCode\": \"068\",\n        \"reasonText\": \"Time out\",\n        \"productIndicator\":\"Q002\"\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8082/api/aggregator/merchant/qr/tap/reversal",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "aggregator",
+            "merchant",
+            "qr",
+            "tap",
+            "reversal"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8005/api/toserba/v1/report/qr-tap/clearing/download?startdate=20250430&enddate=20250430",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "{{auth_password_1did}}",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "kare",
+              "type": "string"
+            },
+            {
+              "key": "showPassword",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:8005/api/toserba/v1/report/qr-tap/clearing/download?startdate=20250904&enddate=20250904",
+          "host": [
+            "localhost"
+          ],
+          "port": "8005",
+          "path": [
+            "api",
+            "toserba",
+            "v1",
+            "report",
+            "qr-tap",
+            "clearing",
+            "download"
+          ],
+          "query": [
+            {
+              "key": "startdate",
+              "value": "20250904"
+            },
+            {
+              "key": "enddate",
+              "value": "20250904"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "QR Tap Payment (single payment)",
+      "request": {
+        "auth": {
+          "type": "basic"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{bearer_token_0pox}}"
+          },
+          {
+            "key": "Client-Id",
+            "value": "pg-dev"
+          },
+          {
+            "key": "Request-Time",
+            "value": "1656063482281"
+          },
+          {
+            "key": "Signature",
+            "value": "2077aaf35f5025fb2aea344b809f8a602d86c18d1b5a5ce71f9ae5e2dfcc04f6"
+          },
+          {
+            "key": "X_PARTNER_ID",
+            "value": "qr-tap-test-1"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"requestId\": \"9rkv9hvz4GIzZnOxO0Fm5\",\r\n    \"type\": \"qr_tap_payment\",\r\n    \"body\": {\r\n        \"merchantId\": \"M_ChPWNs81\",\r\n        \"partnerTrxId\": \"XTZ9BLlnVOjqQv6pm8Hu5\",\r\n        \"paymentAmount\": 5000,\r\n        \"currencyCode\": \"IDR\",\r\n        \"qrData\": \"hQVDUFYwMWFuTwegAAAGAiAgUAdRUklTQ1BNWgqTYAkYMAAAAAJfXyAJU2hvcGVlUGF5nyUCACWfdi9kLd4UOTE4NDg1NjE5MTE3MzY5MTMyMzTEBIATEA/FAQ/HCVNob3BlZVBhecsBAWMLn3QIMzY5MTMyMzQ=\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/aggregator/merchant/qr/tap/payment",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "aggregator",
+            "merchant",
+            "qr",
+            "tap",
+            "payment"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'localhost:8082/api/aggregator/merchant/qr/tap/payment' \\\r\n--header 'Authorization: {{bearer_token_0pox}}' \\\r\n--header 'Client-Id: pg-dev' \\\r\n--header 'Request-Time: 1656063482281' \\\r\n--header 'Signature: 2077aaf35f5025fb2aea344b809f8a602d86c18d1b5a5ce71f9ae5e2dfcc04f6' \\\r\n--header 'X_PARTNER_ID: qr-tap-test-1' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n    \"requestId\": \"9rkv9hvz4GIzZnOxO0Fm5\",\r\n    \"type\": \"qr_tap_payment\",\r\n    \"body\": {\r\n        \"merchantId\": \"M_ChPWNs81\",\r\n        \"partnerTrxId\": \"XTZ9BLlnVOjqQv6pm8Hu5\",\r\n        \"paymentAmount\": 5000,\r\n        \"currencyCode\": \"IDR\",\r\n        \"qrData\": \"hQVDUFYwMWFuTwegAAAGAiAgUAdRUklTQ1BNWgqTYAkYMAAAAAJfXyAJU2hvcGVlUGF5nyUCACWfdi9kLd4UOTE4NDg1NjE5MTE3MzY5MTMyMzTEBIATEA/FAQ/HCVNob3BlZVBhecsBAWMLn3QIMzY5MTMyMzQ=\"\r\n    }\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "QR Tap Pre-Auth (TAP IN)",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "kare",
+              "type": "string"
+            },
+            {
+              "key": "password",
+              "value": "{{accessToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{bearer_token_0pox}}"
+          },
+          {
+            "key": "Client-Id",
+            "value": "pg-dev"
+          },
+          {
+            "key": "Request-Time",
+            "value": "1656063482281"
+          },
+          {
+            "key": "Signature",
+            "value": "a8f01fbec2685fbf288e7d50ba54a2044f61b8ebc09e155dcc11c7d56b17c291"
+          },
+          {
+            "key": "X_PARTNER_ID",
+            "value": "qr-tap-test-1"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\t\"requestId\":\"{{$guid}}\",\r\n\t\"type\":\"qr_tap_preauth\",\r\n\t\"body\":{\r\n\t\t\"partnerTrxId\":\"yana-test-02\",\r\n\t\t\"holdAmount\": 100000,\r\n\t\t\"currencyCode\": \"IDR\",\r\n\t\t\"merchantId\":\"M_v0ZDmBkp\",\r\n\t\t\"productIndicator\":\"N003\",\r\n\t\t\"qrData\":\"hQVDUFYwMWGCAUJPB6AAAAYCICBQB1FSSVNDUE1aCpNgCIYSNFZ4kT9fIAVQdXRyYV8tBGlkZW6fJQKJF592BE4wMDFjggEFn3QKAZWBMiaJQkVHhJ96gbEbCTM9p8sLC/wlx5uA4XN50GyecTmsmPeeJtlBg4Tscbehv+K8t4Ck9XjwGsOC/rIWk2PLd/DLkdWcvYiHHGS3GilMAvbL2ZIeWJMY0e1IVEHflNdUyy8ssokje0K+HO/vyf3fOkAWgwRUYseUxvEFkG1NEWXaoml95NN1O3wC/YtoPG5CQzN0KusG0qkpqUsKLtFiiaXScz4hogLomtp5HZ04kUAzsQGgVnTHA5KiCAOfe0B2VxW4YuYzxFRG+yjqmE/E3h8pmjs7EmW3As9RhX1Ztlg6yiveV/u3Ufsvh/UOpweZG3S9EZz8eF4qz6dUtVgH\",\r\n        \"expiredDate\" : \"2026-11-01T23:34:00+07:00\"\r\n\t}\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/aggregator/merchant/qr/tap/pre-auth",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "aggregator",
+            "merchant",
+            "qr",
+            "tap",
+            "pre-auth"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'localhost:8082/api/aggregator/merchant/qr/tap/pre-auth' \\\r\n--header 'Authorization: {{bearer_token_0pox}}' \\\r\n--header 'Client-Id: pg-dev' \\\r\n--header 'Request-Time: 1656063482281' \\\r\n--header 'Signature: a8f01fbec2685fbf288e7d50ba54a2044f61b8ebc09e155dcc11c7d56b17c291' \\\r\n--header 'X_PARTNER_ID: qr-tap-test-1' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n\t\"requestId\":\"b24f7553-ddc4-4f65-849c-b7671b19d043\",\r\n\t\"type\":\"qr_tap_preauth\",\r\n\t\"body\":{\r\n\t\t\"partnerTrxId\":\"yuseo-test-67\",\r\n\t\t\"holdAmount\": 100000,\r\n\t\t\"currencyCode\": \"IDR\",\r\n\t\t\"merchantId\":\"M_ChPWNs81\",\r\n\t\t\"productIndicator\":\"N003\",\r\n\t\t\"qrData\":\"hQVDUFYwMWFuTwegAAAGAiAgUAdRUklTQ1BNWgqTYAkYMAAAAAJfXyAJU2hvcGVlUGF5nyUCACWfdi9kLd4UOTE4NDg1NjE5MTE3MzY5MTMyMzTEBIATEA/FAQ/HCVNob3BlZVBhecsBAWMLn3QIMzY5MTMyMzQ=\",\r\n        \"expiredDate\" : \"2025-03-24T23:34:00+07:00\"\r\n\t}\r\n\r\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "QR Tap Pre-Auth Completion (TAP OUT)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "{{bearer_token_0pox}}"
+          },
+          {
+            "key": "Client-Id",
+            "value": "pg-dev"
+          },
+          {
+            "key": "Request-Time",
+            "value": "1656063482281"
+          },
+          {
+            "key": "Signature",
+            "value": "03f2ff66a7584d3de9f67713652ed47ed96af06fd290e9921f4c227cf0588608"
+          },
+          {
+            "key": "X_PARTNER_ID",
+            "value": "qr-tap-test-1"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"requestId\": \"{{$guid}}\",\r\n    \"type\": \"qr_tap_preauth_completion\",\r\n    \"body\": {\r\n        \"partnerTrxId\": \"yana-test-02\",\r\n        \"finalAmount\": 100000,\r\n        \"currencyCode\": \"IDR\",\r\n        \"merchantId\": \"M_v0ZDmBkp\",\r\n        \"productIndicator\": \"N004\",\r\n        \"qrData\": \"hQVDUFYwMWGCAUJPB6AAAAYCICBQB1FSSVNDUE1aCpNgCIYSNFZ4kT9fIAVQdXRyYV8tBGlkZW6fJQKJF592BE4wMDFjggEFn3QKAZWBMiaJQkVHhJ96gbEbCTM9p8sLC/wlx5uA4XN50GyecTmsmPeeJtlBg4Tscbehv+K8t4Ck9XjwGsOC/rIWk2PLd/DLkdWcvYiHHGS3GilMAvbL2ZIeWJMY0e1IVEHflNdUyy8ssokje0K+HO/vyf3fOkAWgwRUYseUxvEFkG1NEWXaoml95NN1O3wC/YtoPG5CQzN0KusG0qkpqUsKLtFiiaXScz4hogLomtp5HZ04kUAzsQGgVnTHA5KiCAOfe0B2VxW4YuYzxFRG+yjqmE/E3h8pmjs7EmW3As9RhX1Ztlg6yiveV/u3Ufsvh/UOpweZG3S9EZz8eF4qz6dUtVgH\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/aggregator/merchant/qr/tap/pre-auth-completion",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "aggregator",
+            "merchant",
+            "qr",
+            "tap",
+            "pre-auth-completion"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'localhost:8082/api/aggregator/merchant/qr/tap/pre-auth-completion' \\\r\n--header 'Authorization: {{bearer_token_0pox}}' \\\r\n--header 'Client-Id: pg-dev' \\\r\n--header 'Request-Time: 1656063482281' \\\r\n--header 'Signature: 03f2ff66a7584d3de9f67713652ed47ed96af06fd290e9921f4c227cf0588608' \\\r\n--header 'X_PARTNER_ID: qr-tap-test-1' \\\r\n--header 'Content-Type: application/json' \\\r\n--data '{\r\n\t\"requestId\":\"c24f7553-ddc4-4f65-849c-b7671b19d031\",\r\n\t\"type\":\"qr_tap_preauth_completion\",\r\n\t\"body\":{\r\n\t\t\"partnerTrxId\":\"yuseo-test-52\",\r\n\t\t\"finalAmount\": 100000,\r\n\t\t\"currencyCode\": \"IDR\",\r\n\t\t\"merchantId\":\"M_ChPWNs81\",\r\n\t\t\"productIndicator\":\"N004\",\r\n\t\t\"qrData\":\"hQVDUFYwMWFuTwegAAAGAiAgUAdRUklTQ1BNWgqTYAkYMAAAAAJfXyAJU2hvcGVlUGF5nyUCACWfdi9kLd4UOTE4MDc0OTUxNTE3MzY5MTM0MjLEBIATEA/FAQ/HCVNob3BlZVBhecsBAWMLn3QIMzY5MTM0MjI=\"\r\n\t}\r\n}'"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "auth_password_1bn0",
+      "secret": true
+    },
+    {
+      "key": "auth_password_1did",
+      "secret": true
+    },
+    {
+      "key": "bearer_token_0pox",
+      "secret": true
+    },
+    {
+      "key": "bearer_token_18zn",
+      "secret": true
+    },
+    {
+      "key": "bearer_token_02o8",
+      "secret": true
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "info": {
+    "_postman_id": "fa81f4f8-0c59-4cb3-87da-ae10369f8fc3",
+    "name": "[QRIS] Alto Issuer",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "32294413"
+  },
+  "item": [
+    {
+      "name": "localhost:8082/api/merchant/qr/qris/pay",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "{{auth_password_1did}}",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "kare",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"requestId\": \"{{$guid}}\",\n    \"requestTime\": 1636625156096,\n    \"type\": \"pay_qris_issuer\",\n    \"body\": {\n        \"username\": \"4FPrI0ps\",\n        \"invoiceId\": \"\",\n        // \"qrContent\": \"00020101021126570016ID.CO.SHOPEE.WWW0118936009180000001402020413500303UME51440014ID.CO.QRIS.WWW0215ID11190045322980303UME5204581253033605802ID5925Gulu Gulu Mall Ambassador6015Jakarta Selatan61051294062070703A0163041df0\",\n        \"qrContent\": \"00020101021151440014ID.CO.QRIS.WWW0215ID10222085526150303UMI5204582153033605802ID5910KOPI AROMA6007JAKARTA61054011162070703A01630483C5\",\n        \"refId\": \"{{$guid}}\",\n        \"amount\": \"IDR 1000.00\",\n        \"feeAmount\": \"IDR 0.00\",\n        \"fullName\": \"yuseo-test\"\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8082/api/merchant/qr/qris/pay",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "merchant",
+            "qr",
+            "qris",
+            "pay"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "localhost:8082/api/kare-alto-mpm/issuer/refund",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "{{auth_password_1did}}",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "kare",
+              "type": "string"
+            },
+            {
+              "key": "showPassword",
+              "value": false,
+              "type": "boolean"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"msgId\": \"{{$guid}}\",\r\n    \"merchantPan\": \"9360091800000014029\",\r\n    \"invoiceNumber\": \"57349435800000000000\",\r\n    \"pan\": \"9360091800000014029\",\r\n    \"rrn\": \"729623643905\",\r\n    \"issuerId\": \"93600814\",\r\n    \"acquirerId\": \"93600918\",\r\n    \"merchantId\": \"1350\",\r\n    \"terminalId\": \"A01\",\r\n    \"captureDate\": \"20250707\",\r\n    \"approvalCode\": \"734450\",\r\n    \"currencyCode\": \"360\",\r\n    \"customerData\": \"yuseo-test____________________\",\r\n    \"forwardingId\": \"360004\",\r\n    \"merchantCity\": \"Jakarta Selat\",\r\n    \"merchantName\": \"Gulu Gulu Mall Ambassador\",\r\n    \"merchantType\": \"5812\",\r\n    \"posEntryMode\": \"011\",\r\n    \"feeType\": \"\",\r\n    \"feeAmount\": 0,\r\n    \"processingCode\": \"260000\",\r\n    \"settlementDate\": \"20250708\",\r\n    \"settlementAmount\": 0,\r\n    \"cardholderAmount\": 1000,\r\n    \"additionalField\": \"0703A01\",\r\n    \"merchantCountry\": \"ID\",\r\n    \"merchantCriteria\": \"UME\",\r\n    \"productIndicator\": \"Q001\",\r\n    \"transactionAmount\": 1000.00,\r\n    \"transmissionDateTime\": \"20250707083343\",\r\n    \"systemTraceAuditNumber\": \"000050\",\r\n    \"localTransactionDateTime\": \"20250707153343\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:8082/api/kare-alto-mpm/issuer/refund",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "kare-alto-mpm",
+            "issuer",
+            "refund"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "http://localhost:8082/api/merchant/qr/qris/settlement/off/us/issuer",
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "username",
+              "value": "kare",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "{{basic_auth_0lq6}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"requestId\": \"{{$guid}}\",\n    \"period\": \"20250703\",\n    \"vendorName\": \"artajasa\",\n    \"totalAmount\": \"73949\",\n    \"listData\": [\n        {\n            \"refId\": \"098bff5f-ca9f-427a-9a11-044795678f40\",\n            \"pan\": \"9360081435328224794\",\n            \"nominal\": 73949\n        }\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/merchant/qr/qris/settlement/off/us/issuer",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "merchant",
+            "qr",
+            "qris",
+            "settlement",
+            "off",
+            "us",
+            "issuer"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "auth_password_1did",
+      "secret": true
+    },
+    {
+      "key": "basic_auth_0lq6",
+      "secret": true
+    }
+  ]
+}

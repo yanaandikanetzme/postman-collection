@@ -1,0 +1,154 @@
+{
+  "info": {
+    "_postman_id": "e6c5f0be-0197-44e2-ac1e-8482bb0aa1ac",
+    "name": "Toko-Kare",
+    "description": "Collection for Toko Kare service — handles Invoice, Payment, and Notification flows. All requests use Bearer token authentication via {{accessToken}}.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "32294413"
+  },
+  "item": [
+    {
+      "name": "Update Method Invoice Bank Transfer",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+          },
+          {
+            "key": "mac",
+            "value": ""
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"requestId\": \"699a5d9ab0diha\",\n  \"type\": \"update_payment_method_invoice\",\n  \"body\": {\n    \"invoice_id\": \"NETZ-INV-M_1xuSTnmy-20220221-018\",\n    \"buyer_id\": \"62130eace39d0\",\n    \"payment_method_id\": \"BANK_TRANSFER\",\n    \"payment_method\": {\n      \"amount.minimum\": 10000,\n      \"amount.maximum\": 50000000000,\n      \"methods\": [\n        \"MANDIRI\",\n        \"BNI\",\n        \"PERMATA\"\n      ],\n      \"method.id\": \"BANK_TRANSFER\",\n      \"method.name\": \"Virtual Account\",\n      \"fee.fix.amount\": 0,\n      \"fee.percentage\": 0,\n      \"desc\": \"Pembayaran dapat dilakukan menggunakan <b>Mandiri, BRI, Permata, BNI, dan lainnya</b>.\",\n      \"img_url\": \"https://res.cloudinary.com/netzme-id/image/upload/static/invoice/ic_web_bank_transfer.png\",\n      \"settlement.plus.days\": 1,\n      \"mdr.fix.amount\": 5000,\n      \"mdr.percentage\": 0,\n      \"vat.percentage\": 11,\n      \"admin.fee\": 5550,\n      \"payment.settings\": {\n        \"id\": \"BANK_TRANSFER\",\n        \"alias_id\": \"Bank Transfer\",\n        \"alias_en\": \"Bank Transfer\",\n        \"desc_id\": \"\",\n        \"desc_en\": \"\",\n        \"settlement_desc_id\": \"Perkiraan penyelesaian H+\",\n        \"settlement_desc_en\": \"Estimated settlement H+\",\n        \"is_enabled\": true,\n        \"is_toggleable\": true\n      },\n      \"is.enabled\": true\n    },\n    \"payment_info\": null\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/api/merchant/invoice/NETZ-INV-M_1xuSTnmy-20220221-018/payment_method",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "api",
+            "merchant",
+            "invoice",
+            "NETZ-INV-M_1xuSTnmy-20220221-018",
+            "payment_method"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Method Invoice QRIS QRIS",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+          },
+          {
+            "key": "mac",
+            "value": ""
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"requestId\": \"6a437b2939dd1\",\n  \"type\": \"update_payment_method_invoice\",\n  \"body\": {\n    \"invoice_id\": \"NETZ-INV-M_HMHKC6KI18658979611385489VHb\",\n    \"buyer_id\": \"6a437975f1af5\",\n    \"payment_method_id\": \"QRIS\",\n    \"payment_method\": {\n      \"amount.minimum\": 1000,\n      \"amount.maximum\": 10000000,\n      \"methods\": [\"QRIS\"],\n      \"method.id\": \"QRIS\",\n      \"method.name\": \"QRIS\",\n      \"fee.fix.amount\": 0,\n      \"fee.percentage\": 0,\n      \"desc\": \"Pembayaran dapat dilakukan dengan scan QR Code.\",\n      \"img_url\": \"https://res.cloudinary.com/netzme-id/image/upload/static/invoice/ic_web_qris.png\",\n      \"settlement.plus.days\": 2,\n      \"mdr.fix.amount\": 0,\n      \"mdr.percentage\": 0.7,\n      \"vat.percentage\": 0,\n      \"admin.fee\": 353,\n      \"payment.settings\": {\n        \"id\": \"QRIS\",\n        \"alias_id\": \"QRIS\",\n        \"alias_en\": \"QRIS\",\n        \"desc_id\": \"Pembayaran dapat dilakukan dengan scan QR Code.\",\n        \"desc_en\": \"Payment can be made by scanning a QR Code\",\n        \"settlement_desc_id\": \"Perkiraan penyelesaian H+\",\n        \"settlement_desc_en\": \"Estimated settlement H+\",\n        \"is_enabled\": true,\n        \"is_toggleable\": true\n      },\n      \"is.enabled\": true\n    },\n    \"payment_info\": null\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/api/merchant/invoice/NETZ-INV-M_HMHKC6KI18658979611385489VHb/payment_method",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "api",
+            "merchant",
+            "invoice",
+            "NETZ-INV-M_HMHKC6KI18658979611385489VHb",
+            "payment_method"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Invoice Toko Netzme",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"requestId\": \"a0d98795-1939-4545-b48f-e0bc6e834b10\",\n    \"type\": \"create_invoice\",\n    \"body\": {\n        \"userId\": \"M_ChPWNs81\",\n        \"invoiceType\": \"single\",\n        \"amount\": \"IDR 75000.00\",\n        \"totalAmount\": \"IDR 75000.00\",\n        \"shippingAmount\": \"IDR 0.00\",\n        \"feeChargedTo\": \"on_buyer\",\n        \"message\": \"Elixir string 010\"\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/api/merchant/invoice",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "api",
+            "merchant",
+            "invoice"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "basic_auth_1axu",
+      "secret": true
+    },
+    {
+      "key": "auth_password_1did",
+      "secret": true
+    }
+  ]
+}

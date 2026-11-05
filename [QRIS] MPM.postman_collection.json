@@ -1,0 +1,1916 @@
+{
+  "info": {
+    "_postman_id": "39180c01-54f3-4a1d-a192-b65862a3c538",
+    "name": "[QRIS] MPM",
+    "description": "QRIS Merchant Presented Mode (MPM) API collection. Covers the full MPM payment lifecycle including invoice creation, payment processing, refunds, and settlement. Use with the appropriate environment (Local/DEV/STG/PROD).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "32294413"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Get Access Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "const json = pm.response.json();",
+                  "pm.environment.set(\"accessToken\", json.access_token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                },
+                {
+                  "key": "client_id",
+                  "value": "{{clientId}}"
+                },
+                {
+                  "key": "client_secret",
+                  "value": "{{clientSecret}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{authUrl}}/oauth/token",
+              "host": [
+                "{{authUrl}}"
+              ],
+              "path": [
+                "oauth",
+                "token"
+              ]
+            },
+            "description": "Obtain OAuth2 access token. Token is used as Bearer auth for all subsequent requests."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Invoice",
+      "item": [
+        {
+          "name": "Web",
+          "item": [
+            {
+              "name": "Create Invoice Web",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "custom OK3fN72X/EuArbFPybFQSWAnsymntYO+JHlH5eSIXvo="
+                  },
+                  {
+                    "key": "User-Agent",
+                    "value": "asensistg;M_VQaPbYYp"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"request\": {\n        \"merchant\": \"M_VQaPbYYp\",\n        \"amount\": 70000,\n        \"email\": \"budi@netzme.id\",\n        \"notes\": \"desc\",\n        \"description\": \"description ini\",\n        \"phone_number\": \"+6289614810873\",\n        \"image_url\": \"https:\\/\\/olsera-promotion-material.s3.ap-southeast-1.amazonaws.com\\/olsera-brand-guideline\\/logo_alt_2__blue_.png\",\n        \"fullname\": \"Tester Budi\",\n        \"amount_detail\": {\n            \"basicAmount\": 70000,\n            \"shippingAmount\": 0\n        },\n        \"payment_method\": \"QRIS\",\n        \"commission_percentage\": 0,\n        \"expire_in_second\": 3600,\n        \"fee_type\": \"on_seller\",\n        \"type\":\"single\",\n        \"partner_transaction_id\": \"aggregator-budi77884455\",\n        \"isSplitFee\": true,\n        \"splitFees\": [\n            {\n                \"merchantId\": \"M_VQaPbYYp\",\n                \"merchantType\": \"main\",\n                \"amount\": 50000\n            },\n            {\n                \"merchantId\": \"M_pAbMkHTf\",\n                \"merchantType\": \"splitFee\",\n                \"amount\": 20000\n            }\n        ]\n    }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://pay-stg.netzme.com/api/v1/invoice/createTransaction",
+                  "protocol": "https",
+                  "host": [
+                    "pay-stg",
+                    "netzme",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "invoice",
+                    "createTransaction"
+                  ]
+                },
+                "description": "Generated from cURL: curl --location 'https://pay-stg.netzme.com/api/v1/invoice/createTransaction' \\\n--header 'Authorization: custom OK3fN72X/EuArbFPybFQSWAnsymntYO+JHlH5eSIXvo=' \\\n--header 'User-Agent: asensistg;M_VQaPbYYp' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n    \"request\": {\n        \"merchant\": \"M_VQaPbYYp\",\n        \"amount\": 70000,\n        \"email\": \"budi@netzme.id\",\n        \"notes\": \"desc\",\n        \"description\": \"description ini\",\n        \"phone_number\": \"+6289614810873\",\n        \"image_url\": \"https:\\/\\/olsera-promotion-material.s3.ap-southeast-1.amazonaws.com\\/olsera-brand-guideline\\/logo_alt_2__blue_.png\",\n        \"fullname\": \"Tester Budi\",\n        \"amount_detail\": {\n            \"basicAmount\": 70000,\n            \"shippingAmount\": 0\n        },\n        \"payment_method\": \"QRIS\",\n        \"commission_percentage\": 0,\n        \"expire_in_second\": 3600,\n        \"fee_type\": \"on_seller\",\n        \"type\":\"single\",\n        \"partner_transaction_id\": \"aggregator-budi77884455\",\n        \"isSplitFee\": true,\n        \"splitFees\": [\n            {\n                \"merchantId\": \"M_VQaPbYYp\",\n                \"merchantType\": \"main\",\n                \"amount\": 50000\n            },\n            {\n                \"merchantId\": \"M_pAbMkHTf\",\n                \"merchantType\": \"splitFee\",\n                \"amount\": 20000\n            }\n        ]\n    }\n}'"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "STG",
+          "item": [
+            {
+              "name": "Create Invoice Split Fee Invoice",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"requestId\": \"$guid\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\": \"M_VQaPbYYp\",\n        \"feeType\": \"on_seller\",\n        \"amount\": {\n            \"basicAmount\": 50111,\n            \"shippingAmount\": 0,\n            \"total_amount\": 50111\n        },\n        \"emailBuyer\": \"budi@netzme.id\",\n        \"descFromBuyer\": \"desc\",\n        \"descFromMerchant\": \"description ini baru\",\n        \"phoneNoBuyer\": \"+6289614810873\",\n        \"urlPhoto\": \"https:\\/\\/olsera-promotion-material.s3.ap-southeast-1.amazonaws.com\\/olsera-brand-guideline\\/logo_alt_2__blue_.png\",\n        \"fullNameBuyer\": \"Tester Budi\",\n        \"trxSource\": \"asensistg\",\n        \"apiSourceType\": null,\n        \"partnerTransactionId\": \"aggregator-budi77884455\",\n        \"paymentMethod\": \"QRIS\",\n        \"redirectUrl\": null,\n        \"commissionPercentage\": 0,\n        \"expireInSecond\": 3600,\n        \"additional\": {\n            \"terminalId\": \"A01\"\n        },\n        \"isSplitFee\": true,\n        \"splitFees\": [\n            {\n                \"merchantId\": \"M_VQaPbYYp\",\n                \"merchantType\": \"main\",\n                \"amount\": 30111\n            },\n            {\n                \"merchantId\": \"M_pAbMkHTf\",\n                \"merchantType\": \"splitFee\",\n                \"amount\": 20000\n            }\n        ],\n        \"invoiceType\": \"single\"\n    }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/merchant/invoice/aggregator",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "merchant",
+                    "invoice",
+                    "aggregator"
+                  ]
+                },
+                "description": "Generated from cURL: curl --location 'https://tokoapi-dev.netzme.com/api/merchant/invoice/aggregator' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data-raw '{\n    \"requestId\": \"06dbf4c3-50bb-4d6c-a6db-636183632c89\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ChPWNs81\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\",\n        \"invoiceType\":\"multiple\"\n    }\n}'"
+              },
+              "response": [
+                {
+                  "name": "Sample",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Authorization",
+                        "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"requestId\": \"6ab5e3afb4e49\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\": \"M_VQaPbYYp\",\n        \"feeType\": \"on_seller\",\n        \"amount\": {\n            \"basicAmount\": 70000,\n            \"shippingAmount\": 0,\n            \"total_amount\": 70000\n        },\n        \"emailBuyer\": \"budi@netzme.id\",\n        \"descFromBuyer\": \"desc\",\n        \"descFromMerchant\": \"description ini baru\",\n        \"phoneNoBuyer\": \"+6289614810873\",\n        \"urlPhoto\": \"https:\\/\\/olsera-promotion-material.s3.ap-southeast-1.amazonaws.com\\/olsera-brand-guideline\\/logo_alt_2__blue_.png\",\n        \"fullNameBuyer\": \"Tester Budi\",\n        \"trxSource\": \"asensistg\",\n        \"apiSourceType\": null,\n        \"partnerTransactionId\": \"aggregator-budi77884455\",\n        \"paymentMethod\": \"QRIS\",\n        \"redirectUrl\": null,\n        \"commissionPercentage\": 0,\n        \"expireInSecond\": 3600,\n        \"additional\": {\n            \"terminalId\": \"A01\"\n        },\n        \"isSplitFee\": true,\n        \"splitFees\": [\n            {\n                \"merchantId\": \"M_VQaPbYYp\",\n                \"merchantType\": \"main\",\n                \"amount\": 50000\n            },\n            {\n                \"merchantId\": \"M_pAbMkHTf\",\n                \"merchantType\": \"splitFee\",\n                \"amount\": 20000\n            }\n        ],\n        \"invoiceType\": \"single\"\n    }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{url}}/api/merchant/invoice/aggregator",
+                      "host": [
+                        "{{url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "merchant",
+                        "invoice",
+                        "aggregator"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "content-length",
+                      "value": "6545"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"status\": 101,\n  \"statusMessage\": \"waiting\",\n  \"body\": {\n    \"invoiceTrxId\": \"c414d0556b3a47d683b1d28a7e7b9bdd\",\n    \"invoiceId\": \"NETZ-INV-M_VQaPbYYp17903074162903hM\",\n    \"merchantId\": \"M_VQaPbYYp\",\n    \"amount\": \"IDR 70000.00\",\n    \"feeAmount\": \"IDR 15.00\",\n    \"totalAmount\": \"IDR 70000.00\",\n    \"amountLong\": 70000,\n    \"feeAmountLong\": 15,\n    \"totalAmountLong\": 70000,\n    \"descFromMerchant\": \"description ini baru\",\n    \"descFromBuyer\": \"desc\",\n    \"fullName\": \"Tester Budi\",\n    \"email\": \"budi@netzme.id\",\n    \"phoneNo\": \"+6289614810873\",\n    \"createdTs\": \"2026-09-25T10:38:43.097+07:00\",\n    \"expiredTs\": \"2026-09-25T11:36:56.290+07:00\",\n    \"paymentMethod\": \"QRIS\",\n    \"paymentUrl\": \"https://pay-dev.netzme.id/akunpinjaman17/NETZ-INV-M_VQaPbYYp17903074162903hM/qris/c414d0556b3a47d683b1d28a7e7b9bdd\",\n    \"statusCode\": 101,\n    \"statusMessage\": \"waiting\",\n    \"feeType\": \"on_seller\",\n    \"virtualAccountData\": [],\n    \"retailOutletData\": [],\n    \"additional\": {\n      \"terminalId\": \"A01\"\n    },\n    \"qris\": {\n      \"qr\": \"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\",\n      \"qrContent\": \"00020101021226650013ID.NETZME.WWW01189360081401001098170215ID99240034911170303UKE51440014ID.CO.QRIS.WWW0215ID99240034911170303UKE5204799653033605405700005802ID5916akun pinjaman 176013JAKARTA PUSAT61051045062690703A010812qris_invoice99420002000132c414d0556b3a47d683b1d28a7e7b9bdd63041870\",\n      \"nmid\": \"ID9924003491117\",\n      \"merchantLocation\": \"JAKARTA PUSAT\"\n    },\n    \"isSplitFee\": true,\n    \"splitFees\": [\n      {\n        \"merchantId\": \"M_VQaPbYYp\",\n        \"merchantType\": \"main\",\n        \"originalAmount\": 50000,\n        \"feeAmount\": 15,\n        \"amount\": 49985\n      },\n      {\n        \"merchantId\": \"M_pAbMkHTf\",\n        \"merchantType\": \"splitFee\",\n        \"originalAmount\": 20000,\n        \"feeAmount\": 0,\n        \"amount\": 20000\n      }\n    ]\n  }\n}"
+                }
+              ]
+            },
+            {
+              "name": "Create Invoice Split Fee Invoice Copy",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"requestId\": \"6ab5e3afb4e58\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\": \"M_CvoxmdUN\",\n        \"feeType\": \"on_seller\",\n        \"amount\": {\n            \"basicAmount\": 270000,\n            \"shippingAmount\": 0,\n            \"total_amount\": 270000\n        },\n        \"email\": \"donaputra79@viacentrum.net\",\n        \"descFromBuyer\": \"desc\",\n        \"descFromMerchant\": \"description ini baru\",\n        \"phone_number\": \"+6289614810873\",\n        \"urlPhoto\": \"https:\\/\\/olsera-promotion-material.s3.ap-southeast-1.amazonaws.com\\/olsera-brand-guideline\\/logo_alt_2__blue_.png\",\n        \"fullNameBuyer\": \"Tester Budi\",\n        \"trxSource\": \"asensistg\",\n        \"apiSourceType\": null,\n        \"partnerTransactionId\": \"aggregator-budi77884455\",\n        \"paymentMethod\": \"QRIS\",\n        \"redirectUrl\": null,\n        \"commissionPercentage\": 0,\n        \"expireInSecond\": 3600,\n        \"additional\": {\n            \"terminalId\": \"A01\"\n        },\n        \"isSplitFee\": true,\n        \"splitFees\": [\n            {\n                \"merchantId\": \"M_VQaPbYYp\",\n                \"merchantType\": \"main\",\n                \"amount\": 150000\n            },\n            {\n                \"merchantId\": \"M_pAbMkHTf\",\n                \"merchantType\": \"splitFee\",\n                \"amount\": 120000\n            }\n        ],\n        \"invoiceType\": \"single\"\n    }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/merchant/invoice/aggregator",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "merchant",
+                    "invoice",
+                    "aggregator"
+                  ]
+                },
+                "description": "Generated from cURL: curl --location 'https://tokoapi-dev.netzme.com/api/merchant/invoice/aggregator' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data-raw '{\n    \"requestId\": \"06dbf4c3-50bb-4d6c-a6db-636183632c89\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ChPWNs81\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\",\n        \"invoiceType\":\"multiple\"\n    }\n}'"
+              },
+              "response": [
+                {
+                  "name": "Sample",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Authorization",
+                        "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"requestId\": \"6ab5e3afb4e49\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\": \"M_VQaPbYYp\",\n        \"feeType\": \"on_seller\",\n        \"amount\": {\n            \"basicAmount\": 70000,\n            \"shippingAmount\": 0,\n            \"total_amount\": 70000\n        },\n        \"emailBuyer\": \"budi@netzme.id\",\n        \"descFromBuyer\": \"desc\",\n        \"descFromMerchant\": \"description ini baru\",\n        \"phoneNoBuyer\": \"+6289614810873\",\n        \"urlPhoto\": \"https:\\/\\/olsera-promotion-material.s3.ap-southeast-1.amazonaws.com\\/olsera-brand-guideline\\/logo_alt_2__blue_.png\",\n        \"fullNameBuyer\": \"Tester Budi\",\n        \"trxSource\": \"asensistg\",\n        \"apiSourceType\": null,\n        \"partnerTransactionId\": \"aggregator-budi77884455\",\n        \"paymentMethod\": \"QRIS\",\n        \"redirectUrl\": null,\n        \"commissionPercentage\": 0,\n        \"expireInSecond\": 3600,\n        \"additional\": {\n            \"terminalId\": \"A01\"\n        },\n        \"isSplitFee\": true,\n        \"splitFees\": [\n            {\n                \"merchantId\": \"M_VQaPbYYp\",\n                \"merchantType\": \"main\",\n                \"amount\": 50000\n            },\n            {\n                \"merchantId\": \"M_pAbMkHTf\",\n                \"merchantType\": \"splitFee\",\n                \"amount\": 20000\n            }\n        ],\n        \"invoiceType\": \"single\"\n    }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{url}}/api/merchant/invoice/aggregator",
+                      "host": [
+                        "{{url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "merchant",
+                        "invoice",
+                        "aggregator"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "content-length",
+                      "value": "6545"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"status\": 101,\n  \"statusMessage\": \"waiting\",\n  \"body\": {\n    \"invoiceTrxId\": \"c414d0556b3a47d683b1d28a7e7b9bdd\",\n    \"invoiceId\": \"NETZ-INV-M_VQaPbYYp17903074162903hM\",\n    \"merchantId\": \"M_VQaPbYYp\",\n    \"amount\": \"IDR 70000.00\",\n    \"feeAmount\": \"IDR 15.00\",\n    \"totalAmount\": \"IDR 70000.00\",\n    \"amountLong\": 70000,\n    \"feeAmountLong\": 15,\n    \"totalAmountLong\": 70000,\n    \"descFromMerchant\": \"description ini baru\",\n    \"descFromBuyer\": \"desc\",\n    \"fullName\": \"Tester Budi\",\n    \"email\": \"budi@netzme.id\",\n    \"phoneNo\": \"+6289614810873\",\n    \"createdTs\": \"2026-09-25T10:38:43.097+07:00\",\n    \"expiredTs\": \"2026-09-25T11:36:56.290+07:00\",\n    \"paymentMethod\": \"QRIS\",\n    \"paymentUrl\": \"https://pay-dev.netzme.id/akunpinjaman17/NETZ-INV-M_VQaPbYYp17903074162903hM/qris/c414d0556b3a47d683b1d28a7e7b9bdd\",\n    \"statusCode\": 101,\n    \"statusMessage\": \"waiting\",\n    \"feeType\": \"on_seller\",\n    \"virtualAccountData\": [],\n    \"retailOutletData\": [],\n    \"additional\": {\n      \"terminalId\": \"A01\"\n    },\n    \"qris\": {\n      \"qr\": \"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\",\n      \"qrContent\": \"00020101021226650013ID.NETZME.WWW01189360081401001098170215ID99240034911170303UKE51440014ID.CO.QRIS.WWW0215ID99240034911170303UKE5204799653033605405700005802ID5916akun pinjaman 176013JAKARTA PUSAT61051045062690703A010812qris_invoice99420002000132c414d0556b3a47d683b1d28a7e7b9bdd63041870\",\n      \"nmid\": \"ID9924003491117\",\n      \"merchantLocation\": \"JAKARTA PUSAT\"\n    },\n    \"isSplitFee\": true,\n    \"splitFees\": [\n      {\n        \"merchantId\": \"M_VQaPbYYp\",\n        \"merchantType\": \"main\",\n        \"originalAmount\": 50000,\n        \"feeAmount\": 15,\n        \"amount\": 49985\n      },\n      {\n        \"merchantId\": \"M_pAbMkHTf\",\n        \"merchantType\": \"splitFee\",\n        \"originalAmount\": 20000,\n        \"feeAmount\": 0,\n        \"amount\": 20000\n      }\n    ]\n  }\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Create Invoice",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"requestId\": \"{{$guid}}\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_B8RjeABb\",\n        \"fullNameBuyer\": \"yana agg\",\n        \"emailBuyer\": \"yana@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 5000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\",\n        \"invoiceType\":\"multiple\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/api/merchant/invoice/aggregator",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "merchant",
+                "invoice",
+                "aggregator"
+              ]
+            },
+            "description": "Generated from cURL: curl --location 'https://tokoapi-dev.netzme.com/api/merchant/invoice/aggregator' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data-raw '{\n    \"requestId\": \"06dbf4c3-50bb-4d6c-a6db-636183632c89\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ChPWNs81\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\",\n        \"invoiceType\":\"multiple\"\n    }\n}'"
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"requestId\": \"{{$guid}}\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_B8RjeABb\",\n        \"fullNameBuyer\": \"yana agg\",\n        \"emailBuyer\": \"yana@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 6000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\",\n        \"invoiceType\":\"multiple\"\n    }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/merchant/invoice/aggregator",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "merchant",
+                    "invoice",
+                    "aggregator"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "5970"
+                },
+                {
+                  "key": "date",
+                  "value": "Tue, 21 Jul 2026 12:09:53 GMT"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": 103,\n    \"statusMessage\": \"active\",\n    \"body\": {\n        \"invoiceTrxId\": \"a5e5a29af5984c75b69e3c1f54899c58\",\n        \"invoiceId\": \"NETZ-INV-M_B8RjeABb1784635793287BDB\",\n        \"merchantId\": \"M_B8RjeABb\",\n        \"amount\": \"IDR 6000.00\",\n        \"feeAmount\": \"IDR 42.00\",\n        \"totalAmount\": \"IDR 6000.00\",\n        \"amountLong\": 6000,\n        \"feeAmountLong\": 42,\n        \"totalAmountLong\": 6000,\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"fullName\": \"yana agg\",\n        \"email\": \"yana@netzme.id\",\n        \"phoneNo\": \"+6285692505540\",\n        \"createdTs\": \"2026-07-21T19:09:53.359+07:00\",\n        \"expiredTs\": \"2026-07-21T19:15:53.306+07:00\",\n        \"paymentMethod\": \"QRIS\",\n        \"paymentUrl\": \"https://pay-dev.netzme.id/TokoYanaPower/NETZ-INV-M_B8RjeABb1784635793287BDB/qris/a5e5a29af5984c75b69e3c1f54899c58\",\n        \"statusCode\": 103,\n        \"statusMessage\": \"active\",\n        \"feeType\": \"on_seller\",\n        \"virtualAccountData\": [],\n        \"retailOutletData\": [],\n        \"qris\": {\n            \"qr\": \"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\",\n            \"qrContent\": \"00020101021226580013ID.NETZME.WWW01189360081404114854890208B8RjeABb0303UMI51440014ID.CO.QRIS.WWW0215ID20240000506150303UMI520459935303360540460005802ID5915Toko Yana Power6012KOTA BANDUNG61054026462690703A010812qris_invoice99420002000132a5e5a29af5984c75b69e3c1f54899c586304351D\",\n            \"nmid\": \"ID2024000050615\",\n            \"merchantLocation\": \"KOTA BANDUNG\"\n        },\n        \"isSplitFee\": false\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Invoice BE Java",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"requestId\": \"644c7119-5766-4687-ba45-fca59f781f93\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ut7CD7O9\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 4000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"BANK_TRANSFER\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://tokoapi-dev.netzme.com/api/merchant/invoice/aggregator",
+              "protocol": "https",
+              "host": [
+                "tokoapi-dev",
+                "netzme",
+                "com"
+              ],
+              "path": [
+                "api",
+                "merchant",
+                "invoice",
+                "aggregator"
+              ]
+            },
+            "description": "Generated from cURL: curl --location 'https://tokoapi-dev.netzme.com/api/merchant/invoice/aggregator' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data-raw '{\n    \"requestId\": \"644c7119-5766-4687-ba45-fca59f781f93\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ut7CD7O9\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"BANK_TRANSFER\"\n    }\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Invoice API",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{basic_auth_0kji}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"requestId\": \"05b46ba8-2976-472a-b020-4bad135ba3ea\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_Txlj1kXG\",\n        \"fullNameBuyer\": \"Yana agg\",\n        \"emailBuyer\": \"yana@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/merchant/invoice/aggregator",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "merchant",
+                "invoice",
+                "aggregator"
+              ]
+            },
+            "description": "Generated from cURL: curl --location 'localhost:8082/api/merchant/invoice/aggregator' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data-raw '{\n    \"requestId\": \"05b46ba8-2976-472a-b020-4bad135ba3ea\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ut7CD7O9\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\"\n    }\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Invoice Split Fee",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"requestId\": \"{{$guid}}\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_eLZt3pin\",\n        \"fullNameBuyer\": \"yana agg\",\n        \"emailBuyer\": \"yana@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 3000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\",\n        \"invoiceType\":\"multiple\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/api/merchant/invoice/aggregator",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "merchant",
+                "invoice",
+                "aggregator"
+              ]
+            },
+            "description": "Generated from cURL: curl --location 'https://tokoapi-dev.netzme.com/api/merchant/invoice/aggregator' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data-raw '{\n    \"requestId\": \"06dbf4c3-50bb-4d6c-a6db-636183632c89\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ChPWNs81\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\",\n        \"invoiceType\":\"multiple\"\n    }\n}'"
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"requestId\": \"{{$guid}}\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_B8RjeABb\",\n        \"fullNameBuyer\": \"yana agg\",\n        \"emailBuyer\": \"yana@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 6000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\",\n        \"invoiceType\":\"multiple\"\n    }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/merchant/invoice/aggregator",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "merchant",
+                    "invoice",
+                    "aggregator"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "5970"
+                },
+                {
+                  "key": "date",
+                  "value": "Tue, 21 Jul 2026 12:09:53 GMT"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": 103,\n    \"statusMessage\": \"active\",\n    \"body\": {\n        \"invoiceTrxId\": \"a5e5a29af5984c75b69e3c1f54899c58\",\n        \"invoiceId\": \"NETZ-INV-M_B8RjeABb1784635793287BDB\",\n        \"merchantId\": \"M_B8RjeABb\",\n        \"amount\": \"IDR 6000.00\",\n        \"feeAmount\": \"IDR 42.00\",\n        \"totalAmount\": \"IDR 6000.00\",\n        \"amountLong\": 6000,\n        \"feeAmountLong\": 42,\n        \"totalAmountLong\": 6000,\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"fullName\": \"yana agg\",\n        \"email\": \"yana@netzme.id\",\n        \"phoneNo\": \"+6285692505540\",\n        \"createdTs\": \"2026-07-21T19:09:53.359+07:00\",\n        \"expiredTs\": \"2026-07-21T19:15:53.306+07:00\",\n        \"paymentMethod\": \"QRIS\",\n        \"paymentUrl\": \"https://pay-dev.netzme.id/TokoYanaPower/NETZ-INV-M_B8RjeABb1784635793287BDB/qris/a5e5a29af5984c75b69e3c1f54899c58\",\n        \"statusCode\": 103,\n        \"statusMessage\": \"active\",\n        \"feeType\": \"on_seller\",\n        \"virtualAccountData\": [],\n        \"retailOutletData\": [],\n        \"qris\": {\n            \"qr\": \"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\",\n            \"qrContent\": \"00020101021226580013ID.NETZME.WWW01189360081404114854890208B8RjeABb0303UMI51440014ID.CO.QRIS.WWW0215ID20240000506150303UMI520459935303360540460005802ID5915Toko Yana Power6012KOTA BANDUNG61054026462690703A010812qris_invoice99420002000132a5e5a29af5984c75b69e3c1f54899c586304351D\",\n            \"nmid\": \"ID2024000050615\",\n            \"merchantLocation\": \"KOTA BANDUNG\"\n        },\n        \"isSplitFee\": false\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "Process Payment ALTO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invoiceId\": \"{{invoiceId}}\",\n  \"merchantId\": \"{{merchantId}}\",\n  \"amount\": 10000,\n  \"currency\": \"IDR\",\n  \"transactionTs\": \"{{transactionTs}}\",\n  \"acquirerId\": \"ALTO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/qris/mpm/payment/alto",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "qris",
+                "mpm",
+                "payment",
+                "alto"
+              ]
+            },
+            "description": "Process a QRIS MPM payment via ALTO network."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Refund",
+      "item": [
+        {
+          "name": "Process Refund",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "const json = pm.response.json();",
+                  "pm.environment.set(\"refundId\", json.data.refundId);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transactionId\": \"{{transactionId}}\",\n  \"amount\": 10000,\n  \"reason\": \"Customer request\",\n  \"referenceNo\": \"{{$randomUUID}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/qris/mpm/refund",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "qris",
+                "mpm",
+                "refund"
+              ]
+            },
+            "description": "Initiate a full or partial refund for a completed payment."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Refund Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/qris/mpm/refund/{{refundId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "qris",
+                "mpm",
+                "refund",
+                "{{refundId}}"
+              ]
+            },
+            "description": "Check the status of a refund request."
+          },
+          "response": []
+        },
+        {
+          "name": "Send Reimburse",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/merchant/qr/mpm/reimburse",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "merchant",
+                "qr",
+                "mpm",
+                "reimburse"
+              ]
+            },
+            "description": "Send reimburse/refund for MPM transaction"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Settlement",
+      "item": [
+        {
+          "name": "Get Settlement Summary",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/qris/mpm/settlement?date={{date}}&merchantId={{merchantId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "qris",
+                "mpm",
+                "settlement"
+              ],
+              "query": [
+                {
+                  "key": "date",
+                  "value": "{{date}}"
+                },
+                {
+                  "key": "merchantId",
+                  "value": "{{merchantId}}"
+                }
+              ]
+            },
+            "description": "Retrieve settlement summary for a specific date."
+          },
+          "response": []
+        },
+        {
+          "name": "Trigger Settlement",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantId\": \"{{merchantId}}\",\n  \"date\": \"{{date}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/qris/mpm/settlement",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "qris",
+                "mpm",
+                "settlement"
+              ]
+            },
+            "description": "Manually trigger settlement for a merchant on a given date."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Settlement MPM",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{settlementUrl}}/api/settlement/mpm",
+              "host": [
+                "{{settlementUrl}}"
+              ],
+              "path": [
+                "api",
+                "settlement",
+                "mpm"
+              ]
+            },
+            "description": "Get MPM settlement data"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Utilities",
+      "item": [
+        {
+          "name": "Check Transaction Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/qris/mpm/transaction/{{transactionId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "qris",
+                "mpm",
+                "transaction",
+                "{{transactionId}}"
+              ]
+            },
+            "description": "Generic transaction status check by transactionId."
+          },
+          "response": []
+        },
+        {
+          "name": "Generate Token QRIS",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "token"
+              ]
+            },
+            "description": "Generate authentication token for QRIS"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Utilities",
+      "item": []
+    },
+    {
+      "name": "Acquire",
+      "item": [
+        {
+          "name": "STG",
+          "item": [
+            {
+              "name": "Payment Invoice Splitfee",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "let jamSekarang = new Date().toLocaleTimeString();\nlet durasi = pm.response.responseTime;\n\nconsole.log(\"--- LOG MANUAL ---\");\nconsole.log(\"Jam Diterima: \" + jamSekarang);\nconsole.log(\"Durasi Respons: \" + durasi + \" ms\");"
+                    ]
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.environment.set(\"repeat\",10);\r\nconst secret_key = \"SoaJaLinBank123\";\r\n\r\nconst hmac = CryptoJS.HmacSHA256(pm.request.body.toString(), secret_key);\r\nconst hmac_str = hmac.toString(CryptoJS.enc.Hex);\r\nconst mac = hmac_str.toUpperCase();\r\npm.globals.set(\"mac\", mac);"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "kare",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_1did}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "mac",
+                    "value": "{{mac}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"pan\": \"936008140100109817\",\r\n    \"processingCode\": \"260000\",\r\n    \"transactionAmount\": \"50111\",\r\n    \"transmissionDateTime\": \"20261009080126\",\r\n    \"systemTraceAuditNumber\": \"123456\",\r\n    \"localTransactionDateTime\": \"20261009080126\",\r\n    \"settlementDate\": \"20261009\",\r\n    \"captureDate\": \"20261009\",\r\n    \"merchantType\": \"7996\",\r\n    \"posEntryMode\": \"011\",\r\n    \"feeType\": \"C\",\r\n    \"feeAmount\": \"0\",\r\n    \"acquirerId\": \"93600814\",\r\n    \"issuerId\": \"93600911\",\r\n    \"forwardingId\": \"008\",\r\n    \"rrn\": \"76H3J93FWT0N\",\r\n    \"approvalCode\": \"121212\",\r\n    \"terminalId\": \"A01\",\r\n    \"merchantId\": \"ID9924003491117\",\r\n    \"merchantName\": \"akun pinjaman 17\",\r\n    \"merchantCity\": \"JAKARTA PUSAT\",\r\n    \"merchantCountry\": \"62\",\r\n    \"productIndicator\": \"Q001\",\r\n    \"customerData\": \"NETZ-INV-M_VQaPbYYp1791534448069Xwo\",\r\n    \"merchantCriteria\": \"UKE\",\r\n    \"currencyCode\": \"360\",\r\n    \"postalCode\": \"10450\",\r\n    \"additionalField\": \"0703A010812qris_invoice99420002000132d12692464aff4372b40e3e3faf7852e4\",\r\n    \"customerPan\": \"9360091154444293753\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/qr/payment",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "qr",
+                    "payment"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invoice Splitfee Copy",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "let jamSekarang = new Date().toLocaleTimeString();\nlet durasi = pm.response.responseTime;\n\nconsole.log(\"--- LOG MANUAL ---\");\nconsole.log(\"Jam Diterima: \" + jamSekarang);\nconsole.log(\"Durasi Respons: \" + durasi + \" ms\");"
+                    ]
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.environment.set(\"repeat\",10);\r\nconst secret_key = \"SoaJaLinBank123\";\r\n\r\nconst hmac = CryptoJS.HmacSHA256(pm.request.body.toString(), secret_key);\r\nconst hmac_str = hmac.toString(CryptoJS.enc.Hex);\r\nconst mac = hmac_str.toUpperCase();\r\npm.globals.set(\"mac\", mac);"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "kare",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_1did}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "mac",
+                    "value": "{{mac}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"pan\": \"936008140100109817\",\r\n    \"processingCode\": \"260000\",\r\n    \"transactionAmount\": \"70000\",\r\n    \"transmissionDateTime\": \"20260925161226\",\r\n    \"systemTraceAuditNumber\": \"123456\",\r\n    \"localTransactionDateTime\": \"20260925161226\",\r\n    \"settlementDate\": \"20260925\",\r\n    \"captureDate\": \"20260925\",\r\n    \"merchantType\": \"7996\",\r\n    \"posEntryMode\": \"011\",\r\n    \"feeType\": \"C\",\r\n    \"feeAmount\": \"0\",\r\n    \"acquirerId\": \"93600814\",\r\n    \"issuerId\": \"93600911\",\r\n    \"forwardingId\": \"008\",\r\n    \"rrn\": \"76H3J42FWT0N\",\r\n    \"approvalCode\": \"121212\",\r\n    \"terminalId\": \"A01\",\r\n    \"merchantId\": \"ID9924003491117\",\r\n    \"merchantName\": \"akun pinjaman 17\",\r\n    \"merchantCity\": \"JAKARTA PUSAT\",\r\n    \"merchantCountry\": \"62\",\r\n    \"productIndicator\": \"Q001\",\r\n    \"customerData\": \"NETZ-INV-M_VQaPbYYp1790320181578w6u\",\r\n    \"merchantCriteria\": \"UKE\",\r\n    \"currencyCode\": \"360\",\r\n    \"postalCode\": \"10450\",\r\n    \"additionalField\": \"0703A010812qris_invoice99420002000132e5f1708e1d3e4787ac4b6aa721ccbc68\",\r\n    \"customerPan\": \"9360091154444293753\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/qr/payment",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "qr",
+                    "payment"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Alto",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const secret_key = pm.environment.get(\"secret_mac\");",
+                  "",
+                  "const hmac = CryptoJS.HmacSHA256(pm.request.body.toString(), secret_key);",
+                  "const hmac_str = hmac.toString(CryptoJS.enc.Hex);",
+                  "const mac = hmac_str.toUpperCase();",
+                  "pm.globals.set(\"mac\", mac);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+              },
+              {
+                "key": "mac",
+                "value": "{{mac}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"msgId\": \"5744e66c-5c34-4962-8bac-1381f253950d\",\r\n    \"pan\": \"936008140100108031\",\r\n    \"processingCode\": \"261000\",\r\n    \"transactionAmount\": 20141,\r\n    \"transmissionDateTime\": \"0305132324\",\r\n    \"systemTraceAuditNumber\": \"033595\",\r\n    \"localTransactionDateTime\": \"20260305132324\",\r\n    \"settlementDate\": \"0305\",\r\n    \"captureDate\": \"0305\",\r\n    \"merchantType\": \"4816\",\r\n    \"posEntryMode\": \"011\",\r\n    \"feeType\": \"\",\r\n    \"feeAmount\": 0,\r\n    \"acquirerId\": \"93600814\",\r\n    \"issuerId\": \"91560156\",\r\n    \"forwardingId\": \"360003\",\r\n    \"rrn\": \"667451234A33\",\r\n    \"approvalCode\": \"867396\",\r\n    \"terminalId\": \"A01\",\r\n    \"merchantId\": \"hjMCg7xY\",\r\n    \"merchantName\": \"Evanny Dormant\",\r\n    \"merchantCity\": \"Dki Jakarta\",\r\n    \"merchantCountry\": \"ID\",\r\n    \"productIndicator\": \"Q001\",\r\n    \"customerData\": \"CUSTOMER ALTO       TERPADU080\",\r\n    \"merchantCriteria\": \"UKE\",\r\n    \"currencyCode\": \"156\",\r\n    \"postalCode\": \"40232\",\r\n    \"additionalField\": \"0703A010812qris_invoice99420002000132276730912145453dbf5a9370d73ee286\",\r\n    \"customerPan\": \"9156015612345678919\",\r\n    \"settlementAmount\": 0,\r\n    \"cardholderAmount\": 150.59,\r\n    \"settlementRate\": 1,\r\n    \"cardholderRate\": 1,\r\n    \"conversionDate\": \"\",\r\n    \"settlementCurrCode\": \"156\",\r\n    \"cardholderCurrCode\": \"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/api/kare-alto-mpm/qr/payment",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "kare-alto-mpm",
+                "qr",
+                "payment"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "AJ",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const secret_key = pm.environment.get(\"secret_mac\");\r\n\r\nconst hmac = CryptoJS.HmacSHA256(pm.request.body.toString(), secret_key);\r\nconst hmac_str = hmac.toString(CryptoJS.enc.Hex);\r\nconst mac = hmac_str.toUpperCase();\r\npm.globals.set(\"mac\", mac);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+              },
+              {
+                "key": "mac",
+                "value": "{{mac}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"pan\": \"{{merchantPan}}\",\n    \"rrn\": \"865965375\",\n    \"msgId\": \"ead08fad-ee3e-420e-a471-777e84f66c95\",\n    \"feeType\": \"\",\n    \"issuerId\": \"93600567\",\n    \"feeAmount\": 0,\n    \"rrnOrigin\": \"865965375\",\n    \"acquirerId\": \"93600814\",\n    \"merchantId\": \"{{merchantId}}\",\n    \"paidAmount\": 8100,\n    \"postalCode\": \"81155\",\n    \"terminalId\": \"A01\",\n    \"captureDate\": \"0502\",\n    \"customerPan\": \"9360107710000123412\",\n    \"approvalCode\": \"867396\",\n    \"currencyCode\": \"360\",\n    \"customerData\": \"CUSTOMER ALTO TERPADU\",\n    \"forwardingId\": \"360003\",\n    \"merchantCity\": \"{{merchantCity}}\",\n    \"merchantName\": \"{{merchantName}}\",\n    \"merchantType\": \"7994\",\n    \"posEntryMode\": \"011\",\n    \"cardholderRate\": 0,\n    \"conversionDate\": \"\",\n    \"processingCode\": \"261000\",\n    \"settlementDate\": \"0502\",\n    \"settlementRate\": 0,\n    \"additionalField\": \"0703A01\",\n    \"merchantCountry\": \"ID\",\n    \"cardholderAmount\": 0,\n    \"merchantCriteria\": \"UMI\",\n    \"productIndicator\": \"Q001\",\n    \"settlementAmount\": 0,\n    \"transactionAmount\": 15000,\n    \"cardholderCurrCode\": \"360\",\n    \"settlementCurrCode\": \"\",\n    \"localTransactionDate\": \"20260916\",\n    \"transmissionDateTime\": \"0502132324\",\n    \"systemTraceAuditNumber\": \"033595\",\n    \"localTransactionDateTime\": \"20260916132324\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/kare-aj/qr/payment/generic",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "kare-aj",
+                "qr",
+                "payment",
+                "generic"
+              ]
+            },
+            "description": "Generated from cURL: curl --location 'http://localhost:8084/api/kare-aj/qr/payment/generic' \\\n--header 'Content-Type: application/json' \\\n--header 'mac: D846C4D1FBF67E810E55AA84C79B8B2F6E162DE19C71A4A11078D1EEE0CB6A1D' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data '{\n    \"pan\": \"936008140411485489\",\n    \"rrn\": \"865965372\",\n    \"msgId\": \"ead08fad-ee3e-420e-a471-777e84f66c95\",\n    \"feeType\": \"\",\n    \"issuerId\": \"93600567\",\n    \"feeAmount\": 0,\n    \"rrnOrigin\": \"865965372\",\n    \"acquirerId\": \"93600814\",\n    \"merchantId\": \"id2024000050615\",\n    \"paidAmount\": 8100,\n    \"postalCode\": \"81155\",\n    \"terminalId\": \"A01\",\n    \"captureDate\": \"0502\",\n    \"customerPan\": \"9360107710000123412\",\n    \"approvalCode\": \"867396\",\n    \"currencyCode\": \"360\",\n    \"customerData\": \"CUSTOMER ALTO TERPADU\",\n    \"forwardingId\": \"360003\",\n    \"merchantCity\": \"KOTA BANDUNG\",\n    \"merchantName\": \"Toko Yana Power\",\n    \"merchantType\": \"7994\",\n    \"posEntryMode\": \"011\",\n    \"cardholderRate\": 0,\n    \"conversionDate\": \"\",\n    \"processingCode\": \"261000\",\n    \"settlementDate\": \"0502\",\n    \"settlementRate\": 0,\n    \"additionalField\": \"0703A01\",\n    \"merchantCountry\": \"ID\",\n    \"cardholderAmount\": 0,\n    \"merchantCriteria\": \"UMI\",\n    \"productIndicator\": \"Q001\",\n    \"settlementAmount\": 0,\n    \"transactionAmount\": 15000,\n    \"cardholderCurrCode\": \"360\",\n    \"settlementCurrCode\": \"\",\n    \"localTransactionDate\": \"20250505\",\n    \"transmissionDateTime\": \"0502132324\",\n    \"systemTraceAuditNumber\": \"033595\",\n    \"localTransactionDateTime\": \"20250505132324\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Jalin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let jamSekarang = new Date().toLocaleTimeString();\nlet durasi = pm.response.responseTime;\n\nconsole.log(\"--- LOG MANUAL ---\");\nconsole.log(\"Jam Diterima: \" + jamSekarang);\nconsole.log(\"Durasi Respons: \" + durasi + \" ms\");"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set(\"repeat\",10);\r\nconst secret_key = \"SoaJaLinBank123\";\r\n\r\nconst hmac = CryptoJS.HmacSHA256(pm.request.body.toString(), secret_key);\r\nconst hmac_str = hmac.toString(CryptoJS.enc.Hex);\r\nconst mac = hmac_str.toUpperCase();\r\npm.globals.set(\"mac\", mac);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "kare",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{auth_password_1did}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "mac",
+                "value": "{{mac}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"pan\": \"936008140100109817\",\r\n    \"processingCode\": \"260000\",\r\n    \"transactionAmount\": \"70000\",\r\n    \"transmissionDateTime\": \"20260925161226\",\r\n    \"systemTraceAuditNumber\": \"123456\",\r\n    \"localTransactionDateTime\": \"20260925161226\",\r\n    \"settlementDate\": \"20260925\",\r\n    \"captureDate\": \"20260925\",\r\n    \"merchantType\": \"7996\",\r\n    \"posEntryMode\": \"011\",\r\n    \"feeType\": \"C\",\r\n    \"feeAmount\": \"0\",\r\n    \"acquirerId\": \"93600814\",\r\n    \"issuerId\": \"93600911\",\r\n    \"forwardingId\": \"008\",\r\n    \"rrn\": \"76H3J42FWT0N\",\r\n    \"approvalCode\": \"121212\",\r\n    \"terminalId\": \"A01\",\r\n    \"merchantId\": \"ID9924003491117\",\r\n    \"merchantName\": \"akun pinjaman 17\",\r\n    \"merchantCity\": \"JAKARTA PUSAT\",\r\n    \"merchantCountry\": \"62\",\r\n    \"productIndicator\": \"Q001\",\r\n    \"customerData\": \"NETZ-INV-M_VQaPbYYp1790320181578w6u\",\r\n    \"merchantCriteria\": \"UKE\",\r\n    \"currencyCode\": \"360\",\r\n    \"postalCode\": \"10450\",\r\n    \"additionalField\": \"0703A010812qris_invoice99420002000132e5f1708e1d3e4787ac4b6aa721ccbc68\",\r\n    \"customerPan\": \"9360091154444293753\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/qr/payment",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "qr",
+                "payment"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Issuer",
+      "item": [
+        {
+          "name": "Issuer Payment",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{auth_password_1did}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "kare",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"requestId\": \"{{$guid}}\",\n    \"requestTime\": 1785221866968,\n    \"type\": \"pay_qris_issuer\",\n    \"body\": {\n        \"username\": \"EnmSynPm\",\n        \"invoiceId\": \"\",\n        \"qrContent\": \"{{qrContent}}\",\n        \"amount\": \"IDR 1000.00\",\n        \"feeAmount\": \"IDR 0.00\",\n        \"fullName\": \"Yana Andika\",\n        \"refId\": \"{{$guid}}\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/api/merchant/qr/qris/pay",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "merchant",
+                "qr",
+                "qris",
+                "pay"
+              ]
+            },
+            "description": "Generated from cURL: curl --location 'localhost:8082/api/merchant/qr/qris/pay' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data '{\n    \"requestId\": \"3a73b34e-bb2d-4388-8ee3-82346181e5b0\",\n    \"requestTime\": 1636625156096,\n    \"type\": \"pay_qris_issuer\",\n    \"body\": {\n        \"username\": \"xhnWfkIf\",\n        \"invoiceId\": \"\",\n        \"qrContent\": \"00020101021126570016ID.CO.SHOPEE.WWW0118936009180000001402020413500303UME51440014ID.CO.QRIS.WWW0215ID10190045322970303UME5204581253033605802ID5925Gulu Gulu Mall Ambassador6015Jakarta Selatan61051294062070703A01630494FA\",\n        \"refId\": \"7a17c7da-62a0-41bb-883b-b87d7f6a884c\",\n        \"amount\": \"IDR 1000.00\",\n        \"feeAmount\": \"IDR 0.00\",\n        \"fullName\": \"Ari Prasetiyo Dev\"\n    }\n}'"
+          },
+          "response": [
+            {
+              "name": "BCA QRIS",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"requestId\": \"{{$guid}}\",\n    \"requestTime\": 1785221866968,\n    \"type\": \"pay_qris_issuer\",\n    \"body\": {\n        \"username\": \"f6R1zNq1\",\n        \"invoiceId\": \"\",\n        \"qrContent\": \"{{qrContent}}\",\n        \"amount\": \"IDR 1000.00\",\n        \"feeAmount\": \"IDR 0.00\",\n        \"fullName\": \"Yana Andika\",\n        \"refId\": \"fb387960-6a02-4476-a323-346e52037167\"\n    }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/merchant/qr/qris/pay",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "merchant",
+                    "qr",
+                    "qris",
+                    "pay"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "1060"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"requestId\": \"94c6f940-fb43-4298-9762-d3673271efe8\",\n    \"type\": \"pay_qris_issuer\",\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"ts\": \"2026-07-29T17:27:34.171+07:00\",\n    \"body\": {\n        \"responseCode\": \"76\",\n        \"invoiceNumber\": \"00000000000000000000\",\n        \"rrn\": \"729652806299\",\n        \"merchantAcquirer\": \"BCA\",\n        \"sourceOfFund\": {\n            \"id\": \"Electronic Money (Netzme)\",\n            \"en\": \"Uang Elektronik (Netzme)\"\n        },\n        \"customerPan\": \"9360081435602813767\",\n        \"merchantPan\": \"936000140001696628\",\n        \"terminalId\": \"A01\",\n        \"qris\": {\n            \"merchantInfo\": {\n                \"26\": {\n                    \"globalUniqueIndentifier\": \"ID.CO.BCA.WWW\",\n                    \"merchantPan\": \"9360001400016966285\",\n                    \"merchantId\": \"000885001696628\",\n                    \"merchantCriteria\": \"UMI\"\n                },\n                \"51\": {\n                    \"globalUniqueIndentifier\": \"ID.CO.QRIS.WWW\",\n                    \"merchantId\": \"ID1022203935146\",\n                    \"merchantCriteria\": \"UMI\"\n                }\n            },\n            \"merchantCategoryCode\": \"5422\",\n            \"additionalData\": {\n                \"originalAdditionalData\": \"0703A01\",\n                \"terminalLabel\": \"A01\"\n            },\n            \"convenienceFlag\": \"C\",\n            \"payloadFormatIndicator\": \"01\",\n            \"pointOfInitiation\": \"11\",\n            \"transactionCurrency\": \"360\",\n            \"countryCode\": \"ID\",\n            \"merchantName\": \"LIE YEN YIN-HO\",\n            \"merchantCity\": \"JAKARTA UTARA\",\n            \"postalCode\": \"14470\",\n            \"crc\": \"EB71\"\n        },\n        \"vendorName\": \"jalin\"\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Inquiry",
+      "item": [
+        {
+          "name": "QRIS Inquiry Translator",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "kare",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{auth_password_1did}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"qrContent\": \"https://qr-coba-qr-coba.com/12345\",\r\n    \"fullName\": \"yuseo\",\r\n    \"username\": \"M_aTng1FuI\",\r\n    \"refId\": \"0d3ab16b-1e51-49c7-b6f9-fb817a6a8ed3\",\r\n    \"amount\": \"CNY 2.00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/qr/issuer/inquiry",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "qr",
+                "issuer",
+                "inquiry"
+              ]
+            },
+            "description": "Generated from cURL: curl --location 'localhost:8082/qr/issuer/inquiry' \\\n--data '{\n    \"requestId\":\"cbf2a779-3a80-4ab0-9d5a-400d5a152911\",\n    \"body\":{\n        \"qrContent\":\"https://qr-coba-qr-coba.com/12345\",\n        \"fullName\": \"yuseo\",\n        \"username\": \"M_aTng1FuI\",\n        \"refId\":\"0d3ab16b-1e51-49c7-b6f9-fb817a6a8ed3\",\n        \"amount\":\"CNY 2.00\"\n    }\n}'"
+          },
+          "response": [
+            {
+              "name": "Arab Saudi",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"a88f114b-9acb-4cc7-b4d7-019684411dc8\",\r\n    \"body\": {\r\n        \"username\": \"hR2xPCDn\",\r\n        \"qrContent\": \"00020101021126680019jp.or.paymentsjapan01133010405016868020400000306000001040600000037350017com.qq.weixin.pay011013124417015204XXXX53033925802JP5913paymentsjapan6015minatokushinbas6107105000463047EB3\",\r\n        \"refId\": \"ea28c306-f222-4d5f-a67f-80488e83b05d\",\r\n        \"amount\": \"SAR 100.00\",\r\n        \"fullName\": \"User4576\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/qr/issuer/inquiry",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "qr",
+                    "issuer",
+                    "inquiry"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "277"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"requestId\": \"7227f4c4-bd1c-4bad-88b4-587ab223d56c\",\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"discount\": 0,\n        \"isCrossBorder\": false,\n        \"merchantAcquirer\": \"Netzme\",\n        \"merchantPan\": \"936008140100065297\",\n        \"minAmountTransaction\": \"IDR 1000.00\",\n        \"maxAmountTransaction\": \"IDR 5000000.00\"\n    }\n}"
+            },
+            {
+              "name": "Japan",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"a88f114b-9acb-4cc7-b4d7-019684411dc8\",\r\n    \"body\": {\r\n        \"username\": \"hR2xPCDn\",\r\n        \"qrContent\": \"00020101021126680019jp.or.paymentsjapan01133010405016868020400000306000001040600000037350017com.qq.weixin.pay011013124417015204XXXX53033925802JP5913paymentsjapan6015minatokushinbas6107105000463047EB3\",\r\n        \"refId\": \"ea28c306-f222-4d5f-a67f-80488e83b05d\",\r\n        \"amount\": \"JPY 100.00\",\r\n        \"fullName\": \"User4576\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/qr/issuer/inquiry",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "qr",
+                    "issuer",
+                    "inquiry"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": null,
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "QRIS Inquiry",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "kare",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{auth_password_1did}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"requestId\": \"{{$guid}}\",\r\n    \"body\": {\r\n        \"username\": \"EnmSynPm\",\r\n        \"qrContent\": \"00020101021232710011SA.GOV.SAMA0116000000000346548002060101000302010416E20280323T1200005204594253036825406100.005802SA5910MUSAADTest6007ALRIYAD61051234562770517REF20260806000001100512453110340054360011SA.GOV.SAMA010515.0002084000000064270002AR0108متجرساما0205جلاجل6502SA6304C242\",\r\n        \"refId\": \"{{$guid}}\",\r\n        \"fullName\": \"Yana Andika\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/qr/issuer/inquiry",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "qr",
+                "issuer",
+                "inquiry"
+              ]
+            },
+            "description": "Generated from cURL: curl --location 'localhost:8082/qr/issuer/inquiry' \\\n--data '{\n    \"requestId\":\"cbf2a779-3a80-4ab0-9d5a-400d5a152911\",\n    \"body\":{\n        \"qrContent\":\"https://qr-coba-qr-coba.com/12345\",\n        \"fullName\": \"yuseo\",\n        \"username\": \"M_aTng1FuI\",\n        \"refId\":\"0d3ab16b-1e51-49c7-b6f9-fb817a6a8ed3\",\n        \"amount\":\"CNY 2.00\"\n    }\n}'"
+          },
+          "response": [
+            {
+              "name": "Arab Saudi",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"requestId\": \"{{$guid}}\",\r\n  \"body\": {\r\n    \"username\": \"f6R1zNq1\",\r\n    \"qrContent\": \"00020101021232710011SA.GOV.SAMA0116000000000346548002060101000302010416E20280323T1200005204594253036825406100.005802SA5910MUSAADTest6007ALRIYAD61051234562770517REF20260806000001100512453110340054360011SA.GOV.SAMA010515.0002084000000064270002AR0108متجرساما0205جلاجل6502SA6304C242\",\r\n    \"refId\": \"{{$guid}}\",\r\n    \"fullName\": \"Yana Andika\"\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/qr/issuer/inquiry",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "qr",
+                    "issuer",
+                    "inquiry"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "277"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"requestId\": \"7227f4c4-bd1c-4bad-88b4-587ab223d56c\",\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"discount\": 0,\n        \"isCrossBorder\": false,\n        \"merchantAcquirer\": \"Netzme\",\n        \"merchantPan\": \"936008140100065297\",\n        \"minAmountTransaction\": \"IDR 1000.00\",\n        \"maxAmountTransaction\": \"IDR 5000000.00\"\n    }\n}"
+            },
+            {
+              "name": "Korea",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"{{$guid}}\",\r\n    \"body\": {\r\n        \"username\": \"EnmSynPm\",\r\n        \"qrContent\": \"00020101021232710011SA.GOV.SAMA0116000000000346548002060101000302010416E20280323T1200005204594253036825406100.005802SA5910MUSAADTest6007ALRIYAD61051234562770517REF20260806000001100512453110340054360011SA.GOV.SAMA010515.0002084000000064270002AR0108متجرساما0205جلاجل6502SA6304C242\",\r\n        \"refId\": \"{{$guid}}\",\r\n        \"fullName\": \"Yana Andika\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/qr/issuer/inquiry",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "qr",
+                    "issuer",
+                    "inquiry"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": null,
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "QR Check",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const secret_key = pm.environment.get(\"secret_mac\");",
+              "",
+              "const hmac = CryptoJS.HmacSHA256(pm.request.body.toString(), secret_key);",
+              "const hmac_str = hmac.toString(CryptoJS.enc.Hex);",
+              "const mac = hmac_str.toUpperCase();",
+              "pm.globals.set(\"mac\", mac);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "mac",
+            "value": "sas"
+          },
+          {
+            "key": "Authorization",
+            "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+          },
+          {
+            "key": "mac",
+            "value": "{{mac}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"pan\": \"936008140100000002\",\r\n    \"processingCode\": \"3600000\",\r\n    \"transactionAmount\": 1200,\r\n    \"transmissionDateTime\": \"20260417143717\",\r\n    \"systemTraceAuditNumber\": \"123456\",\r\n    \"localTransactionDateTime\": \"20260417143717\",\r\n    \"settlementDate\": \"20131303\",\r\n    \"captureDate\": \"20131303\",\r\n    \"merchantType\": \"6017\",\r\n    \"posEntryMode\": \"011\",\r\n    \"feeType\": \"56\",\r\n    \"feeAmount\": 0,\r\n    \"acquirerId\": \"93600814\",\r\n    \"issuerId\": \"009\",\r\n    \"forwardingId\": \"008\",\r\n    \"rrn\": \"434sdfgfj3262018031393601111\",\r\n    \"approvalCode\": \"121212\",\r\n    \"terminalId\": \"123456\",\r\n    \"merchantId\": \"M_UXQ6nr22\",\r\n    \"merchantName\": \"Gulu Gulu Mall Ambassador\",\r\n    \"merchantCity\": \"Jakarta\",\r\n    \"merchantCountry\": \"62\",\r\n    \"productIndicator\": \"Q001\",\r\n    \"customerData\": \"AAAAAAAAAA\",\r\n    \"merchantCriteria\": \"UMI\",\r\n    \"currencyCode\": \"360\",\r\n    \"postalCode\": \"12270\",\r\n    \"additionalField\": \"0703A010812qris_invoice99321d3dd398001443899038ded979c2343a\",\r\n    \"scustomerPan\": \"6666777788889999\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/qr/check",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "qr",
+            "check"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'localhost:8082/qr/check' \\\n--header 'Content-Type: application/json' \\\n--header 'mac: sas' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data '{\"pan\":\"936008140100000002\",\"processingCode\":\"2600000\",\"transactionAmount\":1007,\"transmissionDateTime\":\"20180313160000\",\"systemTraceAuditNumber\":\"123456\",\"localTransactionDateTime\":\"20180313160000\",\"settlementDate\":\"20131303\",\"captureDate\":\"20131303\",\"merchantType\":\"6017\",\"posEntryMode\":\"011\",\"feeType\":\"56\",\"feeAmount\":0,\"acquirerId\":\"93600814\",\"issuerId\":\"009\",\"forwardingId\":\"008\",\"rrn\":\"12345s7s121a51\",\"approvalCode\":\"121212\",\"terminalId\":\"123456\",\"merchantId\":\"M_UXQ6nr22\",\"merchantName\":\"Gulu Gulu Mall Ambassador\",\"merchantCity\":\"Jakarta\",\"merchantCountry\":\"62\",\"productIndicator\":\"Q001\",\"customerData\":\"AAAAAAAAAA\",\"merchantCriteria\":\"UMI\",\"currencyCode\":\"360\",\"postalCode\":\"12270\",\"additionalField\":\"0703A010812qris_invoice99321d3dd398001443899038ded979c2343a\",\"scustomerPan\":\"6666777788889999\"}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Create Invoice Split Fee Copy",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"requestId\": \"{{$guid}}\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_eLZt3pin\",\n        \"fullNameBuyer\": \"yana agg\",\n        \"emailBuyer\": \"yana@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 3000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\",\n        \"invoiceType\":\"multiple\"\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/api/merchant/invoice/aggregator",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "api",
+            "merchant",
+            "invoice",
+            "aggregator"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://tokoapi-dev.netzme.com/api/merchant/invoice/aggregator' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data-raw '{\n    \"requestId\": \"06dbf4c3-50bb-4d6c-a6db-636183632c89\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ChPWNs81\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\",\n        \"invoiceType\":\"multiple\"\n    }\n}'"
+      },
+      "response": [
+        {
+          "name": "Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"requestId\": \"{{$guid}}\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_B8RjeABb\",\n        \"fullNameBuyer\": \"yana agg\",\n        \"emailBuyer\": \"yana@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 6000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\",\n        \"invoiceType\":\"multiple\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/api/merchant/invoice/aggregator",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "merchant",
+                "invoice",
+                "aggregator"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": ":status",
+              "value": 200
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "content-length",
+              "value": "5970"
+            },
+            {
+              "key": "date",
+              "value": "Tue, 21 Jul 2026 12:09:53 GMT"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": 103,\n    \"statusMessage\": \"active\",\n    \"body\": {\n        \"invoiceTrxId\": \"a5e5a29af5984c75b69e3c1f54899c58\",\n        \"invoiceId\": \"NETZ-INV-M_B8RjeABb1784635793287BDB\",\n        \"merchantId\": \"M_B8RjeABb\",\n        \"amount\": \"IDR 6000.00\",\n        \"feeAmount\": \"IDR 42.00\",\n        \"totalAmount\": \"IDR 6000.00\",\n        \"amountLong\": 6000,\n        \"feeAmountLong\": 42,\n        \"totalAmountLong\": 6000,\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"fullName\": \"yana agg\",\n        \"email\": \"yana@netzme.id\",\n        \"phoneNo\": \"+6285692505540\",\n        \"createdTs\": \"2026-07-21T19:09:53.359+07:00\",\n        \"expiredTs\": \"2026-07-21T19:15:53.306+07:00\",\n        \"paymentMethod\": \"QRIS\",\n        \"paymentUrl\": \"https://pay-dev.netzme.id/TokoYanaPower/NETZ-INV-M_B8RjeABb1784635793287BDB/qris/a5e5a29af5984c75b69e3c1f54899c58\",\n        \"statusCode\": 103,\n        \"statusMessage\": \"active\",\n        \"feeType\": \"on_seller\",\n        \"virtualAccountData\": [],\n        \"retailOutletData\": [],\n        \"qris\": {\n            \"qr\": \"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\",\n            \"qrContent\": \"00020101021226580013ID.NETZME.WWW01189360081404114854890208B8RjeABb0303UMI51440014ID.CO.QRIS.WWW0215ID20240000506150303UMI520459935303360540460005802ID5915Toko Yana Power6012KOTA BANDUNG61054026462690703A010812qris_invoice99420002000132a5e5a29af5984c75b69e3c1f54899c586304351D\",\n            \"nmid\": \"ID2024000050615\",\n            \"merchantLocation\": \"KOTA BANDUNG\"\n        },\n        \"isSplitFee\": false\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "https://pay-stg.netzme.com/api/v1/invoice/createTransaction",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "custom OK3fN72X/EuArbFPybFQSWAnsymntYO+JHlH5eSIXvo="
+          },
+          {
+            "key": "User-Agent",
+            "value": "asensistg;M_8HvCeavR"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"request\": {\n        \"merchant\": \"M_8HvCeavR\",\n        \"amount\": 90000,\n        \"email\": \"budi@netzme.id\",\n        \"notes\": \"desc\",\n        \"description\": \"description\",\n        \"phone_number\": \"+6281234567890\",\n        \"image_url\": \"\",\n        \"fullname\": \"Tri abal abal\",\n        \"amount_detail\" : {\n            \"basicAmount\" : 90000,\n            \"shippingAmount\" : 0\n        },\"item_details\": [\n            {\n                \"item_id\": \"c0b4-l46i\",\n                \"name\": \"Product Satu\",\n                \"amount\": 90000,\n                \"qty\": 1\n            }\n        ],\n        \"address\": \"RT 20 Desa Sekian, Kab Sekian, Lubuk Lingau\",\n        \"payment_method\": \"QRIS\",\n        \"commission_percentage\" : 0,\n        \"expire_in_second\": 3600,\n        \"fee_type\" : \"on_seller\",\n        \"partner_transaction_id\" : \"buditest\"\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://pay-stg.netzme.com/api/v1/invoice/createTransaction",
+          "protocol": "https",
+          "host": [
+            "pay-stg",
+            "netzme",
+            "com"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "invoice",
+            "createTransaction"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://pay-stg.netzme.com/api/v1/invoice/createTransaction' \\\n--header 'Authorization: custom OK3fN72X/EuArbFPybFQSWAnsymntYO+JHlH5eSIXvo=' \\\n--header 'User-Agent: asensistg;M_8HvCeavR' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n    \"request\": {\n        \"merchant\": \"M_8HvCeavR\",\n        \"amount\": 90000,\n        \"email\": \"budi@netzme.id\",\n        \"notes\": \"desc\",\n        \"description\": \"description\",\n        \"phone_number\": \"+6281234567890\",\n        \"image_url\": \"\",\n        \"fullname\": \"Tri abal abal\",\n        \"amount_detail\" : {\n            \"basicAmount\" : 90000,\n            \"shippingAmount\" : 0\n        },\"item_details\": [\n            {\n                \"item_id\": \"c0b4-l46i\",\n                \"name\": \"Product Satu\",\n                \"amount\": 90000,\n                \"qty\": 1\n            }\n        ],\n        \"address\": \"RT 20 Desa Sekian, Kab Sekian, Lubuk Lingau\",\n        \"payment_method\": \"QRIS\",\n        \"commission_percentage\" : 0,\n        \"expire_in_second\": 3600,\n        \"fee_type\" : \"on_seller\",\n        \"partner_transaction_id\" : \"buditest\"\n    }\n}'"
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Auto-set transaction timestamps",
+          "const now = new Date();",
+          "pm.environment.set(\"transactionTs\", now.toISOString().replace(/[-:.TZ]/g, '').slice(0, 14));",
+          "pm.environment.set(\"requestTime\", now.toISOString());",
+          "pm.collectionVariables.set(\"date\", now.toISOString().slice(0, 10).replace(/-/g, ''));"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "collectionVersion",
+      "value": "1.0.0"
+    },
+    {
+      "key": "productCode",
+      "value": "QRIS-MPM"
+    },
+    {
+      "key": "date",
+      "value": ""
+    },
+    {
+      "key": "basic_auth_0kji",
+      "secret": true
+    },
+    {
+      "key": "basic_auth_0qlc",
+      "secret": true
+    },
+    {
+      "key": "auth_password_1did",
+      "secret": true
+    }
+  ]
+}

@@ -1,0 +1,2860 @@
+{
+  "info": {
+    "_postman_id": "c89610d1-749d-4f81-8e41-0b7d923226b8",
+    "name": "[QRIS] CPM",
+    "description": "QRIS Consumer Presented Mode (CPM) API collection. Covers the full CPM payment lifecycle including QR generation, inquiry, payment processing, reversal, refund, and settlement for both On-Us and Off-Us scenarios.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "32294413"
+  },
+  "item": [
+    {
+      "name": "QR Management",
+      "item": [
+        {
+          "name": "Generate QR PG",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Alto-Timestamp",
+                "value": "2024-04-28T12:34:04.313Z"
+              },
+              {
+                "key": "X-Alto-Key",
+                "value": "dev_akey_U1AQQ7Z1PP"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic YWRtaW46YWRtaW4="
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"requestId\": \"5e69333f-2592-464d-9bee-1097b74bc7ff\",\r\n    \"requestTime\": 1717944345063,\r\n    \"type\": \"qr-generate\",\r\n    \"body\": {\r\n        \"customerPan\": \"9360081493090970\",\r\n        \"customerName\": \"Dona Stg 2\",\r\n        \"qrId\": \"7834ddc2-2490-47de-8ba1-07a0c2bde341\",\r\n        \"expiredTs\": \"2024-06-09T21:46:45.067Z\",\r\n        \"lang\": \"id\"\r\n    }\r\n}"
+            },
+            "url": {
+              "raw": "https://bri-d.netzme.com/qris/alto/cpm/v1/internal/qr/generate",
+              "protocol": "https",
+              "host": [
+                "bri-d",
+                "netzme",
+                "com"
+              ],
+              "path": [
+                "qris",
+                "alto",
+                "cpm",
+                "v1",
+                "internal",
+                "qr",
+                "generate"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Acquirer",
+      "item": [
+        {
+          "name": "Paymet As Acquirer",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{basic_auth_0qlc}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"requestId\": \"86bd1260-6559-4918-a383-6e7b28007d80\",\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"body\": {\r\n        \"paymentAmount\" : \"IDR 1057.00\",\r\n        \"qrContent\": \"hQVDUFYwMWFpTwegAAAGAiAgUAdRUklTQ1BNWgqTYAghEAOYMSZfXyAFUHV0cmlfLQRpZGVuX1AfbWFpbHRvOmludGVncmF0aW9uX3RlYW1AYWx0by5pZJ8lAjEmYxOfdBBCWUpJWUkxTTFIVVZBUDg1\",\r\n        \"merchantId\":\"M_ChPWNs82\",\r\n        \"productIndicator\":\"Q002\",\r\n        \"invoiceTrxId\":\"\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/merchant/qr/cpm/payment",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "merchant",
+                "qr",
+                "cpm",
+                "payment"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refund",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"body\": {\r\n    \"amount\": \"IDR 75200.00\",\r\n    \"merchantId\": \"M_zPtrIzqX \",\r\n    \"transactionId\": \"{{$randomUUID}}\",\r\n    \"refundType\":\"refund_full\"\r\n  },\r\n  \"requestId\": \"a68e30c9-0ef8-4f72-aaf9-55f7bfcc91c1\",\r\n  \"requestTime\": 1720444793683,\r\n  \"type\": \"qr_cpm_refund\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://tokoapi-stg.netzme.com/merchant/qr/cpm/refund",
+              "protocol": "https",
+              "host": [
+                "tokoapi-stg",
+                "netzme",
+                "com"
+              ],
+              "path": [
+                "merchant",
+                "qr",
+                "cpm",
+                "refund"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Issuer",
+      "item": [
+        {
+          "name": "Lenjer-Rest",
+          "item": [
+            {
+              "name": "Generate QR",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "// Generate the current time in milliseconds since epoch\r",
+                      "var requestTime = Date.now();\r",
+                      "\r",
+                      "// Set the requestTime variable to be used in the request body or headers\r",
+                      "pm.environment.set(\"requestTime\", requestTime);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "admin",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "admin",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Signature",
+                    "value": "16b498b1bcc6d4daeb56dd9b4cfd1f9914be32378de4fbf00d1ae106d438853a"
+                  },
+                  {
+                    "key": "Request-Time",
+                    "value": "1720084861000"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"details\": {\r\n        \"phoneNumber\": \"+6289636743133\",\r\n        \"userId\": \"f6R1zNq1\"\r\n    },\r\n    \"msgId\": \"{{$randomUUID}}\",\r\n    \"requestTime\": \"1720084861000\",\r\n    \"type\": \"qr_cpm_generate\",\r\n    \"version\": 0\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url-netzme}}/payment/v1/qr-cpm/generate",
+                  "host": [
+                    "{{url-netzme}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "v1",
+                    "qr-cpm",
+                    "generate"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Saving Success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Signature",
+                        "value": "e348846b58e1c606e93b58c3ecf1918e965b16cdb3f177cece1bf0b89569c0b4"
+                      },
+                      {
+                        "key": "Authorization",
+                        "value": "Basic Nzdmb1BiUm06ZlpDZ0lmcnc3VA=="
+                      },
+                      {
+                        "key": "Request-Time",
+                        "value": "1715768953268"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"msgId\": \"msgId _ + {{$randomUUID}}\",\r\n  \"type\": \"qr_cpm_generate\",\r\n  \"details\": {\r\n    \"userId\": \"0iFZFpMg\",\r\n    \"phoneNumber\": \"+6281122223333\"\r\n  },\r\n  \"version\": 2\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "localhost:8081/internal/v2/qr-cpm/generate",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8081",
+                      "path": [
+                        "internal",
+                        "v2",
+                        "qr-cpm",
+                        "generate"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "plain",
+                  "header": [
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-store, no-cache"
+                    },
+                    {
+                      "key": "X-Content-Type-Options",
+                      "value": "nosniff"
+                    },
+                    {
+                      "key": "Strict-Transport-Security",
+                      "value": "max-age=15768000"
+                    },
+                    {
+                      "key": "X-Download-Options",
+                      "value": "noopen"
+                    },
+                    {
+                      "key": "X-XSS-Protection",
+                      "value": "1; mode=block"
+                    },
+                    {
+                      "key": "X-FRAME-OPTIONS",
+                      "value": "DENY"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "1892"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\"seq\":-1,\"ts\":1715864342786,\"type\":\"qr_cpm_generate\",\"msgId\":\"msgId _ + cf9010fe-6123-47dd-8df8-286aafacfb6d\",\"refId\":\"410533e5-f334-4927-82a7-8ba91a3c436b\",\"userId\":\"0iFZFpMg\",\"amount\":\"IDR 0.00\",\"details\":{\"customerPan\":\"9360081465072079\",\"customerName\":\"Sbnsnsns\",\"qrId\":\"410533e5-f334-4927-82a7-8ba91a3c436b\",\"expiryTimeInSecond\":\"55\",\"lang\":\"en\",\"qrData\":\"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAAEEklEQVR42uyZMY70KhCEGxE45AZwESSu5czOfC0kLgI3ICRA1FMx9v678cokb9EGq5kvYOjq7mqQv/W3fi4AFcgOWaEUpK6jRkLbAJyLgMo/8D+VHXpAAhBl307ZlgGo1YgrQxVkF73uPsSAtl24VgKQci/EEENK3ORioEoWK9YBSN3rhNWACAlrRVzJGikhRY3zRzRfBijaWp+DSve6ruu7ql8GPoc1XBaVVdaMFj/afyTwy0BluCQ7ShaMFlIMcd+A9pzk64CpMLWKy2o4jADuUvf9uK5zGQAxMNVhiDigS0iImnrd78NaAVQjYrKoMtxQ6F4kdM897vcm3wcqBJAhrqAgi06p+5Cuqz2a+T3AcMCokl22YgOr9ScWOPdVgDGAYKgsCoWx6CFFOXBuaKsA8KSqK2ybyCLiQ5RwtX1rsgwwqGJYJIdD1onlOqSrbW3fVwHC3ITj9tywIXrRPXS2i1NWATwmwCGTUV24zT4F+/yK9wEiUkuhYIZLUaeoo2ysUMe5CACkskYPhaGG6BgIndvVjlu07wOzSNWZuS6L914zf9txnXL/iveBKdoqDsO6kmlgeoieB9W+qfpdoFZjah1WXClTtBrRh0a53LX6fcBMM8caNgsp3WT3mvXjDtYCQIyRarK4bFUpYDfp01Zf17kKMEIzN6y1rKRA9OJ1p4d5Gsr7ANUyCwgTJ+tpIbpsuB3MGoDzBVAw2NU+kg0Arutuar8HDHdB6+4GrXuKTI3UjvOp1gsAGADiMo1aAThC6c5d4l/yvg2YaaTKdM3D9YA5R53HI9klAGhZraghblCOXncJjUXqPskFgJnuIYtYhSGanbPrtqHdtXwBgKlaNSd7NcQLNRNw7sczPiwADLhNV8q8YYi6a/r341/bXAHUCqMGu6ajt+fXGqfs+9M3VwCm1pLFDTdcFB5UwOxZT2a9D3C4F6vKECvWe6FwddtXAmzeqI6z/Sxi3XPO+T4CvQ+wlEvNzF5qdnoYzL75XPW8D4gxxoBGjlYqzOvHlBis7cs/vA3M66Zp5USVQkcroqMc7QnWAgCzkpYsVkTl0D+udrva07sXAFVMNXT2ZVirZqj6TN7Hd/8emDc5xlrriITEbxFlO/e7bS0AKssDrMqOrbtLQNSYJWr/su5vA+BUbdScpKyVEPW8TULbnn7xPjDj9blZIJUSUteYF5xN1gFS6+fpAVl/rv7TuZ3bl4t5HZgvIDIVC3padB0ltONrfFgAsD4Yk60rQ2jdKZn+Ge33ZcB8fbCqZMejAu1DSOdGe38uBASiaOZEdfEhpdT3fXtG+1VALVnRQagooc/M+SeoFcAMFie5rLKilWPPYA1ry4D5AoLpqUWVlCLH6nnVs397hXkX+Fv/n/VfAAAA//8lIVDYgP6J9wAAAABJRU5ErkJggg\\u003d\\u003d\"},\"isDuplicateEvent\":false}"
+                }
+              ]
+            },
+            {
+              "name": "Payment QR CPM",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "skyfeed**",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "skyfeed",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"body\": {\r\n        \"transactionTs\": \"2026-05-04T10:48:48.560Z\",\r\n        \"customerRefNo\": \"595862183236\",\r\n        \"currencyCode\": \"IDR\",\r\n        \"amount\": 10000,\r\n        \"fee\": 0,\r\n        \"issuerId\": \"93600567\",\r\n        \"acquirerId\": \"93600567\",\r\n        \"terminalId\": \"A01             \",\r\n        \"invoiceNo\": \"78392046158193472742\",\r\n        \"productIndicator\": \"N002\",\r\n        \"merchant\": {\r\n            \"id\": \"190202011521008\",\r\n            \"criteria\": \"UMI\",\r\n            \"name\": \"Somay Mangga Dua\",\r\n            \"city\": \"Jakarta\",\r\n            \"mcc\": \"5499\",\r\n            \"countryCode\": \"ID\"\r\n        },\r\n        \"customer\": {\r\n            \"name\": \"User4576\",\r\n            \"pan\": \"9360081432873069\",\r\n            \"expiration\": \"\"\r\n        },\r\n        \"qrId\": \"610d8083-4bc1-481c-bacf-440e8296b3d7\",\r\n        \"qrData\": \"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAAD0UlEQVR42uyZMY7sLhPECxEQcgNzEWSuRbCSkTbwtRj5IvgGhA4Q9amZ9e57X/YPhjfBEq5+K6Hpprqqjd/ze/7j2ci+LCCTSR5whfaK0SOQnAVEYFWstNeW4BdXKpg25hWw7wOEtqoOWu6fB9mdJXceeXV9KrCoaqtJW4bqDtVc0fvpAMYlKadYYEseUwFgdQWQjtJZFVRr9svjr2q+GHh2tbV23z+P4zxLrdLV/v/a/t8CclwHuCfNrFis5X6F9pcEvBiI8IEFsJdJWspZ7WX2u65zgO3IUGet2HZmXVwhrmhaeHRXZwHQ7HC0iBGhqeIqTIrQXX119QwAXp1dZCV9wLuvhoHO6uT7AN6vUCTM9eG9K2AVHeTjruYEwLBB/mxlBoSzO2uvuLWQF1VnAdDkeVbLy7RwnH3096WPvsDOAkzzwGKBuH1mv0hzmST/dpaJgO6KtdZomm5wJOV1t9CX9wHgdVZk5SVKsDhKNU0LGffznwCEvC6uVnvhObstmaI+Ht+XfD0QoR9nRyUvnf3iWCmKeDxEnycBgJfZTe4XpFhFipV0CxMBwwzXbWWSCo1ikXvzWJZ3AtgXV2l3MmsWZ2kuczTcRmsCsJFyNVb5+fxttHRe1VlnAaYF9sUSG5t4p1Ltte3HcBKzgBgaFletjGx554VAHDNiHrBlvzqZwhEbj5MFvLak2+puH/UGwGgeSkJhC09BNHuCh7ur+Xpgy6Oalvs+qimiPKrZHecBXnVAhjd8KM9YbdjULcUTAOijYwHrtsscEkdFMvtw9nkAoMpiq935eTQ1fJQh5XXzbYDtaHJhVnN9aHZXxG+mcDz6HSdfD8SQ5ZK0yTQvdkaCghlyVGcBCDkUR1iZQ7rD2WG8W7jN3gQgjqjBWmMU+9sdcEmEXNVEAKGrYqtIsdejWPK6M35WHP8egDSPqrUasnkxOaLF5KPfTT8DYB8CzD2NvUYdS7H2vYeZAJjjq6u5N4giWgmOCPlnJL0eaF7syohJWZ/PLWEKh6SSWYCoXF9QmbYEXVx5BhCoW2HeAdgOUn5JjHg2YrVJEWOYzgJMA9zJWs3+yaZOCQoJuil+G86XA9B5XWQkMX0Mw/lMrORMAMCiqryszyOrs4z1uv8JIBOA7RlAZDSTY0cqSc17ufnbAOPrQ0HlFfUhhpM0CX8YzhlAaKtjrePRk8VV6SgE8kuLJwFYrLXX1p6veyxRdVZ/fBqYATjpKCZ9yOuG2ZPHd1qcAQArxg5ua6FJHLKIMRzkybcBpKudFM48qyk5Yd+llq7OAn7P7/k+/wsAAP//56VX+GTIzEIAAAAASUVORK5CYII=\",\r\n        \"authorizationId\": \"p38r2f\",\r\n        \"paymentStatusCode\": 1,\r\n        \"mdrPercentage\": 0.3,\r\n        \"mdrAmount\": 30.0,\r\n        \"mdrFee\": 30.0,\r\n        \"netAmount\": 9970.0,\r\n        \"paidAmount\": 10000.0,\r\n        \"totalAmount\": 10000.0,\r\n        \"mdrAmountRounding\": 30.0\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url-netzme}}/internal/v1/qr-cpm/payment",
+                  "host": [
+                    "{{url-netzme}}"
+                  ],
+                  "path": [
+                    "internal",
+                    "v1",
+                    "qr-cpm",
+                    "payment"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Detail",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "dxbHEBILK9",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "hR2xPCDn",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Signature",
+                    "value": "0337bd8460c314697731527c3036a943d9b0458b5ad5ae64cb0ccafdbb18b577",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Request-Time",
+                    "value": "1718018786583",
+                    "type": "text"
+                  },
+                  {
+                    "key": "username",
+                    "value": "hR2xPCDn",
+                    "type": "text",
+                    "disabled": true
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"details\": {\r\n        \"refId\": \"66b8cfbc-078e-4417-8c22-ca7d2f894ed2\",\r\n        \"userId\": \"f6R1zNq1\"\r\n    },\r\n    \"msgId\": \"{{$randomUUID}}\",\r\n    \"type\": \"get_detail\",\r\n    \"requestTime\": 1718018786583,\r\n    \"version\": 0\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url-lenjer}}/payment/v1/transaction/get/detail",
+                  "host": [
+                    "{{url-lenjer}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "v1",
+                    "transaction",
+                    "get",
+                    "detail"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"msgId\": {{$guid}},\r\n  \"type\": \"get_detail\",\r\n  \"details\": {\r\n    \"userId\": \"77foPbRm\",\r\n    \"refId\": \"856cd14b-304c-4c8f-bd66-e19ed1d3dd48\"\r\n  },\r\n  \"version\": 2\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{url-netzme}}/payment/v1/transaction/get/detail",
+                      "host": [
+                        "{{url-netzme}}"
+                      ],
+                      "path": [
+                        "payment",
+                        "v1",
+                        "transaction",
+                        "get",
+                        "detail"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-store, no-cache"
+                    },
+                    {
+                      "key": "X-Content-Type-Options",
+                      "value": "nosniff"
+                    },
+                    {
+                      "key": "Strict-Transport-Security",
+                      "value": "max-age=15768000"
+                    },
+                    {
+                      "key": "X-Download-Options",
+                      "value": "noopen"
+                    },
+                    {
+                      "key": "X-XSS-Protection",
+                      "value": "1; mode=block"
+                    },
+                    {
+                      "key": "X-FRAME-OPTIONS",
+                      "value": "DENY"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "2501"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json",
+                      "description": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"seq\": 75047,\n    \"ts\": 1717734329948,\n    \"type\": \"qr_cpm\",\n    \"msgId\": \"198fcec2-706b-4c49-9098-9f77c4815df3\",\n    \"refId\": \"856cd14b-304c-4c8f-bd66-e19ed1d3dd48\",\n    \"userId\": \"77foPbRm\",\n    \"amount\": \"IDR 10000.00\",\n    \"details\": {\n        \"transactionTs\": \"2024-03-13T18:51:48.560Z\",\n        \"customerRefNo\": \"138734650285\",\n        \"currencyCode\": \"IDR\",\n        \"amount\": \"IDR 10000.00\",\n        \"fee\": \"IDR 5000.00\",\n        \"issuerId\": \"93600921\",\n        \"acquirerId\": \"93601111\",\n        \"terminalId\": \"K19\",\n        \"invoiceNo\": \"02234567370223456737\",\n        \"productIndicator\": \"Q002\",\n        \"merchant\": {\n            \"id\": \"190202011521008\",\n            \"criteria\": \"UMI\",\n            \"name\": \"Somay Mangga Dua\",\n            \"city\": \"Jakarta\",\n            \"mcc\": \"5499\"\n        },\n        \"customer\": {\n            \"name\": \"Yana Andika\",\n            \"pan\": \"9360081450369634\",\n            \"expiration\": \"0924\"\n        },\n        \"qrId\": \"856cd14b-304c-4c8f-bd66-e19ed1d3dd48\",\n        \"qrData\": \"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAAECElEQVR42uyYu409rRLEG2FgkgEkgkRaeDMeaSGRCGTQJgairprzWK39v4PzLTrGaudnIPpV1fR3/s7vA4DZOo/mPIA6Y9Eo1zAA7kMAE7FFR2/ChBBLRC0pmZvMMQDMBCzyy5GaQcsvYpiMfBJgRl++96UKxRIrCqXjgFXLo2MHi3SJpwEiZl5OoZFqGlOjUDD3r2g+DOyk5f4+9X1yzr+y+llgQ7zUItVU07UEiih03b8K+FmAiQGoDjTfgVp3vKR2x+clHweIyQJLLSVpixlRgZmuPC6cAmAJIHJeXspXKRsAeVzDDDoFgC3scmo559TUVfpoSBKtT9I+DrCVe3Ys53tvpIvUTs0/Gft/AIgsMalF5MjFGWItEePKeaRTAOSz3Z3ad5SgJ2nM604G4xTA1hLo1aLQYqGgS5zmc8UzAJjBvTepikV6xirB+mTkEcDusdnkpTxWrHP/xpVHSqcAsGWGfFdYLuiiKyaRua9xDCAwWesc+eack+9FF7pwm/scwBZMTf7yO1hCVOQ8zKeRPg/IxLDSJZfvK4QQMWNJV76/c+t5gC2TXb6p5Zf0Scw4g8m3Gd+HehywcsmlsH+FRMkFfZMZdAwAMcOq3mRyukC6ytwadI3rpeUOABbWMpwSbd9XnEFkdaEr3+/ZfQAQ9cDwvflGYnLE48xAF/AN1uMAg4lZvkv96hmnXFIS5v56nKcBUdXYWtJ59FolZUkDOb+H2r8DVnIS4uPI9ybyROxDMrcZr9o8AIhgBZPIJJGsU4uT0vLPbyweByQpITpKydwKLxETSJqkuU8B4uzJi4fyaBEvUysqKh0DIIqSRcqRWk5KItY6U/rqhwOA9Gq2bg9OL5hG0RgpXW9LewQAseSrE01LFIJGLSbnH2H9PLCbdfNL9eVb3FYu6EEpfWb38wBjW+vlJFh+hrCXHMN8pNwJAFvVioZy4jCCBmohMz45fQJgWEt757WcaqKjgBKR70TpGLDLt6OppvoKW8OgDpPx8TjPA4SX19vbphX0FFlbb0r085SPA9LOreq9A4ukexQSYT3Mz6LlaUCS1pLfofJ9hhD3liOPj7Y/AGw5SX0RqQ7UvWTRVeTDR2j9M0AshOpiq7eVI7G0yeSPXDwAMFuA1vYvqk+KEBtl7vSti+cBbD/ZnMzNpopoqBJr/rFyB4BdGZArksLe7E2ZW1nU3H0O2L2aRE42/WZEy50DXpteUZMiKHfKYtL1o2kPALw97RLl7lSTFiViTi55X/cpAMx7xanWu3pFUe6FN04C1q7XhsNJh6qio0iq9yRA1qPJFXuRSMUZvjvWM8DeeSsZnNLIRMjpGQelaxwDJGn31r939F60pG3EfeGjYg4Af+e/c/4XAAD//5y9UkdJDU0oAAAAAElFTkSuQmCC\",\n        \"mdrAmount\": \"IDR 3000.00\",\n        \"netAmount\": \"IDR 7000.00\",\n        \"paidAmount\": \"IDR 10000.00\",\n        \"totalAmount\": \"IDR 10000.00\",\n        \"sourceOfFund\": \"NETZME E-WALLET\",\n        \"mdrPercentage\": 0.3,\n        \"mdrFee\": \"IDR 3000.00\",\n        \"mdrAmountRounding\": \"IDR 10000.00\",\n        \"paymentStatus\": \"PAYMENT_SUCCESS\",\n        \"balance\": \"IDR 674400.00\",\n        \"status\": 0\n    },\n    \"isDuplicateEvent\": false\n}"
+                }
+              ]
+            },
+            {
+              "name": "Change Status QR",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "skyfeed**",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "skyfeed",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Signature",
+                    "value": "2832935246c22c1442cf1a18f90caf7bba4568d0f033b06ff75234ef32e9d44c"
+                  },
+                  {
+                    "key": "Request-Time",
+                    "value": "1715952159000"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"7395fc82-2442-4e05-a623-1b19f4cc8fe5\",\r\n    \"type\": \"qr_cpm_change_qrcontent_status\",\r\n    \"body\": {\r\n        \"qrContentId\": \"169726e3-1924-4830-8334-2fd7b1b1978c\",\r\n        \"reasonStatusChange\": \"Closed transaction\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url-netzme}}/internal/v1/qr-cpm/closed/77foPbRm",
+                  "host": [
+                    "{{url-netzme}}"
+                  ],
+                  "path": [
+                    "internal",
+                    "v1",
+                    "qr-cpm",
+                    "closed",
+                    "77foPbRm"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Change Status QR",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Signature",
+                        "value": "2832935246c22c1442cf1a18f90caf7bba4568d0f033b06ff75234ef32e9d44c"
+                      },
+                      {
+                        "key": "Request-Time",
+                        "value": "1715952159000"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"requestId\": \"7395fc82-2442-4e05-a623-1b19f4cc8fe5\",\r\n    \"type\": \"qr_cpm_change_qrcontent_status\",\r\n    \"body\": {\r\n        \"qrContentId\": \"17422a94-b449-471c-b374-d138fc2559bc\",\r\n        \"status\": \"closed\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{url-netzme}}/internal/v2/qr-cpm/closed/77foPbRm",
+                      "host": [
+                        "{{url-netzme}}"
+                      ],
+                      "path": [
+                        "internal",
+                        "v2",
+                        "qr-cpm",
+                        "closed",
+                        "77foPbRm"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "plain",
+                  "header": [
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-store, no-cache"
+                    },
+                    {
+                      "key": "X-Content-Type-Options",
+                      "value": "nosniff"
+                    },
+                    {
+                      "key": "Strict-Transport-Security",
+                      "value": "max-age=15768000"
+                    },
+                    {
+                      "key": "X-Download-Options",
+                      "value": "noopen"
+                    },
+                    {
+                      "key": "X-XSS-Protection",
+                      "value": "1; mode=block"
+                    },
+                    {
+                      "key": "X-FRAME-OPTIONS",
+                      "value": "DENY"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "283"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\"requestId\":\"7395fc82-2442-4e05-a623-1b19f4cc8fe5\",\"type\":\"qr_cpm_change_qrcontent_status\",\"status\":100,\"statusMessage\":\"success\",\"statusDisplayMessage\":\"Success Update QR Content\",\"ts\":\"1715955633228\",\"body\":{\"qrContentId\":\"17422a94-b449-471c-b374-d138fc2559bc\",\"status\":\"closed\"}}"
+                },
+                {
+                  "name": "Change Status QR",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Signature",
+                        "value": "2832935246c22c1442cf1a18f90caf7bba4568d0f033b06ff75234ef32e9d44c"
+                      },
+                      {
+                        "key": "Request-Time",
+                        "value": "1715952159000"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"requestId\": \"7395fc82-2442-4e05-a623-1b19f4cc8fe5\",\r\n    \"type\": \"qr_cpm_change_qrcontent_status\",\r\n    \"body\": {\r\n        \"qrContentId\": \"169726e3-1924-4830-8334-2fd7b1b1978c\",\r\n        \"reasonStatusChange\": \"Closed transaction\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{url-lenjer}}/internal/v1/qr-cpm/closed/77foPbRm",
+                      "host": [
+                        "{{url-lenjer}}"
+                      ],
+                      "path": [
+                        "internal",
+                        "v1",
+                        "qr-cpm",
+                        "closed",
+                        "77foPbRm"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "plain",
+                  "header": [
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-store, no-cache"
+                    },
+                    {
+                      "key": "X-Content-Type-Options",
+                      "value": "nosniff"
+                    },
+                    {
+                      "key": "Strict-Transport-Security",
+                      "value": "max-age=15768000"
+                    },
+                    {
+                      "key": "X-Download-Options",
+                      "value": "noopen"
+                    },
+                    {
+                      "key": "X-XSS-Protection",
+                      "value": "1; mode=block"
+                    },
+                    {
+                      "key": "X-FRAME-OPTIONS",
+                      "value": "DENY"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "307"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\"requestId\":\"7395fc82-2442-4e05-a623-1b19f4cc8fe5\",\"type\":\"qr_cpm_change_qrcontent_status\",\"status\":100,\"statusMessage\":\"success\",\"statusDisplayMessage\":\"Success Update QR Content\",\"ts\":\"1721695313542\",\"body\":{\"qrContentId\":\"169726e3-1924-4830-8334-2fd7b1b1978c\",\"reasonStatusChange\":\"Closed transaction\"}}"
+                }
+              ]
+            },
+            {
+              "name": "Reversal QR CPM",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "skyfeed**",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "skyfeed",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"msgId\": \"{{$randomUUID}}\",\r\n    \"type\": \"qr_cpm_reversal\",\r\n    \"details\": {\r\n        \"refId\": \"1efdf472-6ad2-4a74-938e-7bb6a5636014\",\r\n        \"reasonCode\": \"068\",\r\n        \"reasonText\": \"Time out\",\r\n        \"customerRefNo\": \"495862183238\",\r\n        \"transactionTs\": \"2024-09-23T10:56:22.227Z\",\r\n        \"invoiceNo\": \"78392046158193472744\"\r\n    },\r\n    \"version\": 0\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url-lenjer-rest}}/internal/v1/qr-cpm/reversal",
+                  "host": [
+                    "{{url-lenjer-rest}}"
+                  ],
+                  "path": [
+                    "internal",
+                    "v1",
+                    "qr-cpm",
+                    "reversal"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Transaction",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Signature",
+                    "value": "1d3347b3d0db0022b935be246f7604d0fb70d962fb542a9e494af6becf40a2e1"
+                  },
+                  {
+                    "key": "Request-Time",
+                    "value": "1718034719394"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "text/plain"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"mode\":\"FULL\",\"seqId\":0}",
+                  "options": {
+                    "raw": {
+                      "language": "text"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url-lenjer}}/payment/v1/transaction/ElYPp1zo",
+                  "host": [
+                    "{{url-lenjer}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "v1",
+                    "transaction",
+                    "ElYPp1zo"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success Get Transaction",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Signature",
+                        "value": "1d3347b3d0db0022b935be246f7604d0fb70d962fb542a9e494af6becf40a2e1"
+                      },
+                      {
+                        "key": "Request-Time",
+                        "value": "1718034719394"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\"mode\":\"FULL\",\"seqId\":0}",
+                      "options": {
+                        "raw": {
+                          "language": "text"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{url-netzme}}/payment/v1/transaction/77foPbRm",
+                      "host": [
+                        "{{url-netzme}}"
+                      ],
+                      "path": [
+                        "payment",
+                        "v1",
+                        "transaction",
+                        "77foPbRm"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-store, no-cache"
+                    },
+                    {
+                      "key": "X-Content-Type-Options",
+                      "value": "nosniff"
+                    },
+                    {
+                      "key": "Strict-Transport-Security",
+                      "value": "max-age=15768000"
+                    },
+                    {
+                      "key": "X-Download-Options",
+                      "value": "noopen"
+                    },
+                    {
+                      "key": "X-XSS-Protection",
+                      "value": "1; mode=block"
+                    },
+                    {
+                      "key": "X-FRAME-OPTIONS",
+                      "value": "DENY"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "35887"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json",
+                      "description": "",
+                      "type": "text"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "[\n    {\n        \"authStatus\": \"SUCCEES\",\n        \"transactions\": [\n            {\n                \"seq\": 75075,\n                \"ts\": 1719225037168,\n                \"type\": \"qr_cpm_payment\",\n                \"msgId\": \"705b6a4f-9182-47e1-af7c-83d7644ef6a1\",\n                \"refId\": \"0e1d5a3e-d992-48fc-8070-bbc123274ba1\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 10000.00\",\n                \"details\": \"{\\\"fee\\\": \\\"IDR 5000.00\\\", \\\"qrId\\\": \\\"0e1d5a3e-d992-48fc-8070-bbc123274ba1\\\", \\\"trxId\\\": \\\"a44db495-95ce-4050-bf06-a23943407529\\\", \\\"amount\\\": \\\"IDR 10000.00\\\", \\\"mdrFee\\\": \\\"IDR 3000.00\\\", \\\"qrData\\\": \\\"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAAEFElEQVR42uyZO479rBLEGxE4ZAewESS25cxk3hYSG4EdEDpA1FXh85iJ798k36Az0kj+BRb9qmrL3/k7vw+ABiNWXHFFoUsAz7UBiIuAJtLQFIa4Yq1OARnd7/sWZVsGoDXThpqASxL40+e1nThXAk1qUUOslZB8QBKRfTUgMhgsUQB6QE5+MTB/lo9rLbqLeNE4469oPgwwaVurr5Nf5zzPn1n9MHBDDJQVVXQPXScWT/xdwI8CDQbGMGHrUEAXLyGnI25xP+IiwJgmAnFDFTccup4/OS65n68A0AyM1AqACZOT7hLSvjNr4yKAZdOMiEMRcSmgh9y97Mf1vsnnATTTjBmOKVuseK+T6H5E2eVfAYZvAOswRA3LygxJ9CXHeb6C9Tww+4OxImIVap+dMsl27cc6wKBJA+tSDVeRNHJOngCWAdIAmNkmhxo+sFH6EDdcx7UKAPiiHJsY1lE+pHCX5rtwngfMnJvFslFahZw78/a4WBmyCGiYf6oON1zNuevcRcfjfDepBYAYQJq1rqhhXU4smyS7yHHtsgpAM8bM/9wQr0kExM/jFcDUtBiuqAoML9RRPlzb+emTzwNsYkaAWlQtrnNqdgnX/r3I5wGhhpHhilhViw+ZzzsT9l3dzwMGMI26WhVGSzwnt9/5eIurAJmeBsOBGiZ33UOS/fgoqQWAsJmbl4IpunudkbxscXvp6gUAexgMzYUqqmb0eVc433P1XwBzZtVhFQYlqwaF0gFOjFXArd0LI1GmZA3J60xHe64D6CZxdyirutfdewk4r+OdD88DrRk0WFeLG6p2f89NkU9SrgCkCcSqwk5J2SwSco47J0ZcB4ARq7WIKMqoHnLariMen5d8GjD0D6jFFZo5719d6sD5atYLgIYZryKWGRN6AJL3W6SZWwY0GhiFwXd0mVWT7pn11lELgKlqK8eFtdPPZnR/xI+GWQAYw5tSQ1XUWpHReVnX/lm7LQCamNbgUFGsKwG8psSLwmfV8zxgmmlSprS/9aROQmF/vjJmAWCMoZor1qFYugsvussW9+/+4XmAQ60p6gdCyEAKaTvx1vYLAJYOmuJonVkbOj0v9cNHUP6/gDGUrNPZo0i45UOO2/WRi88DbFDSHJiUYmkfaKPoJuN7zfI4QA2Dpoq1dHNdfMjslef1Q1Y/DZARWDWXPfeit4vfzq+GWQJIMxiU7a5Qr4ZM2Ry3r8x5GnhteodCsarmnBktv31F7QKgzZwZVg3aKE0P5b0/zrj9+ArzNAAOTo6Lwfbw2vWeJxC3lUAzrjBl5seHLjrN1T/ea5Y1QENFLWLpqXXyutPWv8XeAmCOrXvrVutUtH3qqGv/fiJ5GJhJa1S5S0gnhqr77dr340dWPwv8nf/O+V8AAAD//xqz3Jgiz2FMAAAAAElFTkSuQmCC\\\", \\\"status\\\": 1, \\\"balance\\\": \\\"IDR 904500.00\\\", \\\"customer\\\": {\\\"pan\\\": \\\"9360081450369635\\\", \\\"name\\\": \\\"Yana Andika\\\", \\\"expiration\\\": \\\"0924\\\"}, \\\"issuerId\\\": \\\"93600921\\\", \\\"merchant\\\": {\\\"id\\\": \\\"190202011521008\\\", \\\"mcc\\\": \\\"5499\\\", \\\"city\\\": \\\"Jakarta\\\", \\\"name\\\": \\\"Somay Mangga Dua\\\", \\\"criteria\\\": \\\"UMI\\\"}, \\\"invoiceNo\\\": \\\"05770376432225273436\\\", \\\"mdrAmount\\\": \\\"IDR 3000.00\\\", \\\"netAmount\\\": \\\"IDR 7000.00\\\", \\\"acquirerId\\\": \\\"93601111\\\", \\\"paidAmount\\\": \\\"IDR 10000.00\\\", \\\"terminalId\\\": \\\"K19\\\", \\\"totalAmount\\\": \\\"IDR 10000.00\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"sourceOfFund\\\": \\\"NETZME E-WALLET\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"mdrPercentage\\\": 0.3, \\\"paymentStatus\\\": \\\"PAYMENT_SUCCESS\\\", \\\"transactionId\\\": \\\"05770376432225273436\\\", \\\"transactionTs\\\": 1710330708560, \\\"productIndicator\\\": \\\"Q002\\\", \\\"mdrAmountRounding\\\": \\\"IDR 10000.00\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75071,\n                \"ts\": 1718885876325,\n                \"type\": \"qr_cpm_reversal\",\n                \"msgId\": \"6472d0d2-10dd-4f7f-9455-53b45a7c4ec2\",\n                \"refId\": \"53d0f2b4-fba3-440f-be9e-808618d69146\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 10000.00\",\n                \"details\": \"{\\\"trxId\\\": \\\"ee601068-7455-4135-b658-11982c6bb714\\\", \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 924500.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"reasonCode\\\": \\\"068\\\", \\\"reasonText\\\": \\\"Time out\\\", \\\"transationTs\\\": \\\"2024-06-20T19:14:22.227Z\\\", \\\"customerRefNo\\\": \\\"138734650285\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75070,\n                \"ts\": 1718885655728,\n                \"type\": \"qr_cpm_reversal\",\n                \"msgId\": \"24dec112-6389-4e1d-a890-d94be76dd5ef\",\n                \"refId\": \"0b3e7fe9-ae39-4312-8f16-2aa6974c25d8\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 10000.00\",\n                \"details\": \"{\\\"trxId\\\": \\\"b4ffd72c-fdfa-4809-a8af-ad9eb5f7c750\\\", \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 914500.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"reasonCode\\\": \\\"068\\\", \\\"reasonText\\\": \\\"Time out\\\", \\\"transationTs\\\": \\\"2024-06-20T19:14:22.227Z\\\", \\\"customerRefNo\\\": \\\"138734650285\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75068,\n                \"ts\": 1718857954898,\n                \"type\": \"qr_cpm_reversal\",\n                \"msgId\": \"3ed218c7-a0ac-465a-a9d6-9e3867dec288\",\n                \"refId\": \"4822d883-dafd-43a7-b283-6c156f05738a\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 10000.00\",\n                \"details\": \"{\\\"trxId\\\": \\\"b04e9181-4243-490e-951a-dfcea6b5d1a4\\\", \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 914500.00\\\", \\\"invoiceNo\\\": \\\"98346732019834673201\\\", \\\"reasonCode\\\": \\\"068\\\", \\\"reasonText\\\": \\\"Time out\\\", \\\"transationTs\\\": \\\"2024-06-08T16:32:22.227Z\\\", \\\"customerRefNo\\\": \\\"138734650285\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75056,\n                \"ts\": 1718187617529,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"239db7ea-d572-4fb5-8a48-c40f087f50c1\",\n                \"refId\": \"a9c80162-de18-4614-998c-9568cc265a35\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 10000.00\",\n                \"details\": \"{\\\"fee\\\": \\\"IDR 5000.00\\\", \\\"qrId\\\": \\\"a9c80162-de18-4614-998c-9568cc265a35\\\", \\\"amount\\\": \\\"IDR 10000.00\\\", \\\"mdrFee\\\": \\\"IDR 3000.00\\\", \\\"qrData\\\": \\\"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAAEEUlEQVR42uyZMY7sLhPECxE45AbNRZC4ljM787WQuAjcgNABoj8VM7OzL/6eSf6P3Wx+gWW6u6ra+Hf+nT+PqjZ1EDHFF6MdUXnuTVXPRUADmjbxw9QiYlPUrD3s+3ZiWwZoa67VOsQX8QkxwSZ73dul10qguQFTIIKYQtQEYF8NABAI70q1R80pLAb47+CLr7UW220KNut1/nGbDwMs2tbq++T3ua7rd1U/DEyoQUQEptgeu022H98fFwBNnTrHu6rDqHYExI7j3M79OBcBzjkHhR+m+OG1W+02dxw3Xr+vALTxMU1VVRZMTrbD9n1n1Z6LgNYUqoDXAvgUtcecO3bsnzf5PKDQ5txg29QiCMEmIBwndvwtwDXehRgdMEPAckgIO47rel/W80BzRIRj0mjtc1J2bDeOdYDTBlURwAxfc7LKObnd+6c9FwBzSqkfYmoxI1K8e4jnpvdxrwJYj1BTi9chviPmFF+teX9m9eNAQ2sN5V0wNrM5bTpuvNtiBeAcZyXED8pWznNC2fO47rdmLQCaU0UTKvcQn9P0MNiB49yxCHCcHw6geg8ESyLqedz7u56WANpYtgVGdQTQR4V4b9f90aznAZaMorwGqe8hau6I9/59yucBepj5moTtG2KyPcQ+i/ZeCLimwwxf4AcASw+xs31/vNzTgJtDzOgQTnPN3faYgOPHyS0AaOQ4QIoZXovtdLSasJ3b21cvAOhoOUsZ9kzN2oEQol4fXf0bAJ+hDf4utKxWWRGHUjFWAS/vDq9jRpgp3jYz0V7rAKbJ14yCmB5sDwFRr7diLQEa7YNjdDDDVM4H6uavolwBuAbXRPCKcjkBMeu5T8VYBqgqdNDNwSSrucfct/s4P+L+PODoKF0dvgh8CRQMds+h13tYLwCaY4LQIuIHJHa6uRC2k3/LAKhDM7UOCHxm16SXZm33KsA1and9y0VAzFl7OM79uJYBnB6t0ddrMVWzdr4sWntdBrBtmnotTPfDKl9Titf9Ey8WAOrYvgWmiExvnxg4j+u17VkF0M0VVksRoZGD7dPQftYLzwNTuxv8XD8KeFMppu3SXzuOxwH2bqOfHBABBYUeZju3H8f5fwNM1Y4JpmpBfNmHfDJX36uA1hxHtdfBdM/4wBg1k/1nzfI4oDPasyJ9Hb5zVPdI83DcXx/1MDArQmkWa62vRW+Pfbu+HmYJgOaGzNVesVlTzImZmtK5CJhWTs2geTc15zyB7WtqFwDzCwiG0EXVYueWJbBctt9fYR4GtDWHYaoW8Uwzc9c7993bSkCdL8xQ8+NDh02BbfPRrDVAa0ozCUHMr88PLJaP2VsATCtV5tK91uloO33Uce7fTyQPAz9FS+mETXPz/3v9uAD4d/47538BAAD//xBruDkGPXR9AAAAAElFTkSuQmCC\\\", \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 644400.00\\\", \\\"customer\\\": {\\\"pan\\\": \\\"9360081450369634\\\", \\\"name\\\": \\\"Yana Andika\\\", \\\"expiration\\\": \\\"0924\\\"}, \\\"issuerId\\\": \\\"93600921\\\", \\\"merchant\\\": {\\\"id\\\": \\\"190202011521008\\\", \\\"mcc\\\": \\\"5499\\\", \\\"city\\\": \\\"Jakarta\\\", \\\"name\\\": \\\"Somay Mangga Dua\\\", \\\"criteria\\\": \\\"UMI\\\"}, \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"mdrAmount\\\": \\\"IDR 3000.00\\\", \\\"netAmount\\\": \\\"IDR 7000.00\\\", \\\"acquirerId\\\": \\\"93601111\\\", \\\"paidAmount\\\": \\\"IDR 10000.00\\\", \\\"terminalId\\\": \\\"K19\\\", \\\"totalAmount\\\": \\\"IDR 10000.00\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"sourceOfFund\\\": \\\"NETZME E-WALLET\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"mdrPercentage\\\": 0.3, \\\"paymentStatus\\\": \\\"PAYMENT_SUCCESS\\\", \\\"transactionId\\\": \\\"02234567370223456737\\\", \\\"transactionTs\\\": 1710330708560, \\\"productIndicator\\\": \\\"Q002\\\", \\\"mdrAmountRounding\\\": \\\"IDR 10000.00\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75055,\n                \"ts\": 1718026025678,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"10d9734e-722f-42bb-a9d7-7995b266772d\",\n                \"refId\": \"6bcc351b-c67e-4c3f-b0f7-b646d9e6cba0\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 10000.00\",\n                \"details\": \"{\\\"fee\\\": \\\"IDR 5000.00\\\", \\\"qrId\\\": \\\"6bcc351b-c67e-4c3f-b0f7-b646d9e6cba0\\\", \\\"amount\\\": \\\"IDR 10000.00\\\", \\\"mdrFee\\\": \\\"IDR 3000.00\\\", \\\"qrData\\\": \\\"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAAEDElEQVR42uyZPY4lrw7FDyIgZAewESS2VVlVVttCYiOwA0ICxHky96N74jdF8h/mTkut+wuQbexz3Ph3/p0/D8lmLZya8EVxIFJONySvTUCTD6eqrGQJOifozH6YC2YbwNYa1PTF1wI9Yh7Qcsmb91bAsigW5xBTJBOAYzdAqOLrCtUAQogSqJ3AYhzUdPBFp5hTTJrXH9l8GJCiba2+T36f+75/V/XDwCtYE6rA16JzzimEYPofD/hhoJENLJ51epIjrnzB3J87bgCspW2t+KmKn545c2gOnB3nRqARFr5IG3NBSnZAX4bsxzaA1pLTT8U6oXOKecR08jLvh7MBkDBZTqdqrdMhBJ2gx3mZT6T+AkBaNrL46XyRlzkkEmc/u9kFyLeWBWqqoqbkIUGznx345OJ5AA2NDpCZURN00jkF04/z8y6eB5pttJi+rpmFALnnOI4D72RtAMBmIbmqxRf59sVIoMwuQIq2oaji4KfPOQ89dDo7jvPVK3cAtLCtTufl/7ojYpJa2Qc02GZR1HTOr2TpEfQwd/8EcgNgRU5awEmgEHSKCZHX+e6SW4CG1tCgOH1x0ieljw15uKbvAlaumsTIQbQcQhT9wPvmNgAyu1F8cU7VEuLQA3Gc17doNwASJcvpa51+IoqCeSXr0z92AFZMzquBLHeTIEPtJu++CwDlmr4W58kiryYzBZjv7N4A2NXEnFMrWHlIrBCMFMzfAuRZEMvHeRYtenXN7uurWjcAS7vDczoosTAxBZ3F0X5z8TjQLAGqKRKGzPJJOt/97OfbRj0P2OXlioPzLE76g8zN876v461hngdENNvmAF+rWJgEiLP+JTCeB14NwqkityTTMveadz9+ptrTQLPSIfxcbdIzxZxHwNlN//ao5wEsUSttssDFZeVCMJf82wVgWZjybiBDJ0Aer7mv46MnHwe4erWfEAnjxc9GkRA/vnoDsHYcTZGVtVZmDglWP3B+ZvfzgKXUzJSiVXOtecRZw/RPtjYAbY0t5ysrl7bXZB6HENwFWKmXtiqmOL9mph4w1/GzXngckJFmV54qOcV2B0BL//jqqOcBi6VhAFWLyilE8f7AcXw7zP8LWCvSffrp37mAlMTaLvRdQJM2yaJEqNWyohCZjrN/3sUGQLpDs6Jf5DdRzTIvruOX13scWPckRTSrujZ7ecRhfknWLQAoP/xcWk4vRsbFPoBrw+lrUSRr5tB5hNiNiJhdwNp40zk1lWgY8VAhhLXZ+/krzNOASDmKkxNJK3fMKS4L810F7wFslUw5VeTZiIu5cLy3bruAhtfaXRV5NCnoJB3svLYBS94rVhmcMq4AGVv8SPsdwLI40sydr9OnEJfNOc7vomUD8O/8d87/AgAA//9+NPa3ZhyIuAAAAABJRU5ErkJggg==\\\", \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 654400.00\\\", \\\"customer\\\": {\\\"pan\\\": \\\"9360081450369634\\\", \\\"name\\\": \\\"Yana Andika\\\", \\\"expiration\\\": \\\"0924\\\"}, \\\"issuerId\\\": \\\"93600921\\\", \\\"merchant\\\": {\\\"id\\\": \\\"190202011521008\\\", \\\"mcc\\\": \\\"5499\\\", \\\"city\\\": \\\"Jakarta\\\", \\\"name\\\": \\\"Somay Mangga Dua\\\", \\\"criteria\\\": \\\"UMI\\\"}, \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"mdrAmount\\\": \\\"IDR 3000.00\\\", \\\"netAmount\\\": \\\"IDR 7000.00\\\", \\\"acquirerId\\\": \\\"93601111\\\", \\\"paidAmount\\\": \\\"IDR 10000.00\\\", \\\"terminalId\\\": \\\"K19\\\", \\\"totalAmount\\\": \\\"IDR 10000.00\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"sourceOfFund\\\": \\\"NETZME E-WALLET\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"mdrPercentage\\\": 0.3, \\\"paymentStatus\\\": \\\"PAYMENT_SUCCESS\\\", \\\"transactionId\\\": \\\"02234567370223456737\\\", \\\"transactionTs\\\": 1710330708560, \\\"productIndicator\\\": \\\"Q002\\\", \\\"mdrAmountRounding\\\": \\\"IDR 10000.00\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75048,\n                \"ts\": 1717735681996,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"b6b402e4-d193-4d89-b4cf-cb7cac707558\",\n                \"refId\": \"169726e3-1924-4830-8334-2fd7b1b1978c\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 10000.00\",\n                \"details\": \"{\\\"fee\\\": \\\"IDR 5000.00\\\", \\\"qrId\\\": \\\"169726e3-1924-4830-8334-2fd7b1b1978c\\\", \\\"amount\\\": \\\"IDR 10000.00\\\", \\\"mdrFee\\\": \\\"IDR 3000.00\\\", \\\"qrData\\\": \\\"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAAEHElEQVR42uyZP47sLBDECxE45AZwESSu5cxkXAuJi8ANCB0g6lOzM7P74veZ5C37Rxr5FzC4u6u6we/6XX8ukp0GVrXqquJAoKz7IBk3AR3o7I4Trlqrc2Dh8Od5RBzbAPZuOtu0gHUZIUNnne4jMe0EOgDVqrUI2QdmAOduAFATqkKRHAL4zYD8msZqVWtVD52910zxj7f5MCBB23t7rfJaKaWfUf0wsKA+rXVyVnqEoXMoPx5uADoNjVHVujYVOeARmK94xPOKmwBjOkC4qaqbjkNz6MJ43fh6vgNgJ0HVSErAlKwH9DhPidq4CZDUpQEcK+By4AhlhHie5/sknwcI0w2npE2rFt7rDO+v75P6e8D0bgytFGsltdJLpcSJK6XXy3oe6JCDsKIWim2sSplDunHtAww7Oq0UyukasyZL9sd9XtwGSJXqxk3X2lTTh4EwfIgH7+veBXDlp5pwnNaJfchhQMLl9bY2AJIYHdVV0W6rS1mV8rpxvr/F84BZtRJWTUe2UoYuAzpe6X5p1gaAhkS3Fq5N60peHgYncN0nNgGG3RjZqatuwmshgtTq8xVPGwCJWbJxOZjpIT7Kh/tI9/kWjMcBohtC8qa16oZHKBnhPj+73AB0ksB0ddl7H0SzwhBH+QraPQA6xTxUuAlASxE7JX3f3v5xwCw3pzhXNWcZWnZ4pY+T2gBAirmxX6666uF1Ycm44vHy1RsAcbQEq7WqqlY4AK/J9C6j/wewNKtNqzjFsmpm+ZdEMXYB8ipoqvgHLMsastf5PMi0DxAPA7FpE1YNr4dYqev9dAuwGlpjIa5ZteG/dBO43kG5A5BaDeuqq2rZZiCUEk9RjLgLgIiWlOoKqKxZxDcf9xWvt9l7HDDiYtjahIXYatkjBy6mt24+D0hrv4Y7UyImjCDdnD+i/GwEDKCqtaLfJa8GY2nWRy8eB6TBEO1mhbXSXZTC4a+IT+5sAFbyqKka5a9wyGHd5/FzvPA4ILtcNcy6KqKJkOWg+BaU5wGabjpEt61d3j7rvHQzxWMfYMguaeOqdWT20ANHPD/jheeBpd3iH1bHWbiaexGUHzOOpwEDCdrqVgmxEEEJGUeKx6fC/C3QjdTqJp096zKKPrDE48Y7eTcA4pop2i2uVdqHUrJO8UrxPWZ5HBAPw15h3VTTDfgggsH0KVEbgLVPQk2R7jXoLSPkI317mC0AumnTTZFvLUEp1v2KIp2bgHUDgjbVGnuVUuRtMX2b2g3AugGhtUqe19VDeY9LPO2PW5iHgTX5n6uhdaLha9abpIU5dgIUvVDVrcuHAZ29pA1vbAS69DiqwiKUobPXRYLlitsAiVlUC5HvlgFdhvio6z6/r0geBtYNiJFWUj6tOXAY/rjP7xHI48Dv+nfWfwEAAP//p+rOPOBLcU8AAAAASUVORK5CYII=\\\", \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 664400.00\\\", \\\"customer\\\": {\\\"pan\\\": \\\"9360081450369634\\\", \\\"name\\\": \\\"Yana Andika\\\", \\\"expiration\\\": \\\"0924\\\"}, \\\"issuerId\\\": \\\"93600921\\\", \\\"merchant\\\": {\\\"id\\\": \\\"190202011521008\\\", \\\"mcc\\\": \\\"5499\\\", \\\"city\\\": \\\"Jakarta\\\", \\\"name\\\": \\\"Somay Mangga Dua\\\", \\\"criteria\\\": \\\"UMI\\\"}, \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"mdrAmount\\\": \\\"IDR 3000.00\\\", \\\"netAmount\\\": \\\"IDR 7000.00\\\", \\\"acquirerId\\\": \\\"93601111\\\", \\\"paidAmount\\\": \\\"IDR 10000.00\\\", \\\"terminalId\\\": \\\"K19\\\", \\\"totalAmount\\\": \\\"IDR 10000.00\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"sourceOfFund\\\": \\\"NETZME E-WALLET\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"mdrPercentage\\\": 0.3, \\\"paymentStatus\\\": \\\"PAYMENT_SUCCESS\\\", \\\"transactionTs\\\": \\\"2024-03-13T18:51:48.560Z\\\", \\\"productIndicator\\\": \\\"Q002\\\", \\\"mdrAmountRounding\\\": \\\"IDR 10000.00\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75047,\n                \"ts\": 1717734329948,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"198fcec2-706b-4c49-9098-9f77c4815df3\",\n                \"refId\": \"856cd14b-304c-4c8f-bd66-e19ed1d3dd48\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 10000.00\",\n                \"details\": \"{\\\"fee\\\": \\\"IDR 5000.00\\\", \\\"qrId\\\": \\\"856cd14b-304c-4c8f-bd66-e19ed1d3dd48\\\", \\\"amount\\\": \\\"IDR 10000.00\\\", \\\"mdrFee\\\": \\\"IDR 3000.00\\\", \\\"qrData\\\": \\\"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAAECElEQVR42uyYu409rRLEG2FgkgEkgkRaeDMeaSGRCGTQJgairprzWK39v4PzLTrGaudnIPpV1fR3/s7vA4DZOo/mPIA6Y9Eo1zAA7kMAE7FFR2/ChBBLRC0pmZvMMQDMBCzyy5GaQcsvYpiMfBJgRl++96UKxRIrCqXjgFXLo2MHi3SJpwEiZl5OoZFqGlOjUDD3r2g+DOyk5f4+9X1yzr+y+llgQ7zUItVU07UEiih03b8K+FmAiQGoDjTfgVp3vKR2x+clHweIyQJLLSVpixlRgZmuPC6cAmAJIHJeXspXKRsAeVzDDDoFgC3scmo559TUVfpoSBKtT9I+DrCVe3Ys53tvpIvUTs0/Gft/AIgsMalF5MjFGWItEePKeaRTAOSz3Z3ad5SgJ2nM604G4xTA1hLo1aLQYqGgS5zmc8UzAJjBvTepikV6xirB+mTkEcDusdnkpTxWrHP/xpVHSqcAsGWGfFdYLuiiKyaRua9xDCAwWesc+eack+9FF7pwm/scwBZMTf7yO1hCVOQ8zKeRPg/IxLDSJZfvK4QQMWNJV76/c+t5gC2TXb6p5Zf0Scw4g8m3Gd+HehywcsmlsH+FRMkFfZMZdAwAMcOq3mRyukC6ytwadI3rpeUOABbWMpwSbd9XnEFkdaEr3+/ZfQAQ9cDwvflGYnLE48xAF/AN1uMAg4lZvkv96hmnXFIS5v56nKcBUdXYWtJ59FolZUkDOb+H2r8DVnIS4uPI9ybyROxDMrcZr9o8AIhgBZPIJJGsU4uT0vLPbyweByQpITpKydwKLxETSJqkuU8B4uzJi4fyaBEvUysqKh0DIIqSRcqRWk5KItY6U/rqhwOA9Gq2bg9OL5hG0RgpXW9LewQAseSrE01LFIJGLSbnH2H9PLCbdfNL9eVb3FYu6EEpfWb38wBjW+vlJFh+hrCXHMN8pNwJAFvVioZy4jCCBmohMz45fQJgWEt757WcaqKjgBKR70TpGLDLt6OppvoKW8OgDpPx8TjPA4SX19vbphX0FFlbb0r085SPA9LOreq9A4ukexQSYT3Mz6LlaUCS1pLfofJ9hhD3liOPj7Y/AGw5SX0RqQ7UvWTRVeTDR2j9M0AshOpiq7eVI7G0yeSPXDwAMFuA1vYvqk+KEBtl7vSti+cBbD/ZnMzNpopoqBJr/rFyB4BdGZArksLe7E2ZW1nU3H0O2L2aRE42/WZEy50DXpteUZMiKHfKYtL1o2kPALw97RLl7lSTFiViTi55X/cpAMx7xanWu3pFUe6FN04C1q7XhsNJh6qio0iq9yRA1qPJFXuRSMUZvjvWM8DeeSsZnNLIRMjpGQelaxwDJGn31r939F60pG3EfeGjYg4Af+e/c/4XAAD//5y9UkdJDU0oAAAAAElFTkSuQmCC\\\", \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 674400.00\\\", \\\"customer\\\": {\\\"pan\\\": \\\"9360081450369634\\\", \\\"name\\\": \\\"Yana Andika\\\", \\\"expiration\\\": \\\"0924\\\"}, \\\"issuerId\\\": \\\"93600921\\\", \\\"merchant\\\": {\\\"id\\\": \\\"190202011521008\\\", \\\"mcc\\\": \\\"5499\\\", \\\"city\\\": \\\"Jakarta\\\", \\\"name\\\": \\\"Somay Mangga Dua\\\", \\\"criteria\\\": \\\"UMI\\\"}, \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"mdrAmount\\\": \\\"IDR 3000.00\\\", \\\"netAmount\\\": \\\"IDR 7000.00\\\", \\\"acquirerId\\\": \\\"93601111\\\", \\\"paidAmount\\\": \\\"IDR 10000.00\\\", \\\"terminalId\\\": \\\"K19\\\", \\\"totalAmount\\\": \\\"IDR 10000.00\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"sourceOfFund\\\": \\\"NETZME E-WALLET\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"mdrPercentage\\\": 0.3, \\\"paymentStatus\\\": \\\"PAYMENT_SUCCESS\\\", \\\"transactionTs\\\": \\\"2024-03-13T18:51:48.560Z\\\", \\\"productIndicator\\\": \\\"Q002\\\", \\\"mdrAmountRounding\\\": \\\"IDR 10000.00\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75044,\n                \"ts\": 1717729108461,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"f5ca4ae9-8fee-4743-ac73-99fa337219a4\",\n                \"refId\": \"410533e5-f334-4927-82a7-8ba91a3c436b\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 10000.00\",\n                \"details\": \"{\\\"fee\\\": \\\"IDR 5000.00\\\", \\\"qrId\\\": \\\"410533e5-f334-4927-82a7-8ba91a3c436b\\\", \\\"amount\\\": \\\"IDR 10000.00\\\", \\\"mdrFee\\\": \\\"IDR 3000.00\\\", \\\"qrData\\\": \\\"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAAEEklEQVR42uyZMY70KhCEGxE45AZwESSu5czOfC0kLgI3ICRA1FMx9v678cokb9EGq5kvYOjq7mqQv/W3fi4AFcgOWaEUpK6jRkLbAJyLgMo/8D+VHXpAAhBl307ZlgGo1YgrQxVkF73uPsSAtl24VgKQci/EEENK3ORioEoWK9YBSN3rhNWACAlrRVzJGikhRY3zRzRfBijaWp+DSve6ruu7ql8GPoc1XBaVVdaMFj/afyTwy0BluCQ7ShaMFlIMcd+A9pzk64CpMLWKy2o4jADuUvf9uK5zGQAxMNVhiDigS0iImnrd78NaAVQjYrKoMtxQ6F4kdM897vcm3wcqBJAhrqAgi06p+5Cuqz2a+T3AcMCokl22YgOr9ScWOPdVgDGAYKgsCoWx6CFFOXBuaKsA8KSqK2ybyCLiQ5RwtX1rsgwwqGJYJIdD1onlOqSrbW3fVwHC3ITj9tywIXrRPXS2i1NWATwmwCGTUV24zT4F+/yK9wEiUkuhYIZLUaeoo2ysUMe5CACkskYPhaGG6BgIndvVjlu07wOzSNWZuS6L914zf9txnXL/iveBKdoqDsO6kmlgeoieB9W+qfpdoFZjah1WXClTtBrRh0a53LX6fcBMM8caNgsp3WT3mvXjDtYCQIyRarK4bFUpYDfp01Zf17kKMEIzN6y1rKRA9OJ1p4d5Gsr7ANUyCwgTJ+tpIbpsuB3MGoDzBVAw2NU+kg0Arutuar8HDHdB6+4GrXuKTI3UjvOp1gsAGADiMo1aAThC6c5d4l/yvg2YaaTKdM3D9YA5R53HI9klAGhZraghblCOXncJjUXqPskFgJnuIYtYhSGanbPrtqHdtXwBgKlaNSd7NcQLNRNw7sczPiwADLhNV8q8YYi6a/r341/bXAHUCqMGu6ajt+fXGqfs+9M3VwCm1pLFDTdcFB5UwOxZT2a9D3C4F6vKECvWe6FwddtXAmzeqI6z/Sxi3XPO+T4CvQ+wlEvNzF5qdnoYzL75XPW8D4gxxoBGjlYqzOvHlBis7cs/vA3M66Zp5USVQkcroqMc7QnWAgCzkpYsVkTl0D+udrva07sXAFVMNXT2ZVirZqj6TN7Hd/8emDc5xlrriITEbxFlO/e7bS0AKssDrMqOrbtLQNSYJWr/su5vA+BUbdScpKyVEPW8TULbnn7xPjDj9blZIJUSUteYF5xN1gFS6+fpAVl/rv7TuZ3bl4t5HZgvIDIVC3padB0ltONrfFgAsD4Yk60rQ2jdKZn+Ge33ZcB8fbCqZMejAu1DSOdGe38uBASiaOZEdfEhpdT3fXtG+1VALVnRQagooc/M+SeoFcAMFie5rLKilWPPYA1ry4D5AoLpqUWVlCLH6nnVs397hXkX+Fv/n/VfAAAA//8lIVDYgP6J9wAAAABJRU5ErkJggg==\\\", \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 704400.00\\\", \\\"customer\\\": {\\\"pan\\\": \\\"9360081465072079\\\", \\\"name\\\": \\\"Yana Andika\\\", \\\"expiration\\\": \\\"0924\\\"}, \\\"issuerId\\\": \\\"93600921\\\", \\\"merchant\\\": {\\\"id\\\": \\\"190202011521008\\\", \\\"mcc\\\": \\\"5499\\\", \\\"city\\\": \\\"Jakarta\\\", \\\"name\\\": \\\"Somay Mangga Dua\\\", \\\"criteria\\\": \\\"UMI\\\"}, \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"mdrAmount\\\": \\\"IDR 3000.00\\\", \\\"netAmount\\\": \\\"IDR 7000.00\\\", \\\"acquirerId\\\": \\\"93601111\\\", \\\"paidAmount\\\": \\\"IDR 10000.00\\\", \\\"terminalId\\\": \\\"K19\\\", \\\"totalAmount\\\": \\\"IDR 10000.00\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"sourceOfFund\\\": \\\"NETZME E-WALLET\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"mdrPercentage\\\": 0.3, \\\"transactionTs\\\": \\\"2024-03-13T18:51:48.560Z\\\", \\\"productIndicator\\\": \\\"Q002\\\", \\\"mdrAmountRounding\\\": \\\"IDR 10000.00\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75040,\n                \"ts\": 1717677427329,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"ebeb5534-cdb4-42e3-8833-8b47783ba19e\",\n                \"refId\": \"c0554ece-8061-4487-87d1-52cc92fb2dfa\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1500.00\",\n                \"details\": \"{\\\"fee\\\": 500, \\\"amount\\\": 1000, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 724400.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"889wQF\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75039,\n                \"ts\": 1717677027424,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"a7ff3ecc-3209-4801-9b5f-65034fe19d7d\",\n                \"refId\": \"85f8388c-25fb-450d-a024-8427087f3cba\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 725900.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"s800ca\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75038,\n                \"ts\": 1717673395625,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"6030144f-2272-435f-97f2-101ee173a23e\",\n                \"refId\": \"c91f4b11-df8a-4a80-944c-6de03c194790\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 727600.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"Q789IN\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75037,\n                \"ts\": 1717673265324,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"ac4c87d0-3e60-438e-ae0f-edc43491bb2d\",\n                \"refId\": \"1a252ba6-841d-48a9-a519-2262684da1df\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 729300.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"u726l7\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75036,\n                \"ts\": 1717673178227,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"37a5d2b7-17e1-4143-be91-57853a891d53\",\n                \"refId\": \"75facae7-d1d0-4764-8670-933fb10ccd9d\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 731000.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"07X94p\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75035,\n                \"ts\": 1717673009926,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"cd945503-bbb5-403e-bc52-35f8bd16bf60\",\n                \"refId\": \"51d568dc-d191-47a8-aa4f-f64102545d39\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 732700.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"674i2s\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75034,\n                \"ts\": 1717661041525,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"0e60b426-7ae1-468e-a7e3-db899e1802c3\",\n                \"refId\": \"fb872d96-9a06-4295-b8f0-d8820f3a43a4\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 734400.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"P01fZi\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75033,\n                \"ts\": 1717660102424,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"39e2ba45-44f6-4f7d-a885-b39968147b01\",\n                \"refId\": \"a68f1cef-2c02-4f8a-b8e4-653da61e728f\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 736100.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"R94aG2\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75032,\n                \"ts\": 1717659595428,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"70b098d3-f0ee-4988-8b66-887235b3d400\",\n                \"refId\": \"72747ecf-3d9c-4cf4-b460-804080deeb7f\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 737800.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"12A0It\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75030,\n                \"ts\": 1717573526428,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"6ca6ad39-bfa3-4927-a9fc-4d22d1f22226\",\n                \"refId\": \"24032da8-726f-4e16-8431-f4a42ab988df\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 739500.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"454W0k\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75029,\n                \"ts\": 1717564143104,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"878a19cd-e8c7-46c7-83f7-9f0e0e671c8e\",\n                \"refId\": \"32e88c29-d494-4c44-b517-9e63894271ef\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 741200.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"xm25rx\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75028,\n                \"ts\": 1717563933999,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"b4981230-1f38-4c97-8811-29e8156d6f90\",\n                \"refId\": \"4a89524a-cba6-4b02-b970-1d748789e64f\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 742900.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"M1984c\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75027,\n                \"ts\": 1717563841001,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"47983773-39d3-45de-b6bd-05e9e9b822d5\",\n                \"refId\": \"a02c48f0-9797-4efc-8e82-6c1b938eb0ba\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 744600.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"1Xk6Y2\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75023,\n                \"ts\": 1717409938004,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"9371722a-0070-43e0-a005-cc684e94a2b1\",\n                \"refId\": \"cca08eb6-0b6b-4f57-9088-127cbde628b7\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 776300.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"29QW5m\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75022,\n                \"ts\": 1717409612000,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"0439b4a6-513b-4c8a-83aa-dce0d5f913fd\",\n                \"refId\": \"011ffa8b-76df-44cf-8e95-e6faeb14700c\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 778000.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"O22m7s\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75021,\n                \"ts\": 1717409302904,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"be3c5dfe-f4ec-4354-ab99-03abcd3f0403\",\n                \"refId\": \"1810286b-21b9-4165-962e-ad774e4a593d\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 779700.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"35481K\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75020,\n                \"ts\": 1717408859601,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"c542870b-2a30-45a5-b69e-e72725c6e148\",\n                \"refId\": \"5d59e199-6db6-47c3-bb51-94ffc2496b93\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 781400.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"23Z38X\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75019,\n                \"ts\": 1717408510500,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"5b47afc5-dc1b-4131-a8f6-c3f3ae7478ee\",\n                \"refId\": \"0fb50c65-0aea-44aa-9aec-83f711738f0e\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 783100.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"12VW2y\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75018,\n                \"ts\": 1717407931800,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"bc633441-2668-41ad-8e90-8f4f62aa3770\",\n                \"refId\": \"206700d4-90cb-452b-8d0c-619671c31fe6\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 784800.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"543dKU\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75017,\n                \"ts\": 1717407461202,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"a54a9b56-4b67-4ea2-9dbf-6bf187f0069c\",\n                \"refId\": \"6ec2a434-ffd7-4052-8dde-aad4cf72ff5c\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 786500.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"103Vt7\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75014,\n                \"ts\": 1717400308707,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"a8d4954e-272a-4ca8-9e6a-b0565ded1ec7\",\n                \"refId\": \"ee69417d-9c2b-4f10-9236-a4c5a04ff378\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 788200.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"o49dZd\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75013,\n                \"ts\": 1717399809498,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"759b872e-a0c3-463b-8ecb-d2317c17b47b\",\n                \"refId\": \"e060ce6e-f33c-4efc-afc6-dcca6c2a6b25\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 789900.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"v8iO01\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75012,\n                \"ts\": 1717399704198,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"4f029d45-aea4-414d-a969-2d540cf1e3b3\",\n                \"refId\": \"2435224c-a7a4-4f8c-b6bd-921383c7537a\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 791600.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"51NH1G\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75011,\n                \"ts\": 1717398963903,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"4f029d45-aea4-414d-a969-2d540cf1e3b3\",\n                \"refId\": \"9fcac42e-3cd9-4e24-b141-b244af1831f6\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 1700.00\",\n                \"details\": \"{\\\"fee\\\": 200, \\\"amount\\\": 1500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 793300.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"14uoWL\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75010,\n                \"ts\": 1717398858503,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"4f029d45-aea4-414d-a969-2d540cf1e3b3\",\n                \"refId\": \"84e4b5b3-1072-4f3c-b2c1-d9ffe92ecb30\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 5000.00\",\n                \"details\": \"{\\\"fee\\\": 1500, \\\"amount\\\": 3500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 795000.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"40a9zK\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75009,\n                \"ts\": 1717398683297,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"4f029d45-aea4-414d-a969-2d540cf1e3b3\",\n                \"refId\": \"3f4da5a7-728d-474b-82bf-085ca4f5dd03\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 5000.00\",\n                \"details\": \"{\\\"fee\\\": 1500, \\\"amount\\\": 3500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 800000.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"L253pL\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75008,\n                \"ts\": 1717398615900,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"4f029d45-aea4-414d-a969-2d540cf1e3b3\",\n                \"refId\": \"5f23856d-1440-43df-b0ce-acf139f7a38f\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 5000.00\",\n                \"details\": \"{\\\"fee\\\": 1500, \\\"amount\\\": 3500, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 805000.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"23HCi5\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75007,\n                \"ts\": 1717398291200,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"4f029d45-aea4-414d-a969-2d540cf1e3b3\",\n                \"refId\": \"00ea51c1-596b-4a38-b26b-870610314b35\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 15000.00\",\n                \"details\": \"{\\\"fee\\\": 5000, \\\"amount\\\": 10000, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 810000.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"32Gdi7\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75006,\n                \"ts\": 1717397985502,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"4f029d45-aea4-414d-a969-2d540cf1e3b3\",\n                \"refId\": \"22f125df-d190-418d-9c25-92e4bb7d1e4d\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 15000.00\",\n                \"details\": \"{\\\"fee\\\": 5000, \\\"amount\\\": 10000, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 825000.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"792LIN\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75004,\n                \"ts\": 1717388543302,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"4f029d45-aea4-414d-a969-2d540cf1e3b3\",\n                \"refId\": \"ee21dfcf-0894-4e82-bfc4-4209fdcd82e1\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 15000.00\",\n                \"details\": \"{\\\"fee\\\": 5000, \\\"amount\\\": 10000, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 840000.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"zven5z\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75003,\n                \"ts\": 1717387067794,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"4f029d45-aea4-414d-a969-2d540cf1e3b3\",\n                \"refId\": \"66872c07-bce0-489e-8543-93561f66c76e\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 15000.00\",\n                \"details\": \"{\\\"fee\\\": 5000, \\\"amount\\\": 10000, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 855000.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"W2o3Z5\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75002,\n                \"ts\": 1717381329622,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"781aec89-9c85-4afb-8535-e2a4e1dbfd9e\",\n                \"refId\": \"80245755-a794-4682-93b4-1268e7d04ca2\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 15000.00\",\n                \"details\": \"{\\\"fee\\\": 5000, \\\"amount\\\": 10000, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 870000.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"k422yh\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            },\n            {\n                \"seq\": 75001,\n                \"ts\": 1717374110429,\n                \"type\": \"qr_cpm\",\n                \"msgId\": \"8d1cd947-f469-40fe-8a5c-57cd1d92264a\",\n                \"refId\": \"27269c34-9cf2-4ff2-97fd-8cf3f3b3e0de\",\n                \"userId\": \"77foPbRm\",\n                \"amount\": \"IDR 15000.00\",\n                \"details\": \"{\\\"fee\\\": 5000, \\\"amount\\\": 10000, \\\"status\\\": 0, \\\"balance\\\": \\\"IDR 885000.00\\\", \\\"invoiceNo\\\": \\\"02234567370223456737\\\", \\\"accountType\\\": \\\"E-WALLET\\\", \\\"currencyCode\\\": \\\"IDR\\\", \\\"customerRefNo\\\": \\\"138734650285\\\", \\\"authorizationId\\\": \\\"xh2u58\\\"}\",\n                \"error\": null,\n                \"couponId\": null,\n                \"userBalanceEffect\": null,\n                \"duplicateEvent\": false\n            }\n        ],\n        \"balance\": \"IDR 904500.00\",\n        \"incomeLimitInfo\": {\n            \"warningThreshold\": 0.5,\n            \"incomeLimitMax\": \"IDR 40000000.00\",\n            \"unregisterIncomeLimitMax\": null,\n            \"currentIncome\": \"IDR 0.00\",\n            \"whitelist\": false\n        }\n    }\n]"
+                }
+              ]
+            },
+            {
+              "name": "Proses Refund",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "skyfeed**",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "skyfeed",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"msgId\": \"{{$randomUUID}}\",\r\n    \"type\": \"qr_cpm_refund\",\r\n    \"details\": {\r\n        \"transactionTs\": \"{{transactionTs}}\",\r\n        \"customerRefNo\": \"778899011364\",\r\n        \"invoiceNo\": \"81934726615762183155\",\r\n        \"currencyCode\": \"IDR\",\r\n        \"totalRefundAmount\": 15000,\r\n        \"refundAmount\": 15000,\r\n        \"totalEligibleRefundAmount\": 0,\r\n        \"refId\": \"186f319a-267b-41a1-a160-a5025ac05ff3\",\r\n        \"refundStatusCode\": 50\r\n    },\r\n    \"version\": 0\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url-lenjer-rest}}/internal/v1/qr-cpm/refund",
+                  "host": [
+                    "{{url-lenjer-rest}}"
+                  ],
+                  "path": [
+                    "internal",
+                    "v1",
+                    "qr-cpm",
+                    "refund"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"msgId\": \"8d1cd947-f469-40fe-8a5c-57cd1d92264f\",\r\n    \"type\": \"qr_cpm_refund\",\r\n    \"details\": {\r\n        \"transactionTs\": \"2024-07-01T04:19:22.227Z\",\r\n        \"customerRefNo\": \"1631852362222\",\r\n        \"invoiceNo\": \"70572335648734650285\",\r\n        \"currencyCode\": \"IDR\",\r\n        \"amountRefund\": 1000,\r\n        \"amountEligibleRefund\": 10000,\r\n        \"refId\": \"10760861-90bc-47b6-b702-6c2de6e8eebc\"\r\n    },\r\n    \"version\": 0\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8081/internal/v1/qr-cpm/refund",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8081",
+                      "path": [
+                        "internal",
+                        "v1",
+                        "qr-cpm",
+                        "refund"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "plain",
+                  "header": [
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-store, no-cache"
+                    },
+                    {
+                      "key": "X-Content-Type-Options",
+                      "value": "nosniff"
+                    },
+                    {
+                      "key": "Strict-Transport-Security",
+                      "value": "max-age=15768000"
+                    },
+                    {
+                      "key": "X-Download-Options",
+                      "value": "noopen"
+                    },
+                    {
+                      "key": "X-XSS-Protection",
+                      "value": "1; mode=block"
+                    },
+                    {
+                      "key": "X-FRAME-OPTIONS",
+                      "value": "DENY"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "465"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\"seq\":75292,\"ts\":1719913790209,\"type\":\"qr_cpm_refund\",\"msgId\":\"8d1cd947-f469-40fe-8a5c-57cd1d92264f\",\"refId\":\"b45523a3-7537-4dc7-9bd3-2ccfc64cc1ce\",\"userId\":\"77foPbRm\",\"amount\":\"IDR 10000.00\",\"details\":{\"transactionTs\":\"2024-07-01T04:19:22.227Z\",\"customerRefNo\":\"1631852362222\",\"invoiceNo\":\"70572335648734650285\",\"currencyCode\":\"IDR\",\"amountRefund\":1000,\"trxId\":\"10760861-90bc-47b6-b702-6c2de6e8eebc\",\"balance\":\"IDR 864500.00\",\"status\":1},\"isDuplicateEvent\":false}"
+                }
+              ]
+            },
+            {
+              "name": "Get Validation Refund List",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "skyfeed**",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "skyfeed",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"body\": {\r\n        \"rrnList\": [\r\n            \"495762183107\"\r\n        ],\r\n        \"refundIdList\": [\r\n            \"778899001360\",\r\n            \"778899001359\",\r\n            \"778899001361\"\r\n        ]\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url-netzme}}/internal/validate/settlement/qr-cpm/issuerOffUs",
+                  "host": [
+                    "{{url-netzme}}"
+                  ],
+                  "path": [
+                    "internal",
+                    "validate",
+                    "settlement",
+                    "qr-cpm",
+                    "issuerOffUs"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Claim Reward",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "skyfeed**",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "skyfeed",
+                      "type": "string"
+                    },
+                    {
+                      "key": "showPassword",
+                      "value": false,
+                      "type": "boolean"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"type\": \"claim_activity_reward\",\r\n    \"body\": {\r\n        \"rewardRefId\": [\r\n            \"47e07ecc-b47a-4776-af04-5dbe1d880460\"\r\n        ]\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url-lenjer-rest}}/payment/v1/claim/activity/reward/sync/f6R1zNq1",
+                  "host": [
+                    "{{url-lenjer-rest}}"
+                  ],
+                  "path": [
+                    "payment",
+                    "v1",
+                    "claim",
+                    "activity",
+                    "reward",
+                    "sync",
+                    "f6R1zNq1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Toko-Kare",
+          "item": [
+            {
+              "name": "Generate QR CPM",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "dde28c7edb9d8046972c5c3277d999a2",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "kare",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"requestId\": \"{{$randomUUID}}\",\r\n  \"requestTime\" : 1715757094000,\r\n  \"type\": \"qr_cpm_generate\",\r\n  \"body\": {\r\n    \"userId\": \"77foPbRm\",\r\n    \"username\": \"77foPbRm\"\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/merchant/v2/qr-cpm/generate",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "merchant",
+                    "v2",
+                    "qr-cpm",
+                    "generate"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success Response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"requestId\": \"{{$randomUUID}}\",\r\n  \"requestTime\" : 1715757094000,\r\n  \"type\": \"qr_cpm_generate\",\r\n  \"body\": {\r\n    \"userId\": \"0iFZFpMg\",\r\n    \"username\": \"0iFZFpMg\",\r\n    \"phoneNumber\": \"+6281122223333\",\r\n    \"hashPin\": \"a2775aae52ad57894d4b26fa6b6910c6b3951b06f09dba9c2642cafe28f7035a\"\r\n  }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{url-toko-kare}}/merchant/v2/qr-cpm/generate",
+                      "host": [
+                        "{{url-toko-kare}}"
+                      ],
+                      "path": [
+                        "merchant",
+                        "v2",
+                        "qr-cpm",
+                        "generate"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "1773"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"requestId\": \"f42fc0cd-1cd2-4863-a860-b0813561a057\",\n    \"type\": \"qr-generate\",\n    \"status\": 200,\n    \"statusMessage\": \"SUCCESS\",\n    \"body\": {\n        \"customerPan\": \"9360081465072079\",\n        \"customerName\": \"0iFZFpMg\",\n        \"qrId\": \"3279d1ec-e9c5-4dcb-890a-8905c34382f3\",\n        \"expiredTs\": \"2024-05-16T12:14:11.720Z\",\n        \"lang\": \"en\",\n        \"qrData\": \"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAAEDElEQVR42uyZPW40rRaEDyLokB3ARpDYVmdN1ttCYiOwA0ICRF0V47HH8X2b5DO2Jph+gjNwfqpo+Vt/6/cC0ICiiijUEvLQSSPf/QAQNwGN/0asOBRxIyADSOd5RDm2AWjNiJvWKhSXvB5ep4B+3Lh3AgBQ+VeHiISck5y7gSZFrCoOQB5ej7AbEGmNyVKLq0VjaAzRd/x1mg8DTNrW6tfKX+u+78+sfhhYgRo1Va1TFY0UEr864mcBPww0HpcRV9w6LGTkJHKeF/p7Jx8HTBNjmjjU6aYNYJRhnNe9zmsP0ATNsHQmAx0SMlLAjXjKKZsA02CAIiLWTYXhRcLwjPF8/4rnAW5Ts65OV1FE5zx8yPfdv2L8B0AzRpphfypWbMAISDqd19qJXQBPQlDUVKgYEkbIyV+IB/ouwABi2hRmJaaIeJ0k3P08uuwCSDTjMBnl1JntOnB29/PcBUBgjBTHMKdC8qJHGBwXcRsggobGub30gzDMsRL26ruAtj5UcYXVmZPOSXNsxuO7Rz0OAEIt54pVU03RKRC677sf9y5gKblmHfsHivdes377dUe5dgGmsXytuMoe5nXGCMlzo/q7V28A2EnZwlSdNiTOCx8iU+bdzB8HAANpxVLWuhmSzjl53eXoX0m7AZBmpME6TFdrBafJ67D6W8Y8DxiqOWPZSIsCODh1HnLh3UA2AFTVS91PV6jlOFOQjreC2QMsf1EUJsX1K2UlgKK2/yPAUChJsaImpTuTISP3K7JbbwI4szi7FwDQQukRKF77z1B7GGB7EKMqbfWkpR1+5cM7xC3Aku5TRHF26mXlhLUZD8RtAGvTMSepYfg0D90P9M9e/jTArF2FWdQUVmbyAfG8PuzDw4CgCWDVElI1J01P6+WKH/riaaDxuRE3XbGO2n51KUS6ubgJeAU5X1G6JNyowN5xnscuAOySwhBFFes9hfXQ/TzfVm4D0CAGzaoiq1fTZWGEeH0r2i0AmrRVNczZpWGAeNzvwbkBeE1OV6eqmJabRAnReVbfJudxgPOkuWKtqAoqWhH6zX5+m97HAaoHzhNRtaia/EvVHj/btAGgejBSKOVUURnL4rB4f3T3/wsY0yhZMTkvbMh8iiRHPK87bgKWtW/zdYey4ksaq0WdH9cLzwIsC2PWLau1VnRaxI3+Y+UeB16edmnmCmoY5KHx+4JzAyCtqVorjfW6XgAyDe29DVg3vaLoXxxqzhg6SejXfe8D3m9ALCVE0Uu5D1nS/dwGLG0/rapYp0X5EHI8gF+vJx4HxKx7ninWiw8557Q69bUTMIbOvripkoSxKucnoXYANLXNKtSiiqOUGyGnI777xw5gJS2WnhXqh0RbneP5PTE2AH/rv7P+FwAA//9LTkQs3bzecAAAAABJRU5ErkJggg==\"\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "Payment QR CPM",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var jsonData = JSON.parse(responseBody);\r",
+                      "\r",
+                      "pm.environment.set(\"customerRefNoPayment\", jsonData.body.customerRefNo);\r",
+                      "pm.environment.set(\"invoiceRefNoPayment\", jsonData.body.invoiceNo);\r",
+                      "\r",
+                      "// Optionally, log the values to the Postman console for confirmation\r",
+                      "console.log(\"customerRefNo:\", jsonData.body.customerRefNo);\r",
+                      "console.log(\"invoiceNo:\", jsonData.body.invoiceNo);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "admin",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "admin",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"body\": {\r\n        \"fee\": 0,\r\n        \"qrId\": \"{{qrContent}}\",\r\n        \"amount\": 3000,\r\n        \"qrData\": \"{{qrData}}\",\r\n        \"customer\": {\r\n            \"pan\": \"9360081411799705652\",\r\n            \"name\": \"Yana Andika         \",\r\n            \"expiration\": \"\"\r\n        },\r\n        \"issuerId\": \"93600567\",\r\n        \"merchant\": {\r\n            \"id\": \"190202011521009\",\r\n            \"mcc\": \"5499\",\r\n            \"city\": \"Jakarta\",\r\n            \"name\": \"Somay Mangga Dua\",\r\n            \"criteria\": \"UMI\",\r\n            \"countryCode\": \"ID\"\r\n        },\r\n        \"invoiceNo\": \"7839204615819347344\",\r\n        \"acquirerId\": \"93600567\",\r\n        \"terminalId\": \"A01             \",\r\n        \"currencyCode\": \"IDR\",\r\n        \"customerRefNo\": \"597862183344\",\r\n        \"transactionTs\": \"2026-07-15T08:33:48.560Z\",\r\n        \"productIndicator\": \"N002\"\r\n    },\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"requestTime\": \"{{requestTime}}\",\r\n    \"requestId\": \"{{$randomUUID}}\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/merchant/v2/qr-cpm/payment",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "merchant",
+                    "v2",
+                    "qr-cpm",
+                    "payment"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success Response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Signature",
+                        "value": "4d666225ee760afd2ab2dd39d305fea75df812e6c1281eef3474559ca7cb8305"
+                      },
+                      {
+                        "key": "Request-Time",
+                        "value": "1715952159000"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"timestamp\": 1715757094000,\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"body\": {\r\n        \"transactionTs\": \"2024-03-13T18:51:48.560Z\",\r\n        \"customerRefNo\": \"138734650285\",\r\n        \"currencyCode\": \"IDR\",\r\n        \"amount\": 10050,\r\n        \"fee\": 50,\r\n        \"issuerId\": \"93600921\",\r\n        \"acquirerId\": \"93601111\",\r\n        \"terminalId\": \"K19\",\r\n        \"invoiceNo\": \"02234567370223456737\",\r\n        \"productIndicator\": \"Q002\",\r\n        \"merchant\": {\r\n            \"id\": \"190202011521008\",\r\n            \"criteria\": \"UMI\",\r\n            \"name\": \"Somay Mangga Dua\",\r\n            \"city\": \"Jakarta\",\r\n            \"mcc\": \"5499\",\r\n            \"country_code\": \"ID\"\r\n        },\r\n        \"customer\": {\r\n            \"pan\": \"9360081425609514\",\r\n            \"name\": \"Yana Andika\",\r\n            \"expiration\": \"0924\"\r\n        },\r\n        \"qrId\": \"17422a94-b449-471c-b374-d138fc2559bc\",\r\n        \"qrData\": \"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAAEG0lEQVR42uyZMY4krRKEA2FgcgO4CBLXKq/K41pIXARugFkGIp6S7t6esfcVzr9onFF/BoLMyAgK/9a/9XuR7KBq1ZNtRpIDcZjbkLw2AR3oFg5OVfhWSo4ZIV6HuWC2AewdVrVW4avniByaTLdJTDsB2wEHqAqEAJ3jwLEbAH31E55kGbGMmDcDiwGcc6pVzYyY9TivX7f5MCBF23t7r/JeKaWfVf0wsJZtrKpVJZsMIQ59ndevDn4W6NZ2WlanWiOZoeW6Tt7HToAAq5++Aj5D56Dz66djF2A7COtbVZy+hpiDdM9hLnO/CmYHYC0sFeVnVRGkfWPhbdL7qDYA6OgkW2tTseVYSlnlatL1/wI6aEnfOH1jy7pkkal0HYf56MPjgNyF7dW3KgJRRhSFKCnd5/2th4eBToJ9+qlEH0bQQxdmk67z2gaQndY6OaXGGfSII+hyHeZ+S8QOwK6KadPB+Rr0ui59rcbYBSyGajrfpp8yM3Upssl0/9HKpwGRKGuXSE7n1h51xsnLvC9rB2Cld6pTE6r6EZaHGcd5n++RtQHotLCYEAKQ2R0AfQHHee8CQKlbeLZW1dRDfJQu93HebwHZAHTC9l6h2lSthjhi1jmY+/jMiw0Au+0drQLi70eIhYWUov2YnOeB3i2slc6VqsmaZegc0zL32AaIm5srXVASTkDkOMXK3bsAqZYOeFaZ3TqHEGSmiKk9r00AepfegaqKbKWImMdCpvTe5N8DXNPbtwnnxLKKWQxiWc2nYHYAJK2qnhNKLoPiYsS5p20ArPwpKcjqZ5BjGpqX4SfC7ABWjBLbLCIlqTrEMnAmfsze80CXZM+q2KpbtjkOifaywU/Wexywy9L6V7RX7xcOmJQ+/mEHILmerM639bqQEUcUcTiOt394HlhSLQXjJc2RhSOOeANnStuALjZmOnhOVXUpku2DuU1K3AdYuSxOp1qVPDsiSz55n+kjk48D66goZrJJxoksZUDfImF/ptbTAFfvNFbILoOWy2K5zfcN5HlAyoW9UdR8eXsgZn2Z7/PC84Dt7BbVr+k944hDj6BvnOQnbz4OvETEi4LBtxz0OqiUbvNV2qcBdkl7/hWzXMyx5MghfvLjef8aEKm2UHOJtfwfAMQfG9wArDdWelY1/XSaWURSOvPPC+fzgFg1WOecYuPqiyw5xvBjWjcAixHA+dfTXmSR3vx6mC0A2KuqMrOqtGYICCb96M7HATHuViK1HFST/JL1CIYp7QP6S6acg5+vTSLocabLXN8n8acB9m6lc7Auq7CIt0/L3e4EunWik34iMgc9EC+T7o+H2QOgsyoZW55Zl1JKNkz8+YnkYWD9TVGQ1iY0pWDi/X3h2AC8voD4Kbc118eoEcvv58fHgX/rv7P+FwAA//9OFRpnyiNOqQAAAABJRU5ErkJggg==\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{url-toko-kare}}/merchant/v2/qr-cpm/payment",
+                      "host": [
+                        "{{url-toko-kare}}"
+                      ],
+                      "path": [
+                        "merchant",
+                        "v2",
+                        "qr-cpm",
+                        "payment"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "content-length",
+                      "value": "365"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"requestId\": \"28696a30-0bb8-42b2-9986-db4bf0909b34\",\n    \"type\": \"qr_cpm_payment\",\n    \"status\": 100,\n    \"statusMessage\": \"success_payment\",\n    \"statusDisplayMessage\": \"Your Payment Is Success\",\n    \"ts\": \"1716952603529\",\n    \"body\": {\n        \"customerRefNo\": \"138734650285\",\n        \"authorizationId\": \"6418eh\",\n        \"invoiceNo\": \"02234567370223456737\",\n        \"currencyCode\": \"IDR\",\n        \"amount\": 10050,\n        \"fee\": 50,\n        \"accountType\": \"E-WALLET\"\n    }\n}"
+                },
+                {
+                  "name": "Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"timestamp\": 1715757094000,\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"body\": {\r\n        \"transactionTs\": \"2024-03-13T18:51:48.560Z\",\r\n        \"customerRefNo\": \"138734650285\",\r\n        \"currencyCode\": \"IDR\",\r\n        \"amount\": 10000,\r\n        \"fee\": 5000,\r\n        \"issuerId\": \"93600921\",\r\n        \"acquirerId\": \"93601111\",\r\n        \"terminalId\": \"K19\",\r\n        \"invoiceNo\": \"02234567370223456737\",\r\n        \"productIndicator\": \"Q002\",\r\n        \"merchant\": {\r\n            \"id\": \"190202011521008\",\r\n            \"criteria\": \"UMI\",\r\n            \"name\": \"Somay Mangga Dua\",\r\n            \"city\": \"Jakarta\",\r\n            \"mcc\": \"5499\",\r\n            \"country_code\": \"ID\"\r\n        },\r\n        \"customer\": {\r\n            \"pan\": \"9360081450369634\",\r\n            \"name\": \"Yana Andika\",\r\n            \"expiration\": \"0924\"\r\n        },\r\n        \"qrId\": \"53d0f2b4-fba3-440f-be9e-808618d69146\",\r\n        \"qrData\": \"iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAABlBMVEX///8AAABVwtN+AAAEEElEQVR42uyZP270IBTEH6JwyQ3gIkhcy53pfC0kLgI3oHSBmE/DrjdJHZnmC1Kq/LRCvH8zz/J3/s7PA6A144qo4QDkHpJGOq4NQFwENJFmANSiUKz3IQXktO9blG0ZgNYEwxU3rKjuxfvQA67txLkSaG2ooWodKolOISPJvhwwGK6+gyW6h9WASGtNrCoiqmgkjZz8Fn9E82FgJm2r75Pf5zzPH1n9LDAvalg2tcxLegld5IjfC/hhoEkDWq0Y4iqjxfrNrN3rfsnHAWkwBIa1rlZkIuj7cV4HVgEwDcaIdUNUcZllg4zzOq7tklUAiFireE3VdWYf9Tv/9Unap4FGBBV1uFqL6KTRdT7j/pUwvwdEjBSWphUbug85BcbivPZVACCQJq7OnExed9GJZbHhWgY0I2hDoYhC8SIBKXTZrvulVgCzTdbiUIGhcw/d6xz3d0YuAUxr0kxRGNZhBDYH9gfWZlwFiDGtQRSGKtZ6nQLfad/i8bnl4wDlgzGqWFfEWp1YnEkOxHeXXAKwTQpQGa8henaIjPO8tnuoPQ9wYhg3RKyrw3sf0EPajzO+59YSwDQxtYgbbrBPgmm7nfEunQWAMZBmODcdppbL6F5PAbMMYKAMJZQVNawXz/rNZzziccZFAEA1p2pFcXWE7r3OYLC+hNbjgBiKuaKKQ6GoTSF57/cDuFvp80ADlZSII1N0D113kY3F+/E4TwPs5RDFyepQ82zmXoOi9t3Ffg0Yw9oUh6JQp2TVKeA64vZu1guARgnTihU7p1bXSWhq8S0WjwNixEijnaWj9FPEAHHDecdiBUDBiDGtfQlsDj2wVU9nvQagZgYvKewPunsJOefrm8B4HmjTyg2xwocSkekor30/Pp73cUBaEzSgkrEiVHM50VXfZu55gOkpprii6nAl5IzE4o2yf4b744Dh5KTBmAunztmdaCfPr7p5HKC2bw3FWkuHwWmRE2X1l456HHg1Mbos+knqKM4M8I7fu9yzwJSU9Hqi6vBTwyDPjRdWAYwVZzel/dT2lLWZAubzlI8DNNUwomodrN2Qc5pm7/r8wPPAy/O6qe1d7a/lY762a4v7KgBzrloOtToXPXh5/y3ea5ZfAzKtHNPhHYspWvftvI5zFdCaAcwQx4FRO121F9ll32/Z/DwANNPg5twsKnnOC87N+InF88ArLZmPai72Mjrn1glC64C3lXNTy00m7Vvc1gFz0wt6B/7NlJ0Lxo+mXQC0uWgdblixquiuk5+zm5UTVwFz8y9uKNRX9VJRzoU3VgIGw7qihrXsUDnpfMl2XsdSYH4Rq0BNGl1Cn6u/u1cvAGawaiUxrHBy6x4u2e910wLg9WWwuKEqak16bv4RD9wqZgHwd/6f8y8AAP//g3CGbC3ttYAAAAAASUVORK5CYII=\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{url-toko}}/merchant/v2/qr-cpm/payment",
+                      "host": [
+                        "{{url-toko}}"
+                      ],
+                      "path": [
+                        "merchant",
+                        "v2",
+                        "qr-cpm",
+                        "payment"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Length",
+                      "value": "231"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Mon, 24 Jun 2024 03:22:31 GMT"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"requestId\": \"5a9e1767-18e8-4de4-8d7d-dc2daa85ce4f\",\n    \"type\": \"qr_cpm_payment\",\n    \"status\": 300,\n    \"statusMessage\": \"failed_payment\",\n    \"statusDisplayMessage\": \"Your QR ID Already Process Payment\",\n    \"ts\": \"1719199351700\",\n    \"body\": {\n        \"amount\": 0,\n        \"fee\": 0\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "Reversal QR CPM",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "dde28c7edb9d8046972c5c3277d999a2",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "kare",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"requestTime\": 1720084861000,\r\n    \"type\": \"qr_cpm_reversal\",\r\n    \"body\": {\r\n        \"reasonCode\": \"068\",\r\n        \"reasonText\": \"Time out\",\r\n        \"customerRefNo\": \"{{customerRefNoPayment}}\",\r\n        \"transactionTs\": \"2026-05-13T16:32:22.227Z\",\r\n        \"invoiceNo\": \"{{invoiceRefNoPayment}}\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/merchant/v2/qr-cpm/reversal",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "merchant",
+                    "v2",
+                    "qr-cpm",
+                    "reversal"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success Reversal",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"timestamp\": 1718703113000,\r\n    \"type\": \"qr_cpm_reversal\",\r\n    \"body\": {\r\n        \"reasonCode\": \"068\",\r\n        \"reasonText\": \"Time out\",\r\n        \"customerRefNo\": \"138734650285\",\r\n        \"transactionTs\": \"2024-06-08T16:32:22.227Z\",\r\n        \"invoiceNo\": \"98346732019834673201\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{url-toko-kare}}/merchant/v2/qr-cpm/reversal",
+                      "host": [
+                        "{{url-toko-kare}}"
+                      ],
+                      "path": [
+                        "merchant",
+                        "v2",
+                        "qr-cpm",
+                        "reversal"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "content-length",
+                      "value": "319"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"requestId\": \"301cdc04-8c50-4070-a644-8e69cb1de819\",\n    \"type\": \"qr_cpm_reversal\",\n    \"status\": 100,\n    \"statusMessage\": \"success_reversal\",\n    \"statusDisplayMessage\": \"Your Reversal Is Success\",\n    \"ts\": \"1718857884499\",\n    \"body\": {\n        \"reasonCode\": \"Time out\",\n        \"reasonText\": \"Time out\",\n        \"customerRefNo\": \"138734650285\",\n        \"invoiceNo\": \"98346732019834673201\"\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "Refund QR CPM",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "admin",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "admin",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"requestTime\": 1777880091252,\r\n    \"type\": \"qr_cpm_refund\",\r\n    \"body\": {\r\n        \"customerRefNo\": \"59586218343\",\r\n        \"transactionTs\": \"2026-07-15T04:56:22.227Z\",\r\n        \"invoiceNo\": \"8193473447862183344\",\r\n        \"currencyCode\": \"IDR\",\r\n        \"amountRefund\": 3000\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/merchant/v2/qr-cpm/refund",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "merchant",
+                    "v2",
+                    "qr-cpm",
+                    "refund"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"requestId\": {{$randomUUID}},\r\n    \"type\": \"qr_cpm_refund\",\r\n    \"body\": {\r\n        \"customerRefNo\": \"778899001359\",\r\n        \"transactionTs\": \"2024-07-17T17.11.16.848Z\",\r\n        \"invoiceNo\": \"81934726125762183106\",\r\n        \"currencyCode\": \"IDR\",\r\n        \"amountRefund\": 10000\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{url-toko-kare}}/merchant/v2/qr-cpm/refund",
+                      "host": [
+                        "{{url-toko-kare}}"
+                      ],
+                      "path": [
+                        "merchant",
+                        "v2",
+                        "qr-cpm",
+                        "refund"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "content-length",
+                      "value": "283"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"requestId\": \"8a60e327-5a44-4b52-8570-1dd36c5aa353\",\n    \"type\": \"qr_cpm_refund\",\n    \"status\": 1,\n    \"statusMessage\": \"Success\",\n    \"statusDisplayMessage\": \"Proses Success\",\n    \"ts\": \"1721978229498\",\n    \"body\": {\n        \"customerRefNo\": \"778899001359\",\n        \"invoiceNoRefund\": \"81934726125762183106\",\n        \"authorizationId\": \"93600814\"\n    }\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Toko-Settlement",
+          "item": [
+            {
+              "name": "Settlement Issuer Off Us",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "dde28c7edb9d8046972c5c3277d999a2",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "kare",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"type\": \"settlement\",\r\n    \"body\": {\r\n        \"period\": \"20260504\",\r\n        \"totalAmount\": 3000,\r\n        \"vendorName\": \"alto\",\r\n        \"settlementList\": [\r\n            {\r\n                \"refId\": \"5978621833252026050493600567\",\r\n                \"nominal\": 3000.00\r\n            }\r\n        ]\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/toko-settlement/qrcpm/issuer/settlement",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "toko-settlement",
+                    "qrcpm",
+                    "issuer",
+                    "settlement"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "TranserBNIResponseOffus",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "dde28c7edb9d8046972c5c3277d999a2",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "kare",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"4d680e8c-b669-4e3e-b5bd-574117cb10d1\",\r\n    \"body\": {\r\n        \"destinationAccountNumber\": \"4444444444\",\r\n        \"destinationAccountName\": \"Mariya Wise\",\r\n        \"transferAmount\": 3000,\r\n        \"remark\": \"settlement_qris_cpm_off_us_as_issuer\",\r\n        \"transferSource\": \"settlement_qris_cpm_off_us_as_issuer\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://tokoapi-stg.netzme.com/api/transmart/bni/ogp/tokonetzme/inhouse/transfer",
+                  "protocol": "https",
+                  "host": [
+                    "tokoapi-stg",
+                    "netzme",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "transmart",
+                    "bni",
+                    "ogp",
+                    "tokonetzme",
+                    "inhouse",
+                    "transfer"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "TranserBNIResponseOnUs",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "dde28c7edb9d8046972c5c3277d999a2",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "kare",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"requestId\": \"{{$randomUUID}}\",\r\n  \"body\": {\r\n    \"destinationAccountNumber\": \"4444444444\",\r\n    \"destinationAccountName\": \"Mariya Wise\",\r\n    \"transferAmount\": 1570314,\r\n    \"remark\": \"settlement_qris_cpm_on_us\",\r\n    \"transferSource\": \"settlement_qris_cpm_on_us\"\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://tokoapi-stg.netzme.com/api/transmart/bni/ogp/tokonetzme/inhouse/transfer",
+                  "protocol": "https",
+                  "host": [
+                    "tokoapi-stg",
+                    "netzme",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "transmart",
+                    "bni",
+                    "ogp",
+                    "tokonetzme",
+                    "inhouse",
+                    "transfer"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "On-Us",
+      "item": [
+        {
+          "name": "Settlement",
+          "item": [
+            {
+              "name": "Get Settlement On Us",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_1did}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "kare",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "{{basic_auth_0kji}}",
+                    "disabled": true
+                  }
+                ],
+                "url": {
+                  "raw": "{{url}}/api/toko-settlement/qrcpm/onus/settlement?startPeriod=20260611&endPeriod=20260611&msg_id={{$guid}}&type=settlement_qris_on_us",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "toko-settlement",
+                    "qrcpm",
+                    "onus",
+                    "settlement"
+                  ],
+                  "query": [
+                    {
+                      "key": "startPeriod",
+                      "value": "20260611"
+                    },
+                    {
+                      "key": "endPeriod",
+                      "value": "20260611"
+                    },
+                    {
+                      "key": "msg_id",
+                      "value": "{{$guid}}"
+                    },
+                    {
+                      "key": "type",
+                      "value": "settlement_qris_on_us"
+                    }
+                  ]
+                },
+                "description": "Generated from cURL: curl --location 'localhost:8082/api/merchant/qr/qris/settlement/on/us?startPeriod=20240805&endPeriod=20240806&msg_id=f6676fb3-25a8-412e-b6f5-36c220d4424e' \\\r\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=='"
+              },
+              "response": [
+                {
+                  "name": "Get Settlement On Us",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==",
+                        "disabled": true
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{url}}/api/toko-settlement/qrcpm/onus/settlement?startPeriod=20260422&endPeriod=20260422&msg_id={{$randomUUID}}&type=settlement_qris_on_us",
+                      "host": [
+                        "{{url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "toko-settlement",
+                        "qrcpm",
+                        "onus",
+                        "settlement"
+                      ],
+                      "query": [
+                        {
+                          "key": "startPeriod",
+                          "value": "20260422"
+                        },
+                        {
+                          "key": "endPeriod",
+                          "value": "20260422"
+                        },
+                        {
+                          "key": "msg_id",
+                          "value": "{{$randomUUID}}"
+                        },
+                        {
+                          "key": "type",
+                          "value": "settlement_qris_on_us"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "content-length",
+                      "value": "335"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"type\": \"settlement_qris_cpm_on_us\",\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"totalAmount\": \"IDR 108498.00\",\n        \"settlementId\": \"23bbfe84-8263-4fed-89d0-67b185e01cb2\",\n        \"alreadyTransfer\": false,\n        \"transferStatus\": \"transfer_success\",\n        \"refIds\": [\n            \"CPMLTWGQFR5ZWIC20260422\",\n            \"CPMPPQ8NKRM7M3F20260422\",\n            \"CPMCLLU6G6FF8ZM20260422\"\n        ],\n        \"failedRefIds\": []\n    }\n}"
+                },
+                {
+                  "name": "Get Settlement On Us",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==",
+                        "disabled": true
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{url}}/api/toko-settlement/qrcpm/onus/settlement?startPeriod=20260507&endPeriod=20260507&msg_id={{$guid}}&type=settlement_qris_on_us",
+                      "host": [
+                        "{{url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "toko-settlement",
+                        "qrcpm",
+                        "onus",
+                        "settlement"
+                      ],
+                      "query": [
+                        {
+                          "key": "startPeriod",
+                          "value": "20260507"
+                        },
+                        {
+                          "key": "endPeriod",
+                          "value": "20260507"
+                        },
+                        {
+                          "key": "msg_id",
+                          "value": "{{$guid}}"
+                        },
+                        {
+                          "key": "type",
+                          "value": "settlement_qris_on_us"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "content-length",
+                      "value": "307"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"type\": \"settlement_qris_cpm_on_us\",\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"totalAmount\": \"IDR 2000.00\",\n        \"settlementId\": \"d765edcd-349f-43f6-b725-8a3d4f937a96\",\n        \"alreadyTransfer\": false,\n        \"transferStatus\": \"transfer_success\",\n        \"refIds\": [\n            \"CPML9CFRVEP8P3120260507\",\n            \"CPMP1GZPJLALEV520260507\"\n        ],\n        \"failedRefIds\": []\n    }\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Inquiry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic YWRtaW46YWRtaW4="
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"requestId\": \"84c3b17d-74d9-4de2-86bf-bbe167b947c8\",\n    \"requestTime\": 1715823220,\n    \"type\": \"qr-inquriy\",\n    \"body\": {\n        \"qrData\": \"hQVDUFYwMWF5n3YETjAwMU8HoAAABgIgIFAHUVJJU0NQTVoIk2AIFJMJCXBfIApEb25hIFN0ZyAyXy0CaWRfUBFodHRwczovL25ldHptZS5pZJ8lBDA5NzBjJ590JDc4MzRkZGMyLTI0OTAtNDdkZS04YmExLTA3YTBjMmJkZTM0MQ==\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://bri-d.netzme.com/qris/alto/cpm/v1/internal/qr/inquiry",
+              "protocol": "https",
+              "host": [
+                "bri-d",
+                "netzme",
+                "com"
+              ],
+              "path": [
+                "qris",
+                "alto",
+                "cpm",
+                "v1",
+                "internal",
+                "qr",
+                "inquiry"
+              ]
+            },
+            "description": "Generated from cURL: curl --location 'https://altogw-ds.netzme.com/qris/alto/cpm/v1/internal/qr/inquiry' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic YWRtaW46YWRtaW4=' \\\n--data '{\n    \"requestId\": \"84c3b17d-74d9-4de2-86bf-bbe167b947c8\",\n    \"requestTime\": 1715823220,\n    \"type\": \"qr-inquriy\",\n    \"body\": {\n        \"qrData\": \"hQVDUFYwMWGBoE8HoAAABgIgIFAHUVJJU0NQTVcTk2BEcnEyZ1kobSUSABl0F0QZD18gDFVzZXIgVGVzdGVyOF8tBGlkZW5fUBZtYWlsdG86dXNlcjhAdGVzdGVyLmlknyUCkoZjQ590QHhiY2xEcndTdTFKdXRSTm0wU2N3RXJUMnQwNGhjNGExa0tmQzVRNFV2MFNLYnRGNVM1TzRyVXN0NWFiNnVwMEw=\"\n    }\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Payment",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{auth_password_1did}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "kare",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"body\": {\r\n        \"merchantId\": \"M_Txlj1kXG\",\r\n        \"qrContent\": \"hQVDUFYwMWF6n3YETjAwMU8HoAAABgIgIFAHUVJJU0NQTVoKk2AIFBF5lwVlL18gC1lhbmEgQW5kaWthXy0CZW5fUBFodHRwczovL25ldHptZS5pZJ8lAlZSYyefdCQxODI5NDRiOS0xNzI1LTRmNmQtYjM1Yy03NzhkZmY3YThmOGY=\",\r\n        \"paymentAmount\": \"IDR 1400.00\",\r\n        //\"invoiceTrxId\":\"{{invoiceTrxId}}\",\r\n        \"productIndicator\": \"Q002\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/merchant/qr/cpm/payment",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "merchant",
+                "qr",
+                "cpm",
+                "payment"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success Payment",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"body\": {\r\n        \"merchantId\": \"M_A2NHIVQy\",\r\n        \"qrContent\": \"hQVDUFYwMWF6n3YETjAwMU8HoAAABgIgIFAHUVJJU0NQTVoIk2AIFDVIggBfIAtZYW5hIEFuZGlrYV8tAmlkX1ARaHR0cHM6Ly9uZXR6bWUuaWSfJQQ4MjAwYyefdCQxNDFmZWY2ZS04NDkyLTRlMTktYjY4Yi1lMDg3NjYwYTRlYzU=\",\r\n        \"paymentAmount\": \"IDR 11000.00\",\r\n        \"productIndicator\": \"Q002\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/merchant/qr/cpm/payment",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "merchant",
+                    "qr",
+                    "cpm",
+                    "payment"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Length",
+                  "value": "712"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 11 Nov 2024 08:36:36 GMT"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"requestId\": \"f7bcf7cb-ae22-4707-b3b6-6b2d80e7d38f\",\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"issuerName\": \"93600814\",\n        \"refundable\": true,\n        \"rrn\": \"CPM1LBAIWA4VDUP20241111\",\n        \"terminalId\": \"null             \",\n        \"merchantId\": \"M_A2NHIVQy\",\n        \"merchantName\": \"Toommy\",\n        \"merchantPan\": \"936008140100000266\",\n        \"mdr\": \"IDR 0.00\",\n        \"serviceFee\": \"IDR 0.00\",\n        \"serviceCharge\": \"IDR 0.00\",\n        \"sourceOfFund\": \"Netzme\",\n        \"paymentMethod\": \"QRIS CPM\",\n        \"location\": \"YOGYAKARTA\",\n        \"customerPan\": \"9360081435488200\",\n        \"customerName\": \"Yana Andika\",\n        \"paidDate\": \"2024-11-11T08:36:36.030Z\",\n        \"transactionId\": \"1LBAIWA4VDUP\",\n        \"ts\": \"2024-11-11T08:36:36.030Z\",\n        \"amount\": \"IDR 11000.00\",\n        \"status\": \"100\",\n        \"type\": \"pay_qris_cpm\",\n        \"referenceId\": \"f7bcf7cb-ae22-4707-b3b6-6b2d80e7d38f\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Refund",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{auth_password_1did}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "kare",
+                  "type": "string"
+                },
+                {
+                  "key": "showPassword",
+                  "value": false,
+                  "type": "boolean"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"body\": {\r\n        \"amount\": \"IDR 5000.00\",\r\n        \"merchantId\": \"M_Txlj1kXG\",\r\n        \"transactionId\": \"CPM7SVJE2BLAK3V20260611\",\r\n        \"refundType\": \"refund_partial\"\r\n    },\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"requestTime\": null,\r\n    \"type\": \"qr_cpm_refund\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/merchant/qr/cpm/refund",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "merchant",
+                "qr",
+                "cpm",
+                "refund"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Success Refund",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"body\": {\r\n        \"amount\": \"IDR 11000.00\",\r\n        \"merchantId\": \"M_A2NHIVQy\",\r\n        \"transactionId\": \"CPMLMP4AOOG0RBM20241111\",\r\n        \"refundType\": \"refund_full\"\r\n    },\r\n    \"requestId\": \"{{$randomUUID}}\",\r\n    \"requestTime\": null,\r\n    \"type\": \"qr_cpm_refund\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/merchant/qr/cpm/refund",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "merchant",
+                    "qr",
+                    "cpm",
+                    "refund"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "232"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"transactionId\": \"CPMLMP4AOOG0RBM20241111\",\n        \"merchantId\": \"M_A2NHIVQy\",\n        \"amount\": \"IDR 11000.00\",\n        \"buyerFullname\": \"Yana Andika\",\n        \"issuerName\": \"93600814\",\n        \"refundCustomerRefNo\": \"LMP4AOOG0RBM\"\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Refund",
+      "item": [
+        {
+          "name": "Process Refund",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "const json = pm.response.json();",
+                  "pm.environment.set(\"refundId\", json.data.refundId);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"transactionId\": \"{{transactionId}}\", \"amount\": 10000, \"reason\": \"Customer request\", \"referenceNo\": \"{{$randomUUID}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/qris/cpm/refund",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "qris",
+                "cpm",
+                "refund"
+              ]
+            },
+            "description": "Initiate a refund for a completed CPM payment."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Refund Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/qris/cpm/refund/{{refundId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "qris",
+                "cpm",
+                "refund",
+                "{{refundId}}"
+              ]
+            },
+            "description": "Check the status of a CPM refund."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Refund Validation List",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/qris/cpm/refund/validation?merchantId={{merchantId}}&date={{date}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "qris",
+                "cpm",
+                "refund",
+                "validation"
+              ],
+              "query": [
+                {
+                  "key": "merchantId",
+                  "value": "{{merchantId}}"
+                },
+                {
+                  "key": "date",
+                  "value": "{{date}}"
+                }
+              ]
+            },
+            "description": "Retrieve list of transactions eligible for refund validation."
+          },
+          "response": []
+        },
+        {
+          "name": "Refund CPM",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/merchant/qr/cpm/refund",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "merchant",
+                "qr",
+                "cpm",
+                "refund"
+              ]
+            },
+            "description": "Process CPM refund"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Utilities",
+      "item": [
+        {
+          "name": "Health Check",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Service is up\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/qris/cpm/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "qris",
+                "cpm",
+                "health"
+              ]
+            },
+            "description": "Check CPM service availability."
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Netzpin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"userId\": \"{{merchantUserId}}\", \"pin\": \"{{netzpin}}\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/qris/cpm/verify-netzpin",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "qris",
+                "cpm",
+                "verify-netzpin"
+              ]
+            },
+            "description": "Verify consumer Netzpin before processing payment."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transaction Detail",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "dxbHEBILK9",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "hR2xPCDn",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Signature",
+                "value": "0337bd8460c314697731527c3036a943d9b0458b5ad5ae64cb0ccafdbb18b577",
+                "type": "text"
+              },
+              {
+                "key": "Request-Time",
+                "value": "1718018786583",
+                "type": "text"
+              },
+              {
+                "key": "username",
+                "value": "hR2xPCDn",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"details\": {\r\n        \"refId\": \"66b8cfbc-078e-4417-8c22-ca7d2f894ed2\",\r\n        \"userId\": \"f6R1zNq1\"\r\n    },\r\n    \"msgId\": \"{{$randomUUID}}\",\r\n    \"type\": \"get_detail\",\r\n    \"requestTime\": 1718018786583,\r\n    \"version\": 0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url-lenjer}}/payment/v1/transaction/get/detail",
+              "host": [
+                "{{url-lenjer}}"
+              ],
+              "path": [
+                "payment",
+                "v1",
+                "transaction",
+                "get",
+                "detail"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Signature",
+                "value": "1d3347b3d0db0022b935be246f7604d0fb70d962fb542a9e494af6becf40a2e1"
+              },
+              {
+                "key": "Request-Time",
+                "value": "1718034719394"
+              },
+              {
+                "key": "Content-Type",
+                "value": "text/plain"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"mode\":\"FULL\",\"seqId\":0}",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url-lenjer}}/payment/v1/transaction/f6R1zNq1",
+              "host": [
+                "{{url-lenjer}}"
+              ],
+              "path": [
+                "payment",
+                "v1",
+                "transaction",
+                "f6R1zNq1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "QRIS TAP",
+      "item": [
+        {
+          "name": "Paymet",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"requestId\": \"{{$guid}}\",\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"body\": {\r\n        \"paymentAmount\": \"IDR 500000.00\",\r\n        \"qrContent\": \"hQVDUFYwMWGCAUJPB6AAAAYCICBQB1FSSVNDUE1aCpNgCIYSNFZ4kT9fIAVQdXRyYV8tBGlkZW6fJQKJF592BE4wMDFjggEFn3QKAZWBMiaJQkVHhJ96gbEbCTM9p8sLC/wlx5uA4XN50GyecTmsmPeeJtlBg4Tscbehv+K8t4Ck9XjwGsOC/rIWk2PLd/DLkdWcvYiHHGS3GilMAvbL2ZIeWJMY0e1IVEHflNdUyy8ssokje0K+HO/vyf3fOkAWgwRUYseUxvEFkG1NEWXaoml95NN1O3wC/YtoPG5CQzN0KusG0qkpqUsKLtFiiaXScz4hogLomtp5HZ04kUAzsQGgVnTHA5KiCAOfe0B2VxW4YuYzxFRG+yjqmE/E3h8pmjs7EmW3As9RhX1Ztlg6yiveV/u3Ufsvh/UOpweZG3S9EZz8eF4qz6dUtVgH\",\r\n        \"merchantId\": \"M_9HfjOeQX\",\r\n        \"productIndicator\": \"N001\",\r\n        // \"invoiceTrxId\": \"06f5a9bca4484b838f6ee44b9281e7e8\",\r\n        \"terminalId\": \"A01\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/merchant/qr/cpm/payment",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "merchant",
+                "qr",
+                "cpm",
+                "payment"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Invoice",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"{{$guid}}\",\r\n    \"type\": \"qr_cpm_payment\",\r\n    \"body\": {\r\n        \"paymentAmount\": \"IDR 50011.00\",\r\n        \"qrContent\": \"hQVDUFYwMWGCAUJPB6AAAAYCICBQB1FSSVNDUE1aCpNgCIYSNFZ4kT9fIAVQdXRyYV8tBGlkZW6fJQKJF592BE4wMDFjggEFn3QKAZWBMiaJQkVHhJ96gbEbCTM9p8sLC/wlx5uA4XN50GyecTmsmPeeJtlBg4Tscbehv+K8t4Ck9XjwGsOC/rIWk2PLd/DLkdWcvYiHHGS3GilMAvbL2ZIeWJMY0e1IVEHflNdUyy8ssokje0K+HO/vyf3fOkAWgwRUYseUxvEFkG1NEWXaoml95NN1O3wC/YtoPG5CQzN0KusG0qkpqUsKLtFiiaXScz4hogLomtp5HZ04kUAzsQGgVnTHA5KiCAOfe0B2VxW4YuYzxFRG+yjqmE/E3h8pmjs7EmW3As9RhX1Ztlg6yiveV/u3Ufsvh/UOpweZG3S9EZz8eF4qz6dUtVgH\",\r\n        \"merchantId\": \"M_VQaPbYYp\",\r\n        \"productIndicator\": \"N001\",\r\n        \"invoiceTrxId\": \"c6f7a1173eba4f2eb6c874d94ac7e599\",\r\n        \"terminalId\": \"A01\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/merchant/qr/cpm/payment",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "merchant",
+                    "qr",
+                    "cpm",
+                    "payment"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "796"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"requestId\": \"40a8a22f-7142-4ce6-a05b-6037c188c494\",\n  \"status\": 100,\n  \"statusMessage\": \"success\",\n  \"body\": {\n    \"issuerName\": \"93600886\",\n    \"refundable\": true,\n    \"rrn\": \"CPMYQTNOXPMBEJI20261008\",\n    \"terminalId\": \"A01             \",\n    \"merchantName\": \"akun pinjaman 17\",\n    \"merchantPan\": \"936008140100109817\",\n    \"mdr\": \"IDR 0.00\",\n    \"serviceFee\": \"IDR 0.00\",\n    \"serviceCharge\": \"IDR 0.00\",\n    \"sourceOfFund\": \"Netzme\",\n    \"location\": \"JAKARTA PUSAT\",\n    \"customerPan\": \"9360088612345678913\",\n    \"customerName\": \"Putra\",\n    \"paidDate\": \"2026-10-08T07:05:28.937Z\",\n    \"platformFeeAmountRoundUp\": \"IDR 400.00\",\n    \"transactionId\": \"CPMYQTNOXPMBEJI20261008\",\n    \"ts\": \"2026-10-08T07:05:28.937Z\",\n    \"amount\": \"IDR 50011.00\",\n    \"status\": \"100\",\n    \"type\": \"pay_qris_cpm\",\n    \"referenceId\": \"40a8a22f-7142-4ce6-a05b-6037c188c494\",\n    \"paymentMethod\": \"QRIS CPM\",\n    \"merchantId\": \"M_VQaPbYYp\",\n    \"dateWIB\": 0,\n    \"timeWIB\": 0\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Invoice Splitfee CPM",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"requestId\": \"{{$guid}}\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\": \"M_CvoxmdUN\",\n        \"feeType\": \"on_seller\",\n        \"amount\": {\n            \"basicAmount\": 222222,\n            \"shippingAmount\": 0,\n            \"total_amount\": 222222\n        },\n        \"emailBuyer\": \"donaputra79@viacentrum.net\",\n        \"descFromBuyer\": \"desc\",\n        \"descFromMerchant\": \"description ini\",\n        \"phoneNoBuyer\": \"+6289614810873\",\n        \"urlPhoto\": \"https:\\/\\/olsera-promotion-material.s3.ap-southeast-1.amazonaws.com\\/olsera-brand-guideline\\/logo_alt_2__blue_.png\",\n        \"fullNameBuyer\": \"Tester Dona\",\n        \"trxSource\": \"aggregator_dona_stg\",\n        \"apiSourceType\": null,\n        \"partnerTransactionId\": \"aggregator-SaVRGM6vPiwakSV\",\n        \"paymentMethod\": \"QRIS_CPM_TAP\",\n        \"redirectUrl\": null,\n        \"commissionPercentage\": 1,\n        \"expireInSecond\": 3600,\n        \"additional\": {\n            \"terminalId\": \"A01\"\n        },\n        \"isSplitFee\": true,\n        \"splitFees\": [\n            {\n                \"merchantId\": \"M_CvoxmdUN\",\n                \"merchantType\": \"main\",\n                \"amount\": 111111\n            },\n            {\n                \"merchantId\": \"M_0Aome7VN\",\n                \"merchantType\": \"splitFee\",\n                \"amount\": 111111\n            }\n        ],\n        \"invoiceType\": \"single\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/api/merchant/invoice/aggregator",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "api",
+                "merchant",
+                "invoice",
+                "aggregator"
+              ]
+            },
+            "description": "Generated from cURL: curl --location 'https://tokoapi-dev.netzme.com/api/merchant/invoice/aggregator' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data-raw '{\n    \"requestId\": \"06dbf4c3-50bb-4d6c-a6db-636183632c89\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\":\"M_ChPWNs81\",\n        \"fullNameBuyer\": \"yusep agg\",\n        \"emailBuyer\": \"yusep@netzme.id\",\n        \"descFromMerchant\": \"Larutan cap kaki kuda\",\n        \"descFromBuyer\": \"Larutan cap kaki kuda\",\n        \"amount\": {\n            \"basicAmount\": 10000.00,\n            \"shippingAmount\": 0.00\n        },\n        \"phoneNoBuyer\": \"+6285692505540\",\n        \"commission\": false,\n        \"commissionPercentage\": 0,\n        \"paymentMethod\": \"QRIS\",\n        \"invoiceType\":\"multiple\"\n    }\n}'"
+          },
+          "response": [
+            {
+              "name": "Sample",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"requestId\": \"6ab5e3afb4e49\",\n    \"type\": \"create_aggregator_invoice\",\n    \"body\": {\n        \"merchantId\": \"M_VQaPbYYp\",\n        \"feeType\": \"on_seller\",\n        \"amount\": {\n            \"basicAmount\": 70000,\n            \"shippingAmount\": 0,\n            \"total_amount\": 70000\n        },\n        \"emailBuyer\": \"budi@netzme.id\",\n        \"descFromBuyer\": \"desc\",\n        \"descFromMerchant\": \"description ini baru\",\n        \"phoneNoBuyer\": \"+6289614810873\",\n        \"urlPhoto\": \"https:\\/\\/olsera-promotion-material.s3.ap-southeast-1.amazonaws.com\\/olsera-brand-guideline\\/logo_alt_2__blue_.png\",\n        \"fullNameBuyer\": \"Tester Budi\",\n        \"trxSource\": \"asensistg\",\n        \"apiSourceType\": null,\n        \"partnerTransactionId\": \"aggregator-budi77884455\",\n        \"paymentMethod\": \"QRIS\",\n        \"redirectUrl\": null,\n        \"commissionPercentage\": 0,\n        \"expireInSecond\": 3600,\n        \"additional\": {\n            \"terminalId\": \"A01\"\n        },\n        \"isSplitFee\": true,\n        \"splitFees\": [\n            {\n                \"merchantId\": \"M_VQaPbYYp\",\n                \"merchantType\": \"main\",\n                \"amount\": 50000\n            },\n            {\n                \"merchantId\": \"M_pAbMkHTf\",\n                \"merchantType\": \"splitFee\",\n                \"amount\": 20000\n            }\n        ],\n        \"invoiceType\": \"single\"\n    }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/api/merchant/invoice/aggregator",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "merchant",
+                    "invoice",
+                    "aggregator"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "6545"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"status\": 101,\n  \"statusMessage\": \"waiting\",\n  \"body\": {\n    \"invoiceTrxId\": \"c414d0556b3a47d683b1d28a7e7b9bdd\",\n    \"invoiceId\": \"NETZ-INV-M_VQaPbYYp17903074162903hM\",\n    \"merchantId\": \"M_VQaPbYYp\",\n    \"amount\": \"IDR 70000.00\",\n    \"feeAmount\": \"IDR 15.00\",\n    \"totalAmount\": \"IDR 70000.00\",\n    \"amountLong\": 70000,\n    \"feeAmountLong\": 15,\n    \"totalAmountLong\": 70000,\n    \"descFromMerchant\": \"description ini baru\",\n    \"descFromBuyer\": \"desc\",\n    \"fullName\": \"Tester Budi\",\n    \"email\": \"budi@netzme.id\",\n    \"phoneNo\": \"+6289614810873\",\n    \"createdTs\": \"2026-09-25T10:38:43.097+07:00\",\n    \"expiredTs\": \"2026-09-25T11:36:56.290+07:00\",\n    \"paymentMethod\": \"QRIS\",\n    \"paymentUrl\": \"https://pay-dev.netzme.id/akunpinjaman17/NETZ-INV-M_VQaPbYYp17903074162903hM/qris/c414d0556b3a47d683b1d28a7e7b9bdd\",\n    \"statusCode\": 101,\n    \"statusMessage\": \"waiting\",\n    \"feeType\": \"on_seller\",\n    \"virtualAccountData\": [],\n    \"retailOutletData\": [],\n    \"additional\": {\n      \"terminalId\": \"A01\"\n    },\n    \"qris\": {\n      \"qr\": \"iVBORw0KGgoAAAANSUhEUgAAA6AAAAOgAQAAAAALviYcAAAOoklEQVR4Xu2bQZIbuQ5E6eiFlzqCjlJHKx1NR6kj9NKLicZHZgIs2d/+mz81I0YkFm02CeClNhkg1R7xL8T4deOfCEMvDUMvDUMvDUMvDUMvDUMvDUMvDUMvDUMvDUMvDUMvDUMvDUMvDUMvDUMvDUMvDUMvDUMvDUMvDUMvjX8V+jUUH7l+jPvnd+5s8Ymdscdxq8RjfEfZ/hy3+OtbLp/3+PGRyZmjFlh8z6NcZHlGNlRUC0MNNXQpKP/5Iei4/WDyhp0vVuVO9hmpR+XP/Kmje4AORLCqhaH8E3T2mYgw1FBDF4Oy8we8JRvSUhBlTcdpVlykEZGeyXd1ThksTwQciYd3NccOFVYYaqih2FkOGrCUMeAk43Um0U4iUDYwycCj9gBCiwm9wdnkUS3DUEMNXRyaa00pqCrbUZUWyfqAa70geATXSoWjPKoaUo+hhhq6NhQh6KiqAFQysmFwksEOB5j45EyyB2SwKhHo0SwKo6HhU0xEGGqooWtBFWUy023+nkU1N/QPVf/nwlBD/5bFH6A/xXPIfxCnt8BSss8osxo3jjSDo0i8+lhkjswKjnSyZvz3ThhqqKFvDEUfvmZsnfwU+GURMJngTEK3YecfPAQdOUnvqxAaCqqRpsJQQw0dy0DhPxvcpqMshf6Ti6Db4C4TROROdc4cNMzy4FFQWNMV/XEqDDXU0JWg+SPL5UhCZHIifr2V0JEysY6IgDXlDr80YTm/PRlVJWGGGmrostD0jXq0xM0lMG/clZSDx9AbCFjsDAo673neQ07tlFQExx5AdRWqMLRYdyUZaug7QxkHO492G7DkP6L3zuBM0raDzmikoB5YE3KeQw0B7Srm9gJhqKGGvjmU3gJHqs5ouKXbJFR9PuBI27zvHHSb7CyFwSkFyTxCQ5TLkYquQkMNNXQt6KzK5KNyks7Oj7adPV0LX3+QpZ1evCJ08ckcuhY0xx/GFUMNVb2h7wxFDp86x5iL0d+EBicQdNZ/30iFs0qO1DJ0dEr9n+OKoYaeVYa+JxRHdBJWwXayczrSoKX0AmZ1myONTAZVlVP2NYWhCBYHH1MfQw01dDVoIEdGhEXvHRw8aEQYYLCY/qOby6NkaAHxo8shXjegAT2GGmooqhaFykDKWwqhnRePaigVkg63gVQa2hxgHihHm4GPA7OqMNRQQ1eC4kyWskfIbTKyM6DRtjOFwawG+iSCU0pQKnJoRJQKYerMnYk6V4YaauibQ8HKKvXpHTgS+0TgdjOYQ2tiGzlSHWHRMiA+ToWyJvqYwlBDDV0LSttBt20icvDg+8aA22AHZqXhBAr14qFkVOloOwrKBcSznOINNdTQxaDMiTIQ5OAM8wb6SI/K7+UtGEXYB+NKcKc6P5AzpbIPfhpqqKGrQjP66oGqgZeKg0bEI+hhH0DRZ15z+p4CYdphDj8FRhq5VjOQ8rI21FBD3xuaR2OL6DdPlQ9WsU+G6Jhk5DaDZpUKmQMj6kkGC8adRlSTjMSzcf1rqKGGvj8UVRt+0klkREqmDJxoJ/hlBxvSmgaSpVl6Ejr44oHQ08ejfmuSoYYaquQ1oOhTllKsup4g+SlECWNkjpKDtsMd2VdW9Repn/qTDLrWl6GGGroglEdAaLqgyZzQB6rOIylUfSJEhzC5FvsMXmHUcI9D1lRhqKGGxkLQkMnw6JivGSFv6aPHhL7MLefNBY+fCO3scKQOTjIVhhpqKBeLQKcRyUlwtidLydxhTspgk4TWSHOXsEcakRbb9B8MMPo4tKYOQ3lmqKGrQBNBIwKCybMzIDp6pP/wCMKAgGvxwoKj4NemO2TUAEPXgozBhaGGGrocNOQkoOcidCvZuQ/6KEfSDllSCLpeRR5DUqcjkc6GkdZEYV3dC0MNNXQBKMYVtoeTvFxhZDs6yoDJfCOi7At0nsC+YES0ptJTR2eyUL0w1FBDl4ByFCEigvMGO7/2wSQzXYvJ8rG/+NSJaBlIVrnGFS0a1QtDDTX07aE0kHs9Wm61KRb09I6CA8y97ikDVSVMR0jGtDNQjqOUoZGmwlCGoYbWEZLfF4rOGXrzzJy6lQRlTP+B7ZBVrtUmA3rAiJAN8RppNp3WgmbFMNRQQ1eCBoeKD7pNjxm1QJ+2poPnXKAz/OcTCpUzsJNV/EJEkwz0YMiRMEMNNXQxqPxHW9knRK+GPCIdO3jPZGeNIi/+Q9eC1CHXmqxn/sarUBHqX0MNNTQWgGZDORJ+5dem2efQHYR6UC46EISic8iaFPQoQPELyk89pCsMNXQzVLEAlHEoGYGGcJIbfsEoUlVPNZyuVTlfp/9wwfIHPoUU3jntdBhqqKHrQFl+J0uvGfQoxAcRR11zthSGzoN9vtSZHdiZUlFOj0JDsihVXocw1FBDl4L2UPFTQyH2OKRgZ8NeqDRz0GhvzTCrmm1UVZ0hQ2GooYYuBU0D4TehmDcGcx7jrmcN7bDh0W8XEkY9kkFolYs1cm5pQ1OVoYYauh40j9o3cBn5gAwEkh/tLRmUUVVomPEdi5ZKRE8pLwrH7xzJUEMVhr4vFFWB5C8imIyZRNCWIbfBYtCsAN0qZwqjj/VCnyLQ0FBDDV0TmjmjjtpJHuyCaBlwLbBgMrImKkQj5JTmCM4tKSw0rjAMNdTQFaEyGV5PUEVLSf9RFTpzI+AttCaEhhMEc+hRBVVAfAiq70oqDGUvQw1dAso42AflZNF/+F3Jnoc/AH2QoZzzaxTNJFCIHJgVnj4AreQN3b8my1BDDY1loCjfDt5T4D/1RxFzFBk1wMyyZp1VQGgn9YDFHASOboYaauiy0D0OVe1PTBdCyFso46OtCcMJbadqgzcgeFRdc0Ylp0fhSM8j1RBhqKFh6ELQ7Byq4nRB/3libsly2A6GE7JqXIHJvJiVEHS2AT2C9u0GH8dQQw1dFJpOQkdiQ4wryYqix2lEXMCa5EiSqnLKUDKEaQfQoaoOQw01dCUobYexYwMmk96ipMFxJahn9D3lVqNI5pwziY5aPI74e+1UGGoodw2dR+8OZZ8BA8mQgRyylHORJtOOJNYpNenyMfRRHEVPzUjuMNRQQ9eBIp6qBlQ5oOtWEi+dWZasG645/O2HDmsmyQGGdPbRVaiiQYYaaihiFSj70HYeKBcCVb8c1UNHdi5HimKxbx7Rtbq8Dc1QQw1dFIqG2VkGAgQcicllKeU/z8EJBOMKnzrlYzhKGS9/UwGpGmBgcehsqKGGLgsdZSBcAIqFZNRRxl1lKYydZV9cnJ3Lvn5aGGqooctC6SSMrU/jGN+RtOcCga1PLh742UbUVT3JHNRcwqRZCisMrTDU0AWgwZxbfzPC8qqKsiY25B9OIOqvLHTfaRYvPthpZ5Pm0RbXqHNlaBhq6LtDq3NG+k+PGRFsGOwMR3piOPnCI0bSqw+vMNoRC0dKbvFIq4ZhqKGGrgTlUKGqV2saPW+IJduhMMiA/6Bh6xHrMeRIyhH0YCtDDTV0TSiPkDOQjPJsqDHj+esAQ2tiDtIpDMkdVKgq9sk7EfRUGGqooStBMwdXDywCOUTkWiaTCLHQZcBt7qp6wKOEkBEhuSYZ7NDZtpahMNRQQ1eC1gTCxZ1uMy81ODr1wH/YkOMKcqrqJx+TVP33MX4cylAYaqih60BDU8r0H+1saIglG37jK2ilP+vis2MB+9q5/YU2sCYFhxy61u9fQQ011ND3hyJoIDCZ0Q2VNMD6i/0wt+AIj5+ZAxnTdsqRBmSUeEndDtY2xlBDDY2VoO0bgL7MLZSBRVUlCzJOs3qVAVZQcx2dUkGvMNRQQ1eC1tFLVXaGR4le/rMBSiMalcPhRLcbBhYcV7Jq5txJn6heGGqooW8PZR91JoL1MiI6SfnPydqCZiXWaU3a0dyCKvwui/uNIxlqqKHaeWcogohiyUDY8IsC9KUJ9FAYoOcoQj2wL5anodX3sEiuzn966DCUrQw19G2hX2DBbdhQ/pPl0TIEPZPJosnkUY00RCrQRxaHKt6SsFNhqKGdbGjFG0MDE0gNFektwRxWlR5WMYdGtGcG3jdoRG07euhAlb4ZmQs0pMUVqheGGhqGvjsUDdNkxMLggQkkisWFrAmjCFhAYINVPEo9Q6+gSKZHBZwNyRxgDDXUUMZ60NeGUaMIHIn0e8uA7eBSU3XTbbiDKjkboIOORD3BRdcYaqihK0FD/hNomHRC01K4k8FFInA0MJPIo6QQUl92KpkL3mVA58dRGGqooStB88LSthMwEHnL4JNFlo8+inrPPDSKpAx2ljCMKxBG14IjnVchVTEMNRRh6CpQ9FHymQMWrSkXnFse2VkPpE9NMnMRc27J4aTfQA78OjTbQE+FoYYauhb0mYOHEHdeWNinriehzjqC7TSdrsWGECbN6nMuYE2/H1cMNdTQ94fyCoPyIUdCn/IoNsS4cpYDek4p0PzAkRQeN4rPHXlU0ucgZKihhq4GfXEksGrnk5eRGTAZsbY0K8jYefFBbFhIxoAwsSpuHGAMNVRhKGIR6AwkF/TsjKqynZFHAbdBZy7uzJFH8YhVRBzT2eRRFYYaaug6UCDYh1DcXAg9BkxGVeiTCA4eOMo+gwpfjkYh4Fqqws6DyYYaauiaUP5T/qPOCljKoxyJLLnWE5NM1LhCR2oZkArNgRuQFpDxEoYaauhSUHRub6l54zmmpbCdOtO10FCjSPSF5f6bBV9OBjRXsqGGGvob1ly8OxROgngODjDBNxCyKlkjDfs8ZTtlRKpq+5LFVTnPGIYaWsmGVtUS0MAEcgy+Z+6ZPJ2E0AG3oQxAWdUDDBC6wkzEE8ksPqZ9IQw11NCloAhBkZyRMrDQA4UQWV6PGOgMYTIi6hnVOcvbrG6dI6+rMNRQQ1eCKqaBcGeT27zcZVJGHw3pYWcdtYxUKGFoWOXfmxiGGmroStB/NAy9NAy9NAy9NAy9NAy9NAy9NAy9NAy9NAy9NAy9NAy9NAy9NAy9NAy9NAy9NAy9NAy9NAy9NAy9NAy9NAy9NP4DLG0W2LkVyVEAAAAASUVORK5CYII=\",\n      \"qrContent\": \"00020101021226650013ID.NETZME.WWW01189360081401001098170215ID99240034911170303UKE51440014ID.CO.QRIS.WWW0215ID99240034911170303UKE5204799653033605405700005802ID5916akun pinjaman 176013JAKARTA PUSAT61051045062690703A010812qris_invoice99420002000132c414d0556b3a47d683b1d28a7e7b9bdd63041870\",\n      \"nmid\": \"ID9924003491117\",\n      \"merchantLocation\": \"JAKARTA PUSAT\"\n    },\n    \"isSplitFee\": true,\n    \"splitFees\": [\n      {\n        \"merchantId\": \"M_VQaPbYYp\",\n        \"merchantType\": \"main\",\n        \"originalAmount\": 50000,\n        \"feeAmount\": 15,\n        \"amount\": 49985\n      },\n      {\n        \"merchantId\": \"M_pAbMkHTf\",\n        \"merchantType\": \"splitFee\",\n        \"originalAmount\": 20000,\n        \"feeAmount\": 0,\n        \"amount\": 20000\n      }\n    ]\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "DOnna",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "custom UVfF+y1Mnlwy2Gg7GYTaJ3FE4AJe7JpB7wPMaNYQm9U="
+          },
+          {
+            "key": "User-Agent",
+            "value": "aggregator_dona_stg;M_CvoxmdUN"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"request\": {\n        \"merchant\": \"M_CvoxmdUN\",\n        \"amount\": 70000,//500001, 70000\n        \"email\": \"donaputra79@viacentrum.net\",\n        \"notes\": \"desc\",\n        \"description\": \"description ini\",\n        \"phone_number\": \"+6289614810873\",\n        \"image_url\": \"https:\\/\\/olsera-promotion-material.s3.ap-southeast-1.amazonaws.com\\/olsera-brand-guideline\\/logo_alt_2__blue_.png\",\n        \"fullname\": \"Tester Dona\",\n        \"amount_detail\": {\n            \"basicAmount\": 70000,\n            \"shippingAmount\": 0\n        },\n        \"payment_method\": \"QRIS\",\n        \"commission_percentage\": 1,\n        \"expire_in_second\": 3600,\n        \"fee_type\": \"on_buyer\",\n        \"type\":\"single\",\n        \"partner_transaction_id\": \"aggregator-dqaFGbQntwmHYHr\",\n        \"isSplitFee\": true,\n        \"splitFees\": [\n            {\n                \"merchantId\": \"M_CvoxmdUN\",\n                \"merchantType\": \"main\",\n                \"amount\": 50000\n            },\n            {\n                \"merchantId\": \"M_0Aome7VN\",\n                \"merchantType\": \"splitFee\",\n                \"amount\": 20000\n            }\n        ]\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://pay-stg.netzme.com/api/v1/invoice/createTransaction",
+          "protocol": "https",
+          "host": [
+            "pay-stg",
+            "netzme",
+            "com"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "invoice",
+            "createTransaction"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://pay-stg.netzme.com/api/v1/invoice/createTransaction' \\\n--header 'Authorization: custom UVfF+y1Mnlwy2Gg7GYTaJ3FE4AJe7JpB7wPMaNYQm9U=' \\\n--header 'User-Agent: aggregator_dona_stg;M_CvoxmdUN' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n    \"request\": {\n        \"merchant\": \"M_CvoxmdUN\",\n        \"amount\": 70000,//500001, 70000\n        \"email\": \"donaputra79@viacentrum.net\",\n        \"notes\": \"desc\",\n        \"description\": \"description ini\",\n        \"phone_number\": \"+6289614810873\",\n        \"image_url\": \"https:\\/\\/olsera-promotion-material.s3.ap-southeast-1.amazonaws.com\\/olsera-brand-guideline\\/logo_alt_2__blue_.png\",\n        \"fullname\": \"Tester Dona\",\n        \"amount_detail\": {\n            \"basicAmount\": 70000,\n            \"shippingAmount\": 0\n        },\n        \"payment_method\": \"QRIS\",\n        \"commission_percentage\": 1,\n        \"expire_in_second\": 3600,\n        \"fee_type\": \"on_buyer\",\n        \"type\":\"single\",\n        \"partner_transaction_id\": \"aggregator-dqaFGbQntwmHYHr\",\n        \"isSplitFee\": true,\n        \"splitFees\": [\n            {\n                \"merchantId\": \"M_CvoxmdUN\",\n                \"merchantType\": \"main\",\n                \"amount\": 50000\n            },\n            {\n                \"merchantId\": \"M_0Aome7VN\",\n                \"merchantType\": \"splitFee\",\n                \"amount\": 20000\n            }\n        ]\n    }\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "https://tokoapi.netzme.com/api/merchant/invoice/aggregator",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Request-Time",
+            "value": "1767651909000"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"requestId\": \"df8793de-c2d2-423e-8c14-6a1247b42021\",\n  \"type\": \"create_aggregator_invoice\",\n  \"body\": {\n    \"merchantId\": \"M_nvmwOdC8\", //M_5IQ5Y3Zu, M_DAzd2l5k, M_vJWZe4kO, M_nvmwOdC8, M_cmXCw98w\n    \"feeType\": \"on_seller\", //on_seller, on_buyer\n    \"amount\": {\n      \"basicAmount\": \"50000\",\n      \"shippingAmount\": 0,\n      \"total_amount\": \"50000\"\n    },\n    \"emailBuyer\": \"dona.putra@netzme.id\",\n    \"descFromBuyer\": \"desc\",\n    \"descFromMerchant\": \"description\",\n    \"phoneNoBuyer\": \"+6289614810873\",\n    \"urlPhoto\": null,\n    \"fullNameBuyer\": \"Percoba QA\",\n    //\"trxSource\": \"Soundboxsolo\", //pink, holdamount, netzme-test, netzmeseamlesssnap, Soundboxsolo\n    \"apiSourceType\": null,\n    \"partnerTransactionId\": \"dona-mgMV4pl8Rgi20B6\",\n    \"paymentMethod\": \"QRIS\", //QRIS_CPM , QRIS_CPM_TAP, QRIS\n    \"redirectUrl\": null,\n    \"commissionPercentage\": 0,\n    \"expireInSecond\": 3600,\n    \"invoiceType\": \"single\",\n    \"item_details\": [\n        {\n            \"item_id\": \"D1234567898\",\n            \"qty\": 1,\n            \"amount\": 10000\n        }\n    ],\n    \"address\": \"test\",\n    \"additional\": {\n        \"terminalId\": \"A01\"\n    }\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://tokoapi.netzme.com/api/merchant/invoice/aggregator",
+          "protocol": "https",
+          "host": [
+            "tokoapi",
+            "netzme",
+            "com"
+          ],
+          "path": [
+            "api",
+            "merchant",
+            "invoice",
+            "aggregator"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://tokoapi.netzme.com/api/merchant/invoice/aggregator' \\\n--header 'Content-Type: application/json' \\\n--header 'Request-Time: 1767651909000' \\\n--data-raw '{\n  \"requestId\": \"df8793de-c2d2-423e-8c14-6a1247b42021\",\n  \"type\": \"create_aggregator_invoice\",\n  \"body\": {\n    \"merchantId\": \"M_nvmwOdC8\", //M_5IQ5Y3Zu, M_DAzd2l5k, M_vJWZe4kO, M_nvmwOdC8, M_cmXCw98w\n    \"feeType\": \"on_seller\", //on_seller, on_buyer\n    \"amount\": {\n      \"basicAmount\": \"50000\",\n      \"shippingAmount\": 0,\n      \"total_amount\": \"50000\"\n    },\n    \"emailBuyer\": \"dona.putra@netzme.id\",\n    \"descFromBuyer\": \"desc\",\n    \"descFromMerchant\": \"description\",\n    \"phoneNoBuyer\": \"+6289614810873\",\n    \"urlPhoto\": null,\n    \"fullNameBuyer\": \"Percoba QA\",\n    //\"trxSource\": \"Soundboxsolo\", //pink, holdamount, netzme-test, netzmeseamlesssnap, Soundboxsolo\n    \"apiSourceType\": null,\n    \"partnerTransactionId\": \"dona-mgMV4pl8Rgi20B6\",\n    \"paymentMethod\": \"QRIS\", //QRIS_CPM , QRIS_CPM_TAP, QRIS\n    \"redirectUrl\": null,\n    \"commissionPercentage\": 0,\n    \"expireInSecond\": 3600,\n    \"invoiceType\": \"single\",\n    \"item_details\": [\n        {\n            \"item_id\": \"D1234567898\",\n            \"qty\": 1,\n            \"amount\": 10000\n        }\n    ],\n    \"address\": \"test\",\n    \"additional\": {\n        \"terminalId\": \"A01\"\n    }\n  }\n}'"
+      },
+      "response": []
+    },
+    {
+      "name": "https://pay.netzme.com/api/v1/invoice/createTransaction",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "custom /CXtIhIWCkTcg7TRF7mGcxr72h/9i70XDnU9GS41V70="
+          },
+          {
+            "key": "User-Agent",
+            "value": "netzmeseamlesssnap;M_nvmwOdC8"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"request\": {\n        \"merchant\": \"M_nvmwOdC8\",\n        \"amount\": 1000,\n        \"email\": \"dona.putra@netzme.id\",\n        \"notes\": \"desc\",\n        \"description\": \"description\",\n        \"phone_number\": \"+6289614810873\",\n        \"image_url\": \"https:\\/\\/olsera-promotion-material.s3.ap-southeast-1.amazonaws.com\\/olsera-brand-guideline\\/logo_alt_2__blue_.png\",\n        \"fullname\": \"Tester Dona\",\n        \"amount_detail\": {\n            \"basicAmount\": 1000,\n            \"shippingAmount\": 0\n        },\n        \"payment_method\": \"BANK_TRANSFER\",\n        \"commission_percentage\": 0,\n        \"expire_in_second\": 60,\n        \"fee_type\": \"on_seller\", //on_buyer, on_seller\n        \"type\":\"single\",\n        \"partner_transaction_id\": \"aggregator-9CfebU7oVLWw9mf\",\n        \"isSplitFee\": false,\n        \"splitFees\": [\n            {\n                \"merchantId\": \"M_CvoxmdUN\",\n                \"merchantType\": \"main\",\n                \"amount\": 100000\n            },\n            {\n                \"merchantId\": \"M_0Aome7VN\",\n                \"merchantType\": \"splitFee\",\n                \"amount\": 50000\n            }\n        ]\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://pay.netzme.com/api/v1/invoice/createTransaction",
+          "protocol": "https",
+          "host": [
+            "pay",
+            "netzme",
+            "com"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "invoice",
+            "createTransaction"
+          ]
+        },
+        "description": "Generated from cURL: curl --location 'https://pay.netzme.com/api/v1/invoice/createTransaction' \\\n--header 'Authorization: custom /CXtIhIWCkTcg7TRF7mGcxr72h/9i70XDnU9GS41V70=' \\\n--header 'User-Agent: netzmeseamlesssnap;M_nvmwOdC8' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n    \"request\": {\n        \"merchant\": \"M_nvmwOdC8\",\n        \"amount\": 1000,\n        \"email\": \"dona.putra@netzme.id\",\n        \"notes\": \"desc\",\n        \"description\": \"description\",\n        \"phone_number\": \"+6289614810873\",\n        \"image_url\": \"https:\\/\\/olsera-promotion-material.s3.ap-southeast-1.amazonaws.com\\/olsera-brand-guideline\\/logo_alt_2__blue_.png\",\n        \"fullname\": \"Tester Dona\",\n        \"amount_detail\": {\n            \"basicAmount\": 1000,\n            \"shippingAmount\": 0\n        },\n        \"payment_method\": \"BANK_TRANSFER\",\n        \"commission_percentage\": 0,\n        \"expire_in_second\": 60,\n        \"fee_type\": \"on_seller\", //on_buyer, on_seller\n        \"type\":\"single\",\n        \"partner_transaction_id\": \"aggregator-9CfebU7oVLWw9mf\",\n        \"isSplitFee\": false,\n        \"splitFees\": [\n            {\n                \"merchantId\": \"M_CvoxmdUN\",\n                \"merchantType\": \"main\",\n                \"amount\": 100000\n            },\n            {\n                \"merchantId\": \"M_0Aome7VN\",\n                \"merchantType\": \"splitFee\",\n                \"amount\": 50000\n            }\n        ]\n    }\n}'"
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const now = new Date();",
+          "pm.environment.set(\"transactionTs\", now.toISOString().replace(/[-:.TZ]/g, '').slice(0, 14));",
+          "pm.environment.set(\"requestTime\", now.toISOString());",
+          "pm.collectionVariables.set(\"date\", now.toISOString().slice(0, 10).replace(/-/g, ''));"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "collectionVersion",
+      "value": "1.0.0"
+    },
+    {
+      "key": "productCode",
+      "value": "QRIS-CPM"
+    },
+    {
+      "key": "date",
+      "value": ""
+    },
+    {
+      "key": "auth_password_1did",
+      "secret": true
+    },
+    {
+      "key": "basic_auth_0kji",
+      "secret": true
+    },
+    {
+      "key": "basic_auth_0qlc",
+      "secret": true
+    }
+  ]
+}

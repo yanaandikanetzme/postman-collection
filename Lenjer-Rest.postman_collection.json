@@ -1,0 +1,375 @@
+{
+  "info": {
+    "_postman_id": "e0e0494f-469b-4903-a01f-fe3e64082d58",
+    "name": "Lenjer-Rest",
+    "description": "Collection for Toko Lenjer REST service — handles Balance, Transaction, QR CPM, Pulsa, VA, and Utilities. All requests use Bearer token authentication via {{accessToken}}.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "32294413"
+  },
+  "item": [
+    {
+      "name": "Balance",
+      "item": [
+        {
+          "name": "Get Balance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{lenjerUrl}}/api/balance",
+              "host": [
+                "{{lenjerUrl}}"
+              ],
+              "path": [
+                "api",
+                "balance"
+              ]
+            },
+            "description": "Get current balance from Lenjer"
+          },
+          "response": []
+        },
+        {
+          "name": "Balance Inquiry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{lenjerUrl}}/api/balance/inquiry",
+              "host": [
+                "{{lenjerUrl}}"
+              ],
+              "path": [
+                "api",
+                "balance",
+                "inquiry"
+              ]
+            },
+            "description": "Perform balance inquiry"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Transaction",
+      "item": [
+        {
+          "name": "Get Transaction History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{lenjerUrl}}/api/transaction/history",
+              "host": [
+                "{{lenjerUrl}}"
+              ],
+              "path": [
+                "api",
+                "transaction",
+                "history"
+              ]
+            },
+            "description": "Get transaction history from Lenjer"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transaction Detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{lenjerUrl}}/api/transaction/detail",
+              "host": [
+                "{{lenjerUrl}}"
+              ],
+              "path": [
+                "api",
+                "transaction",
+                "detail"
+              ]
+            },
+            "description": "Get transaction detail by ID"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "QR CPM",
+      "item": [
+        {
+          "name": "Generate QR CPM Lenjer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{lenjerUrl}}/api/qr/cpm/generate",
+              "host": [
+                "{{lenjerUrl}}"
+              ],
+              "path": [
+                "api",
+                "qr",
+                "cpm",
+                "generate"
+              ]
+            },
+            "description": "Generate CPM QR code via Lenjer"
+          },
+          "response": []
+        },
+        {
+          "name": "Validate QR CPM Lenjer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{lenjerUrl}}/api/qr/cpm/validate",
+              "host": [
+                "{{lenjerUrl}}"
+              ],
+              "path": [
+                "api",
+                "qr",
+                "cpm",
+                "validate"
+              ]
+            },
+            "description": "Validate CPM QR code via Lenjer"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pulsa",
+      "item": [
+        {
+          "name": "Buy Pulsa Lenjer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{lenjerUrl}}/api/pulsa/buy",
+              "host": [
+                "{{lenjerUrl}}"
+              ],
+              "path": [
+                "api",
+                "pulsa",
+                "buy"
+              ]
+            },
+            "description": "Purchase pulsa via Lenjer"
+          },
+          "response": []
+        },
+        {
+          "name": "Check Pulsa Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{lenjerUrl}}/api/pulsa/status",
+              "host": [
+                "{{lenjerUrl}}"
+              ],
+              "path": [
+                "api",
+                "pulsa",
+                "status"
+              ]
+            },
+            "description": "Check pulsa purchase status"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "VA",
+      "item": [
+        {
+          "name": "Create VA",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{lenjerUrl}}/api/va/create",
+              "host": [
+                "{{lenjerUrl}}"
+              ],
+              "path": [
+                "api",
+                "va",
+                "create"
+              ]
+            },
+            "description": "Create virtual account via Lenjer"
+          },
+          "response": []
+        },
+        {
+          "name": "Get VA Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{lenjerUrl}}/api/va/status",
+              "host": [
+                "{{lenjerUrl}}"
+              ],
+              "path": [
+                "api",
+                "va",
+                "status"
+              ]
+            },
+            "description": "Get virtual account status"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Utilities",
+      "item": [
+        {
+          "name": "Health Check Lenjer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{lenjerUrl}}/api/health",
+              "host": [
+                "{{lenjerUrl}}"
+              ],
+              "path": [
+                "api",
+                "health"
+              ]
+            },
+            "description": "Health check for Lenjer REST service"
+          },
+          "response": []
+        },
+        {
+          "name": "Generate Token Lenjer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "token"
+              ]
+            },
+            "description": "Generate authentication token for Lenjer REST"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "info": {
+    "_postman_id": "bf66db04-f3d7-48b1-aace-40a03187c53a",
+    "name": "Toko-Publish",
+    "description": "Collection for Toko Publish service — handles Kafka message publishing. All requests use Bearer token authentication via {{accessToken}}.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "32294413"
+  },
+  "item": [
+    {
+      "name": "Kafka",
+      "item": [
+        {
+          "name": "Publish Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/toko/publish/kafka",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "toko",
+                "publish",
+                "kafka"
+              ]
+            },
+            "description": "Publish a message to Kafka topic"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Publish Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/toko/publish/kafka/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "toko",
+                "publish",
+                "kafka",
+                "status"
+              ]
+            },
+            "description": "Get Kafka message publish status"
+          },
+          "response": []
+        },
+        {
+          "name": "List Topics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/toko/publish/kafka/topics",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "toko",
+                "publish",
+                "kafka",
+                "topics"
+              ]
+            },
+            "description": "List available Kafka topics"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  }
+}
