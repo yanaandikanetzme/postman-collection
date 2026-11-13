@@ -1319,6 +1319,456 @@
           ]
         },
         {
+          "name": "Hongkong",
+          "item": [
+            {
+              "name": "Inquiry",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "kare",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_1did}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"{{$guid}}\",\r\n    \"body\": {\r\n        \"username\": \"77foPbRm\",\r\n        \"qrContent\": \"0002010102121531258603440052044659803449399006326450012hk.com.hkicl0209166069526051221012508474452049399530334454042.005802HK5920Transport Department6002HK6293011900-00610A20401148010218001-202101250046440322fK1zjqF2sk2dxWWgld5+XA041802150804050000778280560013com.swiftpass0212181560002193041900-00610A2040114801630430C3\",\r\n        \"refId\": \"{{$guid}}\",\r\n        \"fullName\": \"Yana Andika\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/qr/issuer/inquiry",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "qr",
+                    "issuer",
+                    "inquiry"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Inquiry",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"requestId\": \"{{$guid}}\",\r\n  \"body\": {\r\n    \"username\": \"f6R1zNq1\",\r\n    \"qrContent\": \"00020101021232710011SA.GOV.SAMA0116000000000346548002060101000302010416E20280323T1200005204594253036825406100.005802SA5910MUSAADTest6007ALRIYAD61051234562770517REF20260806000001100512453110340054360011SA.GOV.SAMA010515.0002084000000064270002AR0108متجرساما0205جلاجل6502SA6304C242\",\r\n    \"refId\": \"{{$guid}}\",\r\n    \"fullName\": \"Yana Andika\"\r\n  }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/qr/issuer/inquiry",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "qr",
+                        "issuer",
+                        "inquiry"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "content-length",
+                      "value": "931"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"requestId\": \"aedd8d87-f7aa-47b3-a45c-63c05446faad\",\n  \"status\": 100,\n  \"statusMessage\": \"success\",\n  \"body\": {\n    \"qrContent\": \"00020101021232710011SA.GOV.SAMA0116000000000346548002060101000302010416E20280323T1200005204594253036825406100.005802SA5910MUSAADTest6007ALRIYAD61051234562770517REF20260806000001100512453110340054360011SA.GOV.SAMA010515.0002084000000064270002AR0108متجرساما0205جلاجل6502SA6304C242\",\n    \"merchantName\": \"MUSAADTest\",\n    \"discount\": 0,\n    \"qrType\": \"qr_type_cross_border_dynamic\",\n    \"status\": \"available_for_payment\",\n    \"qrisCrossBorder\": {\n      \"amountCrossBorder\": 100,\n      \"merchantType\": \"5942\",\n      \"terminalId\": \"0000\",\n      \"merchantCity\": \"ALRIYAD\",\n      \"merchantCountry\": \"SA\",\n      \"currCodeCrossBorder\": \"SAR\",\n      \"merchantName\": \"MUSAADTest\",\n      \"isInputAmount\": true\n    },\n    \"isCrossBorder\": true,\n    \"vendorName\": \"artajasa\",\n    \"merchantAcquirer\": \"NETSTARS CO.,LTD.\",\n    \"merchantPan\": \"00000000034654806\",\n    \"minAmountTransaction\": \"IDR 1000.00\",\n    \"maxAmountTransaction\": \"IDR 5000000.00\"\n  }\n}"
+                }
+              ]
+            },
+            {
+              "name": "Inquiry Translator",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "kare",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_1did}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"{{$guid}}\",\r\n    \"body\": {\r\n        \"username\": \"77foPbRm\",\r\n        \"qrContent\": \"00020101021232710011SA.GOV.SAMA0116000000000346548002060101000302010416E20280323T1200005204594253036825406100.005802SA5910MUSAADTest6007ALRIYAD61051234562770517REF20260806000001100512453110340054360011SA.GOV.SAMA010515.0002084000000064270002AR0108متجرساما0205جلاجل6502SA6304C242\",\r\n        \"refId\": \"78b7ed46-5b85-4ff6-9880-dfd5c7fa61da\",\r\n        \"fullName\": \"Yana Andika\",\r\n         \"amount\": \"SAR 100.15\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/qr/issuer/inquiry",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "qr",
+                    "issuer",
+                    "inquiry"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"requestId\": \"{{$guid}}\",\r\n    \"body\": {\r\n        \"username\": \"f6R1zNq1\",\r\n        \"qrContent\": \"00020101021232710011SA.GOV.SAMA0116000000000346548002060101000302010416E20280323T1200005204594253036825406100.005802SA5910MUSAADTest6007ALRIYAD61051234562770517REF20260806000001100512453110340054360011SA.GOV.SAMA010515.0002084000000064270002AR0108متجرساما0205جلاجل6502SA6304C242\",\r\n        \"refId\": \"{{$guid}}\",\r\n        \"fullName\": \"Yana Andika\",\r\n        \"amount\": \"SAR 100.15\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/qr/issuer/inquiry",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "qr",
+                        "issuer",
+                        "inquiry"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "content-length",
+                      "value": "1074"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"requestId\": \"33f021d5-7300-43ef-b868-7a6f6780d01f\",\n  \"status\": 100,\n  \"statusMessage\": \"success\",\n  \"body\": {\n    \"qrContent\": \"00020101021232710011SA.GOV.SAMA0116000000000346548002060101000302010416E20280323T1200005204594253036825406100.005802SA5910MUSAADTest6007ALRIYAD61051234562770517REF20260806000001100512453110340054360011SA.GOV.SAMA010515.0002084000000064270002AR0108متجرساما0205جلاجل6502SA6304C242\",\n    \"merchantName\": \"MUSAADTest\",\n    \"discount\": 0,\n    \"qrType\": \"qr_type_cross_border_dynamic\",\n    \"status\": \"available_for_payment\",\n    \"qrisCrossBorder\": {\n      \"amountCrossBorder\": 100,\n      \"amountLocal\": 0,\n      \"rateCrossBorder\": 1,\n      \"rateLocal\": 0,\n      \"amountLocalOriginal\": 0,\n      \"merchantType\": \"5942\",\n      \"terminalId\": \"0000\",\n      \"merchantCity\": \"ALRIYAD\",\n      \"merchantCountry\": \"SA\",\n      \"currCodeCrossBorder\": \"SAR\",\n      \"currCodeLocal\": \"IDR\",\n      \"msgId\": \"f138330f-c9df-4531-a03a-d871782e3bf3\",\n      \"merchantName\": \"MUSAADTest\",\n      \"isInputAmount\": true\n    },\n    \"isCrossBorder\": true,\n    \"vendorName\": \"artajasa\",\n    \"merchantAcquirer\": \"NETSTARS CO.,LTD.\",\n    \"merchantPan\": \"00000000034654806\",\n    \"minAmountTransaction\": \"IDR 1000.00\",\n    \"maxAmountTransaction\": \"IDR 5000000.00\"\n  }\n}"
+                }
+              ]
+            },
+            {
+              "name": "Payment",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "kare",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_1did}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestId\": \"ed4b3a90-6dbd-48d2-a10a-bee733a120ec\",\n  \"requestTime\": 1719993420271,\n  \"type\": \"qris_crossborder\",\n  \"body\": {\n        \"qrisCrossBorder\": {\n            \"amountCrossBorder\": 100,\n            \"amountLocal\": 73949,\n            \"rateCrossBorder\": 1,\n            \"rateLocal\": 739.49,\n            \"amountLocalOriginal\": 4730,\n            \"merchantType\": \"5942\",\n            \"terminalId\": \"0000\",\n            \"merchantCity\": \"ALRIYAD\",\n            \"merchantCountry\": \"SA\",\n            \"currCodeCrossBorder\": \"SAR\",\n            \"currCodeLocal\": \"IDR\",\n            \"msgId\": \"250baf70-a40e-495d-b2f2-e2ccebab36c0\",\n            \"merchantName\": \"MUSAADTest\",\n            \"isInputAmount\": true\n        },\n    \"username\": \"77foPbRm\",\n    \"invoiceId\": \"\",\n    \"qrContent\": \"00020101021232710011SA.GOV.SAMA0116000000000346548002060101000302010416E20280323T1200005204594253036825406100.005802SA5910MUSAADTest6007ALRIYAD61051234562770517REF20260806000001100512453110340054360011SA.GOV.SAMA010515.0002084000000064270002AR0108متجرساما0205جلاجل6502SA6304C242\",\n    \"refId\": \"098bff5f-ca9f-427a-9a11-044795678f40\",\n    \"amount\": \"IDR 73949.00\",\n    \"feeAmount\": \"IDR 0.00\",\n    \"fullName\": \"Yana andika\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/merchant/qr/cb/pay",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "merchant",
+                    "qr",
+                    "cb",
+                    "pay"
+                  ]
+                },
+                "description": "Generated from cURL: curl --location 'https://tokoapi-stg.netzme.com/api/merchant/qr/cb/pay' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data '{\n  \"requestId\": \"ed4b3a90-6dbd-48d2-a10a-bee733a120ec\",\n  \"requestTime\": 1719993420271,\n  \"type\": \"qris_crossborder\",\n  \"body\": {\n        \"qrisCrossBorder\": {\n            \"amountCrossBorder\": 10,\n            \"amountLocal\": 1071,\n            \"rateCrossBorder\": 1,\n            \"rateLocal\": 107.05,\n            \"amountLocalOriginal\": 1056.8,\n            \"merchantType\": \"8699\",\n            \"terminalId\": \"301040501686800\",\n            \"merchantCity\": \"Tokyo\",\n            \"merchantCountry\": \"JP\",\n            \"currCodeCrossBorder\": \"JPY\",\n            \"currCodeLocal\": \"IDR\",\n            \"msgId\": \"2099236a-41f3-43b2-bbb8-457d31ec16fd\",\n            \"merchantName\": \"JPQRTEST001\",\n            \"isInputAmount\": true\n        },\n    \"username\": \"8Nd77WEa\",\n    \"invoiceId\": \"\",\n    \"qrContent\": \"00020101021126710019jp.or.paymentsjapan011893920001000100000002153010405016868000303URE5204869953033925802JP5911JPQRTEST0016005Tokyo61070000000623099262025081104105200000000006463043D60\",\n    \"refId\": \"8d99f875-ed5f-481a-8b96-bc99c3a692z9\",\n    \"amount\": \"IDR 1071.00\",\n    \"feeAmount\": \"IDR 0.00\",\n    \"fullName\": \"User andika\"\n  }\n}'"
+              },
+              "response": [
+                {
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Authorization",
+                        "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"requestId\": \"ed4b3a90-6dbd-48d2-a10a-bee733a120ec\",\n  \"requestTime\": 1719993420271,\n  \"type\": \"qris_crossborder\",\n  \"body\": {\n        \"qrisCrossBorder\": {\n            \"amountCrossBorder\": 100,\n            \"amountLocal\": 73949,\n            \"rateCrossBorder\": 1,\n            \"rateLocal\": 739.49,\n            \"amountLocalOriginal\": 4730,\n            \"merchantType\": \"5942\",\n            \"terminalId\": \"0000\",\n            \"merchantCity\": \"ALRIYAD\",\n            \"merchantCountry\": \"SA\",\n            \"currCodeCrossBorder\": \"SAR\",\n            \"currCodeLocal\": \"IDR\",\n            \"msgId\": \"250baf70-a40e-495d-b2f2-e2ccebab36c0\",\n            \"merchantName\": \"MUSAADTest\",\n            \"isInputAmount\": true\n        },\n    \"username\": \"77foPbRm\",\n    \"invoiceId\": \"\",\n    \"qrContent\": \"00020101021232710011SA.GOV.SAMA0116000000000346548002060101000302010416E20280323T1200005204594253036825406100.005802SA5910MUSAADTest6007ALRIYAD61051234562770517REF20260806000001100512453110340054360011SA.GOV.SAMA010515.0002084000000064270002AR0108متجرساما0205جلاجل6502SA6304C242\",\n    \"refId\": \"098bff5f-ca9f-427a-9a11-044795678f40\",\n    \"amount\": \"IDR 73949.00\",\n    \"feeAmount\": \"IDR 0.00\",\n    \"fullName\": \"Yana andika\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/merchant/qr/cb/pay",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "merchant",
+                        "qr",
+                        "cb",
+                        "pay"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "content-length",
+                      "value": "876"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"requestId\": \"ed4b3a90-6dbd-48d2-a10a-bee733a120ec\",\n  \"type\": \"qris_crossborder\",\n  \"status\": 100,\n  \"statusMessage\": \"success\",\n  \"ts\": \"2026-08-21T10:13:21.431+07:00\",\n  \"body\": {\n    \"qrisCrossBorder\": {\n      \"amountCrossBorder\": 100,\n      \"amountLocal\": 73949,\n      \"rateCrossBorder\": 1,\n      \"rateLocal\": 739.49,\n      \"amountLocalOriginal\": 4730,\n      \"merchantType\": \"5942\",\n      \"terminalId\": \"0000\",\n      \"merchantCity\": \"ALRIYAD\",\n      \"merchantCountry\": \"SA\",\n      \"currCodeCrossBorder\": \"SAR\",\n      \"currCodeLocal\": \"IDR\",\n      \"msgId\": \"250baf70-a40e-495d-b2f2-e2ccebab36c0\",\n      \"qrType\": \"qr_type_cross_border_dynamic\",\n      \"merchantName\": \"MUSAADTest\",\n      \"isInputAmount\": true\n    },\n    \"responseCode\": \"00\",\n    \"invoiceNumber\": \"1595746263\",\n    \"rrn\": \"336399453551\",\n    \"merchantAcquirer\": \"NETSTARS CO.,LTD.\",\n    \"sourceOfFund\": {\n      \"id\": \"Electronic Money (Netzme)\",\n      \"en\": \"Uang Elektronik (Netzme)\"\n    },\n    \"customerPan\": \"9360081435328224794\",\n    \"merchantPan\": \"00000000034654806\",\n    \"terminalId\": \"010100\",\n    \"vendorName\": \"artajasa\"\n  }\n}"
+                }
+              ]
+            },
+            {
+              "name": "Refund",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "kare",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_1did}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"msgId\": \"202e2dc5-f4f8-430d-b22e-751fec60321c\",\r\n    \"pan\": \"9360081435328224794\",\r\n    \"transactionAmount\": 100,\r\n    \"transmissionDateTime\": \"0821031227\",\r\n    \"systemTraceAuditNumber\": \"000013\",\r\n    \"localTransactionDateTime\": \"20260821101227\",\r\n    \"settlementDate\": \"0822\",\r\n    \"captureDate\": \"20260821\",\r\n    \"merchantType\": \"0000\",\r\n    \"posEntryMode\": \"011\",\r\n    \"feeType\": \"\",\r\n    \"feeAmount\": 0,\r\n    \"acquirerId\": \"97640030\",\r\n    \"issuerId\": \"93600814\",\r\n    \"forwardingId\": \"360001\",\r\n    \"rrn\": \"336399453551\",\r\n    \"terminalId\": \"010100\",\r\n    \"merchantId\": \"               \",\r\n    \"merchantName\": \"MUSAADTest\",\r\n    \"merchantCity\": \"ALRIYAD\",\r\n    \"merchantCountry\": \"SAR\",\r\n    \"productIndicator\": \"Q001\",\r\n    \"customerData\": \"Yana_________________________\",\r\n    \"merchantCriteria\": \"UME\",\r\n    \"currencyCode\": \"682\",\r\n    \"merchantPan\": \"00000000034654806\",\r\n    \"invoiceNumber\": \"15957462634565095145\",\r\n    \"processingCode\": \"200060\",\r\n    \"settlementAmount\": 0,\r\n    \"cardholderAmount\": 4730,\r\n    \"settlementRate\": 0,\r\n    \"cardholderRate\": 730,\r\n    \"conversionDate\": \"\",\r\n    \"settlementCurrCode\": \"\",\r\n    \"cardholderCurrCode\": \"360\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/kare-aj/issuer/refund",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "kare-aj",
+                    "issuer",
+                    "refund"
+                  ]
+                },
+                "description": "Generated from cURL: curl --location 'https://tokoapi-dev.netzme.com/api/kare-aj/issuer/refund' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data '{\"msgId\":\"202e2dc5-f4f8-430d-b22e-751fec60321c\",\"pan\":\"9360081432555733440\",\"transactionAmount\":207726,\"transmissionDateTime\":\"0624033242\",\"systemTraceAuditNumber\":\"000013\",\"localTransactionDateTime\":\"20240624103242\",\"settlementDate\":\"0625\",\"captureDate\":\"0624\",\"merchantType\":\"0000\",\"posEntryMode\":\"011\",\"feeType\":\"\",\"feeAmount\":0,\"acquirerId\":\"97640030\",\"issuerId\":\"93600814\",\"forwardingId\":\"360001\",\"rrn\":\"530257211491\",\"terminalId\":\"24001287        \",\"merchantId\":\"               \",\"merchantName\":\"\",\"merchantCity\":\"\",\"merchantCountry\":\"TH\",\"productIndicator\":\"Q001\",\"customerData\":\"yusuf_________________________\",\"merchantCriteria\":\"UME\",\"currencyCode\":\"764\",\"merchantPan\":\"9764003012345678902\",\"invoiceNumber\":\"00000000738318797253\",\"processingCode\":\"200060\",\"settlementAmount\":0,\"cardholderAmount\":205060,\"settlementRate\":0,\"cardholderRate\":410.12,\"conversionDate\":\"\",\"settlementCurrCode\":\"\",\"cardholderCurrCode\":\"360\"}'"
+              },
+              "response": [
+                {
+                  "name": "Refund",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Authorization",
+                        "value": "Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg=="
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"msgId\": \"202e2dc5-f4f8-430d-b22e-751fec60321c\",\r\n    \"pan\": \"9360081435328224794\",\r\n    \"transactionAmount\": 100,\r\n    \"transmissionDateTime\": \"0821031227\",\r\n    \"systemTraceAuditNumber\": \"000013\",\r\n    \"localTransactionDateTime\": \"20260821101227\",\r\n    \"settlementDate\": \"0822\",\r\n    \"captureDate\": \"20260821\",\r\n    \"merchantType\": \"0000\",\r\n    \"posEntryMode\": \"011\",\r\n    \"feeType\": \"\",\r\n    \"feeAmount\": 0,\r\n    \"acquirerId\": \"97640030\",\r\n    \"issuerId\": \"93600814\",\r\n    \"forwardingId\": \"360001\",\r\n    \"rrn\": \"336399453551\",\r\n    \"terminalId\": \"010100\",\r\n    \"merchantId\": \"               \",\r\n    \"merchantName\": \"MUSAADTest\",\r\n    \"merchantCity\": \"ALRIYAD\",\r\n    \"merchantCountry\": \"SAR\",\r\n    \"productIndicator\": \"Q001\",\r\n    \"customerData\": \"Yana_________________________\",\r\n    \"merchantCriteria\": \"UME\",\r\n    \"currencyCode\": \"682\",\r\n    \"merchantPan\": \"00000000034654806\",\r\n    \"invoiceNumber\": \"15957462634565095145\",\r\n    \"processingCode\": \"200060\",\r\n    \"settlementAmount\": 0,\r\n    \"cardholderAmount\": 4730,\r\n    \"settlementRate\": 0,\r\n    \"cardholderRate\": 730,\r\n    \"conversionDate\": \"\",\r\n    \"settlementCurrCode\": \"\",\r\n    \"cardholderCurrCode\": \"360\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/kare-aj/issuer/refund",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "kare-aj",
+                        "issuer",
+                        "refund"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "content-type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "content-length",
+                      "value": "131"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"msgId\": \"202e2dc5-f4f8-430d-b22e-751fec60321c\",\n  \"responseCode\": \"00\",\n  \"invoiceNumber\": \"15957462634565095145\",\n  \"approvalCode\": \"8bOmvv\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Settlement",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "kare",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_1did}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "{{basic_auth_0lq6}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"requestId\": \"{{$guid}}\",\n    \"period\": \"20250703\",\n    \"vendorName\": \"artajasa\",\n    \"totalAmount\": \"73949\",\n    \"listData\": [\n        {\n            \"refId\": \"3363994535512026082193600814\",\n            \"pan\": \"00000000034654806\",\n            \"nominal\": 73949\n        }\n    ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/merchant/qr/qris/settlement/off/us/issuer",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "merchant",
+                    "qr",
+                    "qris",
+                    "settlement",
+                    "off",
+                    "us",
+                    "issuer"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
           "name": "Refund Cross Border",
           "request": {
             "auth": {
@@ -1429,12 +1879,7 @@
             "description": "Generic cross-border transaction status check."
           },
           "response": []
-        }
-      ]
-    },
-    {
-      "name": "Utilities",
-      "item": [
+        },
         {
           "name": "Generate Token CB",
           "request": {
@@ -1474,6 +1919,244 @@
     {
       "name": "Acquire",
       "item": [
+        {
+          "name": "China",
+          "item": [
+            {
+              "name": "localhost:8082/api/merchant/qr/cb/pay",
+              "request": {
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "password",
+                      "value": "{{auth_password_1did}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "username",
+                      "value": "kare",
+                      "type": "string"
+                    },
+                    {
+                      "key": "showPassword",
+                      "value": false,
+                      "type": "boolean"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"requestId\": \"f5ee2c0e-bd70-4c0b-b9ed-a6d5e4d33a68\",\r\n    \"body\": {\r\n        \"refId\":\"0b179c3c-fea0-4ec4-8591-4beee6a8fdd4\",\r\n        \"qrContent\":\"https://qr-coba-qr-coba.com/12345\",\r\n        \"username\":\"M_aTng1FuI\",\r\n        \"amount\": \"IDR 34948.00\",\r\n        \"feeAmount\": \"IDR 0.00\",\r\n        \"fullName\":\"yuseo\",\r\n        \"qrisCrossBorder\": {\r\n            \"amountCrossBorder\": 4.50,\r\n            \"amountLocal\": 34948,\r\n            \"rateCrossBorder\": 1,\r\n            \"rateLocal\": 3.45,\r\n            \"amountLocalOriginal\": 34499.08,\r\n            \"merchantCountry\": \"CN\",\r\n            \"currCodeCrossBorder\": \"CNY\",\r\n            \"currCodeLocal\": \"IDR\",\r\n            \"msgId\":  \"f5ee2c0e-bd70-4c0b-b9ed-a6d5e4d33a68\"\r\n        }\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "localhost:8082/api/merchant/qr/cb/pay",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8082",
+                  "path": [
+                    "api",
+                    "merchant",
+                    "qr",
+                    "cb",
+                    "pay"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "localhost:8082/qr/issuer/inquiry",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"requestId\":\"{{$guid}}\",\r\n    \"body\":{\r\n        \"qrContent\":\"https://qr-coba-qr-coba.com/12345\",\r\n        \"fullName\": \"yuseo\",\r\n        \"username\": \"M_aTng1FuI\",\r\n        \"refId\":\"{{$guid}}\",\r\n        \"amount\":\"CNY 2.00\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "localhost:8082/qr/issuer/inquiry",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8082",
+                      "path": [
+                        "qr",
+                        "issuer",
+                        "inquiry"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "content-length",
+                      "value": "536"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"requestId\": \"6f2319e7-1365-4d1b-ba77-7d4d235b6f10\",\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"invoiceAmount\": \"IDR 0.00\",\n        \"payableAmount\": \"IDR 0.00\",\n        \"discount\": 0,\n        \"qrType\": \"qr_type_cross_border_static\",\n        \"status\": \"available_for_payment\",\n        \"qrisCrossBorder\": {\n            \"amountCrossBorder\": 1,\n            \"amountLocal\": 2291,\n            \"rateCrossBorder\": 1,\n            \"rateLocal\": 2290.93,\n            \"amountLocalOriginal\": 2261.53,\n            \"merchantCountry\": \"CN\",\n            \"currCodeCrossBorder\": \"CNY\",\n            \"currCodeLocal\": \"IDR\",\n            \"msgId\": \"bd02d4d0-5159-4695-b314-3057f09c4ef6\"\n        },\n        \"isCrossBorder\": true,\n        \"vendorName\": \"alto\"\n    }\n}"
+                },
+                {
+                  "name": "localhost:8082/qr/issuer/inquiry",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"requestId\":\"{{$guid}}\",\r\n    \"body\":{\r\n        \"qrContent\":\"https://qr-coba-qr-coba.com/12345\",\r\n        \"fullName\": \"yuseo\",\r\n        \"username\": \"M_aTng1FuI\",\r\n        \"refId\":\"{{$guid}}\",\r\n        \"amount\":\"CNY 2.00\"\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "localhost:8082/qr/issuer/inquiry",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8082",
+                      "path": [
+                        "qr",
+                        "issuer",
+                        "inquiry"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "content-length",
+                      "value": "536"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"requestId\": \"4c37b919-5825-41ce-b1a8-e3280eb07032\",\n    \"status\": 100,\n    \"statusMessage\": \"success\",\n    \"body\": {\n        \"invoiceAmount\": \"IDR 0.00\",\n        \"payableAmount\": \"IDR 0.00\",\n        \"discount\": 0,\n        \"qrType\": \"qr_type_cross_border_static\",\n        \"status\": \"available_for_payment\",\n        \"qrisCrossBorder\": {\n            \"amountCrossBorder\": 1,\n            \"amountLocal\": 2291,\n            \"rateCrossBorder\": 1,\n            \"rateLocal\": 2290.93,\n            \"amountLocalOriginal\": 2261.53,\n            \"merchantCountry\": \"CN\",\n            \"currCodeCrossBorder\": \"CNY\",\n            \"currCodeLocal\": \"IDR\",\n            \"msgId\": \"8004e6c3-f0f2-4d86-bed2-8cdaef210687\"\n        },\n        \"isCrossBorder\": true,\n        \"vendorName\": \"alto\"\n    }\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Hongkong",
+          "item": [
+            {
+              "name": "/qr/cb/payment",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "mac",
+                    "value": "3BA2986A4FBBFE0C6D2680EEFBA351FB9C4434E80DB579312867C0E66C7004AF"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"pan\": \"936008140357035122\",\n    \"processingCode\": \"260000\",\n    \"transactionAmount\": 15000.00,\n    \"transmissionDateTime\": \"20180313160000\",\n    \"systemTraceAuditNumber\": \"123456\",\n    \"localTransactionDateTime\": \"20180313160000\",\n    \"settlementDate\": \"20131303\",\n    \"captureDate\": \"20131303\",\n    \"merchantType\": \"6017\",\n    \"posEntryMode\": \"011\",\n    \"feeType\": \"C\",\n    \"feeAmount\": 0,\n    \"acquirerId\": \"93600814\",\n    \"issuerId\": \"93601111\",\n    \"forwardingId\": \"008\",\n    \"rrn\": \"123456123458\",\n    \"approvalCode\": \"121212\",\n    \"terminalId\": \"A01\",\n    \"merchantId\": \"id2024000816730\",\n    \"merchantName\": \"tokodisputea\",\n    \"merchantCity\": \"Jakarta\",\n    \"merchantCountry\": \"62\",\n    \"productIndicator\": \"Q001\",\n    \"customerData\": \"AAAAAAAAAA\",\n    \"merchantCriteria\": \"UMI\",\n    \"currencyCode\": \"360\",\n    \"postalCode\": \"12270\",\n    \"additionalField\": \"0703A01\",\n    \"customerPan\": \"6666777788889999\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/qr/cb/payment",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "qr",
+                    "cb",
+                    "payment"
+                  ]
+                },
+                "description": "Generated from cURL: curl --location 'http://localhost:8082/qr/cb/payment' \\\n--header 'Content-Type: application/json' \\\n--header 'mac: F329C2918F9B1285BB704534FF2A0C17893BA5F5BBED9BABE6886E8105443A32' \\\n--data-raw '{\n  \"pan\": \"936008140100000002\",\n  \"processingCode\": \"2600000\",\n  \"transactionAmount\": 1000,\n  \"transmissionDateTime\": \"20180313160000\",\n  \"systemTraceAuditNumber\": \"123456\",\n  \"localTransactionDateTime\": \"20180313160000\",\n  \"settlementDate\": \"20131303\",\n  \"captureDate\": \"20131303\",\n  \"merchantType\": \"6017\",\n  \"posEntryMode\": \"011\",\n  \"feeType\": \"56\",\n  \"feeAmount\": 100,\n  \"acquirerId\": \"93600814\",\n  \"issuerId\": \"93601111\",\n  \"forwardingId\": \"008\",\n  \"rrn\": \"220216583673_ari_6\",\n  \"approvalCode\": \"121212\",\n  \"terminalId\": \"A01\",\n  \"merchantId\": \"M_UXQ6nr22\",\n  \"merchantName\": \"Gulu Gulu Mall Ambassador\",\n  \"merchantCity\": \"Jakarta\",\n  \"merchantCountry\": \"62\",\n  \"productIndicator\": \"Q001\",\n  \"customerData\": \"AAAAAAAAAA\",\n  \"merchantCriteria\": \"UMI\",\n  \"currencyCode\": \"360\",\n  \"postalCode\": \"12270\",\n  \"additionalField\": \"\",\n  \"customerPan\": \"6666777788889999\"\n}'"
+              },
+              "response": [
+                {
+                  "name": "Success payment",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "mac",
+                        "value": "3BA2986A4FBBFE0C6D2680EEFBA351FB9C4434E80DB579312867C0E66C7004AF"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"pan\": \"936008140357035122\",\n    \"processingCode\": \"260000\",\n    \"transactionAmount\": 1000.00,\n    \"transmissionDateTime\": \"20180313160000\",\n    \"systemTraceAuditNumber\": \"123456\",\n    \"localTransactionDateTime\": \"20180313160000\",\n    \"settlementDate\": \"20131303\",\n    \"captureDate\": \"20131303\",\n    \"merchantType\": \"6017\",\n    \"posEntryMode\": \"011\",\n    \"feeType\": \"C\",\n    \"feeAmount\": 10.00,\n    \"acquirerId\": \"93600814\",\n    \"issuerId\": \"93601111\",\n    \"forwardingId\": \"008\",\n    \"rrn\": \"123456123456\",\n    \"approvalCode\": \"121212\",\n    \"terminalId\": \"A01\",\n    \"merchantId\": \"id2024000816730\",\n    \"merchantName\": \"tokodisputea\",\n    \"merchantCity\": \"Jakarta\",\n    \"merchantCountry\": \"62\",\n    \"productIndicator\": \"Q001\",\n    \"customerData\": \"AAAAAAAAAA\",\n    \"merchantCriteria\": \"UMI\",\n    \"currencyCode\": \"360\",\n    \"postalCode\": \"12270\",\n    \"additionalField\": \"0703A01\",\n    \"customerPan\": \"6666777788889999\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/qr/cb/payment",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "qr",
+                        "cb",
+                        "payment"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "content-length",
+                      "value": "60"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"responseCode\": \"00\",\n  \"invoiceNumber\": \"26111015291522589743\"\n}"
+                }
+              ]
+            }
+          ]
+        },
         {
           "name": "Alto",
           "event": [
@@ -1592,6 +2275,60 @@
               ]
             },
             "description": "Generated from cURL: curl --location 'http://localhost:8084/api/kare-aj/qr/payment/generic' \\\n--header 'Content-Type: application/json' \\\n--header 'mac: D846C4D1FBF67E810E55AA84C79B8B2F6E162DE19C71A4A11078D1EEE0CB6A1D' \\\n--header 'Authorization: Basic a2FyZTpkZGUyOGM3ZWRiOWQ4MDQ2OTcyYzVjMzI3N2Q5OTlhMg==' \\\n--data '{\n    \"pan\": \"936008140411485489\",\n    \"rrn\": \"865965372\",\n    \"msgId\": \"ead08fad-ee3e-420e-a471-777e84f66c95\",\n    \"feeType\": \"\",\n    \"issuerId\": \"93600567\",\n    \"feeAmount\": 0,\n    \"rrnOrigin\": \"865965372\",\n    \"acquirerId\": \"93600814\",\n    \"merchantId\": \"id2024000050615\",\n    \"paidAmount\": 8100,\n    \"postalCode\": \"81155\",\n    \"terminalId\": \"A01\",\n    \"captureDate\": \"0502\",\n    \"customerPan\": \"9360107710000123412\",\n    \"approvalCode\": \"867396\",\n    \"currencyCode\": \"360\",\n    \"customerData\": \"CUSTOMER ALTO TERPADU\",\n    \"forwardingId\": \"360003\",\n    \"merchantCity\": \"KOTA BANDUNG\",\n    \"merchantName\": \"Toko Yana Power\",\n    \"merchantType\": \"7994\",\n    \"posEntryMode\": \"011\",\n    \"cardholderRate\": 0,\n    \"conversionDate\": \"\",\n    \"processingCode\": \"261000\",\n    \"settlementDate\": \"0502\",\n    \"settlementRate\": 0,\n    \"additionalField\": \"0703A01\",\n    \"merchantCountry\": \"ID\",\n    \"cardholderAmount\": 0,\n    \"merchantCriteria\": \"UMI\",\n    \"productIndicator\": \"Q001\",\n    \"settlementAmount\": 0,\n    \"transactionAmount\": 15000,\n    \"cardholderCurrCode\": \"360\",\n    \"settlementCurrCode\": \"\",\n    \"localTransactionDate\": \"20250505\",\n    \"transmissionDateTime\": \"0502132324\",\n    \"systemTraceAuditNumber\": \"033595\",\n    \"localTransactionDateTime\": \"20250505132324\"\n}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Refund",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "kare",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "dde28c7edb9d8046972c5c3277d999a2",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{basic_auth_0oii}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"body\": {\n        \"amount\": \"IDR 15000\",\n        \"merchantId\": \"M_khzk4z8N\",\n        \"transactionId\": \"26111016101362716678\"\n    },\n    \"requestId\": \"{{$guid}}\",\n    \"requestTime\": 1720444793683,\n    \"type\": \"refund_qris\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/merchant/qr/refund",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "merchant",
+                "qr",
+                "refund"
+              ]
+            },
+            "description": "Generated from cURL: curl --location --request POST 'https://tokoapi-stg.netzme.com/api/merchant/qr/refund' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: {{basic_auth_0oii}}' \\\n--data-raw '{\n    \"body\": {\n        \"amount\": \"IDR 1000\",\n        \"merchantId\": \"M_A2NHIVQy\",\n        \"transactionId\": \"24091217040778000641\"\n    },\n    \"requestId\": \"5b8ed623-7302-42d8-a23d-e32b4c3504c5\",\n    \"requestTime\": null,\n    \"type\": \"refund_qris\"\n}'"
           },
           "response": []
         }
@@ -1763,6 +2500,10 @@
     {
       "key": "date",
       "value": ""
+    },
+    {
+      "key": "basic_auth_0oii",
+      "secret": true
     }
   ]
 }
